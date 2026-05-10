@@ -1,2 +1,1 @@
-# drea-wichman.github.io
-Personal portfolio site
+Personal portfolio site for wichman.io, built with HTML and CSS. Hosted on GitHub Pages.
