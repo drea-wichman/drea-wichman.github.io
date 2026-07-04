@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Andrea Wichman &middot; Cases</title>
+  <style>
+    /*
+    Font:     Advercase (Regular, Bold, Italic)
+    URL:      https://youworkforthem.com/font/T25140/advercase
+    Foundry:  Indieground Design
+    License:  https://www.youworkforthem.com/font-license
+    The WebFont(s) listed must follow the YouWorkForThem WebFont license rules.
+    All other parties are strictly restricted from using the WebFonts(s) listed
+    without a purchased license. All details above must always remain unaltered
+    and visible in your CSS.
+    */
+    @font-face{font-family:"Advercase";src:url("fonts/advercase-regular.woff2") format("woff2"),url("fonts/advercase-regular.woff") format("woff");font-weight:400;font-style:normal;font-display:swap;}
+    @font-face{font-family:"Advercase";src:url("fonts/advercase-italic.woff2") format("woff2"),url("fonts/advercase-italic.woff") format("woff");font-weight:400;font-style:italic;font-display:swap;}
+    @font-face{font-family:"Switzer Thin";src:url("fonts/switzer-thin.woff2") format("woff2"),url("fonts/switzer-thin.woff") format("woff");font-weight:100;font-style:normal;font-display:swap;}
+
+    @view-transition { navigation: auto; }
+
+    :root {
+      --bg: #A8A5A1;
+      --text: #141414;
+      --ghost: #B0ADA9;
+      --rule: #8F8C89;
+      --dim: #4A4845;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    *, *::before, *::after { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='%23141414'/></svg>") 5 3, auto !important; }
+
+    a:hover, a:hover *, button:hover, button:hover *, th.fn:hover, th.fn:hover * { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='none' stroke='%23141414' stroke-width='1.5' stroke-linejoin='round'/></svg>") 5 3, pointer !important; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    a { color: var(--text); text-decoration: none; }
+    a:hover { opacity: 0.55; }
+
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .page-head { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .lede { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.08s; }
+    .case-tabs, .matrix-wrap { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.16s; }
+    .verdict { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.24s; }
+
+    .page-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 48px 48px 0;
+      font-size: 15px;
+      letter-spacing: -0.2px;
+    }
+    .back-link::before { content: "\2190\00a0 "; }
+
+    main { max-width: 1060px; margin: 0 auto; padding: 64px 48px 56px; }
+
+    .kicker {
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      color: var(--dim);
+      margin-bottom: 22px;
+    }
+
+    .lede {
+      font-family: "Advercase", Georgia, serif;
+      font-style: italic;
+      font-size: clamp(19px, 2.2vw, 24px);
+      line-height: 1.45;
+      margin-bottom: 56px;
+    }
+
+    /* Case selector tabs */
+    .case-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 40px;
+      margin-bottom: 44px;
+    }
+    .tl-item {
+      background: none;
+      border: none;
+      border-bottom: 1px solid transparent;
+      color: rgba(20,20,20,0.35);
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 19px;
+      letter-spacing: -0.3px;
+      padding: 0 0 8px;
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
+    .tl-item:hover { color: var(--text); }
+    .tl-item.on { color: var(--text); border-bottom-color: var(--text); }
+    .tl-item:focus-visible { outline: 1px solid var(--text); outline-offset: 4px; }
+
+    /* Matrix */
+    .matrix-wrap { overflow-x: auto; }
+    table.matrix {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+      letter-spacing: -0.2px;
+    }
+    .matrix th, .matrix td {
+      text-align: center;
+      padding: 14px 8px;
+      border-top: 0.5px solid var(--rule);
+    }
+    .matrix th { font-weight: 400; }
+    .matrix thead th {
+      border-top: none;
+      font-size: 13px;
+      letter-spacing: 1.2px;
+      color: var(--dim);
+      padding-bottom: 10px;
+    }
+    .matrix thead th.fn { transition: color 0.3s ease; }
+    .matrix thead th.fn:hover { color: var(--text); }
+    .matrix tbody th {
+      text-align: left;
+      white-space: nowrap;
+      padding-left: 0;
+    }
+    .matrix tbody tr { transition: opacity 0.4s ease; }
+    .matrix tbody tr:hover { opacity: 1; }
+    .matrix.row-active tbody tr:not(.on) { opacity: 0.35; }
+    .matrix tbody tr.on th { font-style: italic; }
+    .mark { font-size: 16px; }
+    .mark.fail::after { content: "\2715"; }
+    .mark.part::after { content: "\25D0"; }
+    .mark.pass::after {
+      content: "";
+      display: inline-block;
+      width: 10px;
+      height: 5px;
+      border-left: 1px solid var(--text);
+      border-bottom: 1px solid var(--text);
+      transform: rotate(-45deg) translateY(-2px);
+    }
+    .mark.pend::after { content: "\00b7"; color: var(--dim); }
+    .mark.prov { opacity: 0.5; }
+
+    .legend {
+      display: flex;
+      justify-content: flex-end;
+      align-items: baseline;
+      white-space: nowrap;
+      gap: 24px;
+      margin: 40px 6px 0;
+      font-size: 12px;
+      letter-spacing: 0.6px;
+      color: var(--dim);
+      flex-wrap: wrap;
+    }
+
+    /* Verdict panel */
+    .verdict {
+      margin-top: 48px;
+      border-top: 0.5px solid var(--rule);
+      padding-top: 26px;
+      min-height: 150px;
+    }
+    .verdict .v-kicker {
+      font-size: 13px;
+      letter-spacing: 1.2px;
+      color: var(--dim);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    .verdict .v-title {
+      font-size: 20px;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .verdict .v-body {
+      font-size: 15px;
+      line-height: 1.5;
+      max-width: 62ch;
+      color: var(--text);
+    }
+    .verdict a.v-link { display: inline-block; margin-top: 12px; font-size: 15px; }
+    .verdict a.v-link::after { content: " \27F6"; }
+    .v-note { color: var(--dim); font-size: 13px; margin-top: 10px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .page-head, .lede, .case-tabs, .matrix-wrap, .verdict { animation: none; }
+      .tl-item, .matrix tbody tr { transition: none; }
+    }
+
+    @media (max-width: 760px) {
+      .page-head { padding: 28px 20px 0; }
+      main { padding: 44px 20px 40px; }
+      .matrix tbody th { white-space: normal; font-size: 14px; }
+      .matrix th, .matrix td { padding: 12px 4px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-head">
+    <a class="back-link" href="/">Index</a>
+  </header>
+
+  <main>
+    <div class="kicker">CASES</div>
+    <p class="lede">Two incidents, five years apart, mapped against the five functions of the NIST CSF. The controls that failed in 2017 failed again in 2022. The pattern is the finding.</p>
+
+    <div class="case-tabs" role="tablist" aria-label="Select a case">
+      <button class="tl-item on" data-row="wannacry">NHS &middot; WannaCry &middot; 2017</button>
+      <button class="tl-item" data-row="agco">AGCO &middot; Black Basta &middot; 2022</button>
+    </div>
+
+    <div class="matrix-wrap">
+      <table class="matrix row-active" id="matrix">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="fn" data-fn="id">IDENTIFY</th>
+            <th class="fn" data-fn="pr">PROTECT</th>
+            <th class="fn" data-fn="de">DETECT</th>
+            <th class="fn" data-fn="rs">RESPOND</th>
+            <th class="fn" data-fn="rc">RECOVER</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="on" data-row="wannacry">
+            <th>NHS &middot; WannaCry &middot; 2017</th>
+            <td><span class="mark fail"></span></td>
+            <td><span class="mark fail"></span></td>
+            <td><span class="mark fail"></span></td>
+            <td><span class="mark fail"></span></td>
+            <td><span class="mark part"></span></td>
+          </tr>
+          <tr data-row="agco">
+            <th>AGCO &middot; Black Basta &middot; 2022</th>
+            <td><span class="mark fail"></span></td>
+            <td><span class="mark fail"></span></td>
+            <td><span class="mark fail"></span></td>
+            <td><span class="mark pass"></span></td>
+            <td><span class="mark part"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span>&#10005; failed</span>
+      <span>&#9680; partial</span>
+      <span><span class="mark pass"></span>&nbsp; held</span>
+      
+    </div>
+
+    <div class="verdict" id="verdict" aria-live="polite"></div>
+  </main>
+
+  <script>
+    var ROWS = {
+      wannacry: {
+        k: "INCIDENT VERDICT",
+        t: "NHS \u00b7 WannaCry \u00b7 May 2017",
+        b: "Microsoft patched MS17-010 on 14 March 2017, two months before impact. Department of Health and NHS Digital warnings pre-dated the attack. 81 of 236 trusts were disrupted, around 19,000 appointments cancelled, at a cost of \u00a392m. Every function failed except recovery, which was improvised.",
+        link: "https://github.com/drea-wichman/case-studies/blob/main/nhs-wannacry-ransomware-2017.md",
+        label: "Read the full write-up"
+      },
+      agco: {
+        k: "INCIDENT VERDICT",
+        t: "AGCO \u00b7 Black Basta \u00b7 May 2022",
+        b: "Black Basta struck on 5 May 2022, during peak planting season. Two FBI notices about the group preceded the attack. Identification, protection, and detection failed, but the response held: operations were shut down and contained within days. Recovery still ran longer than the containment.",
+        link: "https://github.com/drea-wichman/case-studies/blob/main/agco-ransomware-2022.md",
+        label: "Read the full write-up"
+      }
+    };
+
+    var FNS = {
+      id: {
+        k: "FUNCTION PATTERN",
+        t: "Identify",
+        b: "In both cases the risk was already named before impact: Microsoft\u2019s advisory before WannaCry, two FBI notices before AGCO. Identification failed for lack of triage, not for lack of intelligence."
+      },
+      pr: {
+        k: "FUNCTION PATTERN",
+        t: "Protect",
+        b: "Unpatched estates and flat networks converted single infections into enterprise-wide outages. Segmentation was the missing control in both incidents."
+      },
+      de: {
+        k: "FUNCTION PATTERN",
+        t: "Detect",
+        b: "In both cases, encryption was the alert. Detection arrived with impact, not before it."
+      },
+      rs: {
+        k: "FUNCTION PATTERN",
+        t: "Respond",
+        b: "The one function where outcomes diverge. AGCO shut down operations and contained the attack within days. The NHS improvised without a tested plan. Response is where preparation shows."
+      },
+      rc: {
+        k: "FUNCTION PATTERN",
+        t: "Recover",
+        b: "Recovery ran to weeks or months in both cases. Backups existed; rehearsed restoration did not."
+      }
+    };
+
+    var verdict = document.getElementById('verdict');
+    var rows = document.querySelectorAll('tr[data-row]');
+    var tls = document.querySelectorAll('.tl-item');
+
+    function render(d) {
+      var html = '<div class="v-kicker">' + d.k + '</div>' +
+                 '<div class="v-title">' + d.t + '</div>' +
+                 '<div class="v-body">' + d.b + '</div>';
+      if (d.link) html += '<a class="v-link" href="' + d.link + '" target="_blank" rel="noopener">' + d.label + '</a>';
+      if (d.note) html += '<div class="v-note">' + d.note + '</div>';
+      verdict.innerHTML = html;
+    }
+
+    function selectRow(key) {
+      rows.forEach(function(r) { r.classList.toggle('on', r.dataset.row === key); });
+      tls.forEach(function(t) { t.classList.toggle('on', t.dataset.row === key); });
+      document.getElementById('matrix').classList.add('row-active');
+      render(ROWS[key]);
+    }
+
+    tls.forEach(function(t) {
+      t.addEventListener('click', function() { selectRow(t.dataset.row); });
+    });
+    document.querySelectorAll('th.fn').forEach(function(th) {
+      th.addEventListener('click', function() {
+        rows.forEach(function(r) { r.classList.remove('on'); });
+        tls.forEach(function(t) { t.classList.remove('on'); });
+        document.getElementById('matrix').classList.remove('row-active');
+        render(FNS[th.dataset.fn]);
+      });
+    });
+
+    selectRow('wannacry');
+  </script>
+
+</body>
+</html>
