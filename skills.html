@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrea Wichman &middot; Skills</title>
+<style>
+  @font-face{font-family:"Switzer Thin";src:url("fonts/switzer-thin.woff2") format("woff2"),url("fonts/switzer-thin.woff") format("woff");font-weight:100;font-style:normal;font-display:swap;}
+
+  @view-transition { navigation: auto; }
+  :root {
+    --bg: #EFEFEF;
+    --text: #141414;
+    --ghost: rgba(20,20,20,0.2);
+    --rule: rgba(20,20,20,0.45);
+    --dim: rgba(20,20,20,0.55);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  *, *::before, *::after { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='%23141414'/></svg>") 5 3, auto !important; }
+
+  a:hover, a:hover * { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='none' stroke='%23141414' stroke-width='1.5' stroke-linejoin='round'/></svg>") 5 3, pointer !important; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    overflow: hidden;
+  }
+  .wrap {
+    position: relative;
+    height: 100vh;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 44px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 80px auto 80px minmax(0, 1fr);
+    align-items: center;
+  }
+  .page-head {
+    position: absolute;
+    top: 36px;
+    left: 48px;
+    right: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    z-index: 5;
+  }
+  .page-head a { color: var(--text); text-decoration: none; font-size: 15px; letter-spacing: -0.2px; }
+  .page-head a::before { content: "\2190\00a0 "; }
+  .page-head a:hover { opacity: 0.55; }
+  .kicker {
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    color: var(--dim);
+  }
+
+  .col-l { grid-column: 1; justify-self: end; text-align: right; }
+  .fns   { grid-column: 3; text-align: center; }
+  .col-r { grid-column: 5; justify-self: start; }
+
+  .fn {
+    display: block;
+    font-family: "Switzer Thin", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    font-size: clamp(34px, 4.2vw, 56px);
+    letter-spacing: 0.02em;
+    line-height: 1.16;
+    color: var(--ghost);
+    cursor: default;
+    transition: color 0.35s ease;
+  }
+  .fn:hover, .fn.on { color: var(--text); }
+
+  .grp { margin-bottom: 14px; }
+  .grp:last-child { margin-bottom: 0; }
+  .grp-k {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 4px;
+    transition: opacity 0.35s ease;
+  }
+  .it {
+    font-size: 14px;
+    letter-spacing: -0.1px;
+    padding: 2px 0;
+    transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.22,1,0.36,1);
+  }
+  .col-l .it { margin-left: auto; width: fit-content; }
+  .col-r .it { width: fit-content; }
+  .it .meta {
+    font-size: 10px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-left: 7px;
+  }
+  .cred-gap { margin-top: 12px; }
+  .faded .it { opacity: 0.15; }
+  .faded .it.lit { opacity: 1; }
+  .col-r .it.lit { transform: translateX(8px); }
+  .col-l .it.lit { transform: translateX(-8px); }
+  .faded .grp-k { opacity: 0.3; }
+
+  svg.threads {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  svg.threads path {
+    fill: none;
+    stroke: var(--rule);
+    stroke-width: 0.75;
+  }
+
+  @media (max-width: 900px) {
+    body { overflow: auto; }
+    .wrap { height: auto; grid-template-columns: 1fr; padding: 110px 20px 48px; gap: 40px 0; }
+    .col-l, .col-r { grid-column: 1; justify-self: start; text-align: left; }
+    .col-l .it { margin-left: 0; }
+    .fns { grid-column: 1; text-align: left; }
+    svg.threads { display: none; }
+    .page-head { left: 20px; right: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="wrap">
+  <header class="page-head">
+    <a href="/">Index</a>
+    <div class="kicker">EVERYTHING, MAPPED &middot; HOVER A WORD</div>
+  </header>
+
+  <div class="col-l cols" id="col-l">
+    <div class="grp">
+      <div class="grp-k">Education &amp; certifications</div>
+      <div class="it" data-fns="assess investigate">MSc Information &amp; Cyber Security<span class="meta">Royal Holloway &middot; 2026</span></div>
+      <div class="it" data-fns="assess">BA Cultural Studies<span class="meta">Columbia College Chicago</span></div>
+      <div class="it cred-gap" data-fns="build defend">CompTIA A+</div>
+      <div class="it" data-fns="defend investigate">Security+<span class="meta">in progress</span></div>
+    </div>
+    <div class="grp">
+      <div class="grp-k">Risk &amp; Compliance</div>
+      <div class="it" data-fns="assess">FSA program compliance &amp; enrollment documentation</div>
+      <div class="it" data-fns="assess">Risk assessment</div>
+      <div class="it" data-fns="assess">Gap analysis</div>
+      <div class="it" data-fns="assess">Framework analysis<span class="meta">ISO &middot; NIST &middot; UK GDPR</span></div>
+      <div class="it" data-fns="assess investigate">Regulatory research</div>
+    </div>
+    <div class="grp">
+      <div class="grp-k">Systems &amp; Infrastructure</div>
+      <div class="it" data-fns="build">Home lab<span class="meta">AD &middot; Server 2022 &middot; VirtualBox</span></div>
+      <div class="it" data-fns="build defend">System hardening</div>
+      <div class="it" data-fns="build">Linux &amp; Windows administration</div>
+      <div class="it" data-fns="build">Terminal &amp; command line navigation</div>
+      <div class="it" data-fns="build">Git version control</div>
+      <div class="it" data-fns="build">VS Code, Astro</div>
+    </div>
+    <div class="grp">
+      <div class="grp-k">Network</div>
+      <div class="it" data-fns="defend">DNS, TCP/IP &amp; email authentication<span class="meta">SPF &middot; DKIM &middot; DMARC</span></div>
+      <div class="it" data-fns="defend">VPN &amp; encrypted transit</div>
+    </div>
+    <div class="grp">
+      <div class="grp-k">Operational Security</div>
+      <div class="it" data-fns="defend">Encrypted comms &amp; storage<span class="meta">VeraCrypt &middot; Proton</span></div>
+      <div class="it" data-fns="defend">Hardware 2FA<span class="meta">Nitrokey</span></div>
+      <div class="it" data-fns="defend">Password management<span class="meta">Bitwarden</span></div>
+      <div class="it" data-fns="defend">Identity compartmentalization<span class="meta">SimpleLogin</span></div>
+    </div>
+  </div>
+
+  <div class="fns" id="fns">
+    <span class="fn" data-fn="assess">ASSESS</span>
+    <span class="fn" data-fn="build">BUILD</span>
+    <span class="fn" data-fn="defend">DEFEND</span>
+    <span class="fn" data-fn="investigate">INVESTIGATE</span>
+    <span class="fn" data-fn="prove">PROVE</span>
+  </div>
+
+  <div class="col-r cols" id="col-r">
+        <div class="grp">
+      <div class="grp-k">Case studies</div>
+      <div class="it" data-fns="assess investigate">NHS &middot; WannaCry<span class="meta">ISO 27001</span></div>
+      <div class="it" data-fns="assess investigate">AGCO &middot; Black Basta<span class="meta">NIST CSF</span></div>
+    </div>
+    <div class="grp">
+      <div class="grp-k">Fenn Agritech &middot; trust center</div>
+      <div class="it" data-fns="assess prove">Information Security Policy</div>
+      <div class="it" data-fns="defend prove">Access Control Policy</div>
+      <div class="it" data-fns="defend prove">Incident Response Plan</div>
+      <div class="it" data-fns="assess prove">Business Continuity Plan</div>
+      <div class="it" data-fns="assess prove">Data Retention Policy</div>
+      <div class="it" data-fns="assess prove">Vendor Risk Management Policy</div>
+      <div class="it" data-fns="assess prove">Sub-processor List</div>
+      <div class="it" data-fns="assess prove">Data Processing Agreement</div>
+      <div class="it" data-fns="assess prove">Risk Assessment &amp; Treatment Methodology</div>
+      <div class="it" data-fns="assess prove">Risk Register</div>
+    </div>
+    <div class="grp">
+      <div class="grp-k">The Burrow &middot; law &amp; policy research</div>
+      <div class="it" data-fns="investigate assess">CFAA &amp; Computer Misuse Act 1990</div>
+      <div class="it" data-fns="investigate">Wiretap Act</div>
+      <div class="it" data-fns="investigate">FISA Section 702</div>
+      <div class="it" data-fns="investigate">Executive Order 12333</div>
+      <div class="it" data-fns="investigate">Five Eyes</div>
+      <div class="it" data-fns="investigate assess">MLATs</div>
+      <div class="it" data-fns="investigate assess">Schrems II &amp; GDPR</div>
+      <div class="it" data-fns="investigate">Swiss surveillance law &middot; VUPF</div>
+    </div>
+  </div>
+
+  <svg class="threads" id="threads"></svg>
+</div>
+
+<script>
+  var wrap = document.getElementById('wrap');
+  var svg = document.getElementById('threads');
+  var colL = document.getElementById('col-l');
+  var colR = document.getElementById('col-r');
+  var fns = document.querySelectorAll('.fn');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function clear() {
+    svg.innerHTML = '';
+    document.querySelectorAll('.cols').forEach(function(c) { c.classList.remove('faded'); });
+    document.querySelectorAll('.it').forEach(function(i) { i.classList.remove('lit'); });
+    fns.forEach(function(f) { f.classList.remove('on'); });
+  }
+
+  function branch(fnEl, key, col, side) {
+    var wr = wrap.getBoundingClientRect();
+    var fr = fnEl.getBoundingClientRect();
+    var x1 = (side === 'r' ? fr.right - wr.left + 14 : fr.left - wr.left - 14);
+    var y1 = fr.top - wr.top + fr.height / 2;
+    var cr = col.getBoundingClientRect();
+    var spineX = (side === 'r')
+      ? cr.left - wr.left - 40
+      : cr.right - wr.left + 40;
+
+    var ys = [y1];
+    var targets = [];
+    col.querySelectorAll('.it').forEach(function(it) {
+      if (!(' ' + it.dataset.fns + ' ').includes(' ' + key + ' ')) return;
+      it.classList.add('lit');
+      var ir = it.getBoundingClientRect();
+      var tx = (side === 'r') ? ir.left - wr.left - 5 : ir.right - wr.left + 5;
+      targets.push({ x: tx, y: ir.top - wr.top + ir.height / 2 });
+      ys.push(ir.top - wr.top + ir.height / 2);
+    });
+    if (targets.length === 0) return;
+    var minY = Math.min.apply(null, ys);
+    var maxY = Math.max.apply(null, ys);
+
+    var d = 'M' + x1 + ' ' + y1 + ' H' + spineX +
+            ' M' + spineX + ' ' + minY + ' V' + maxY;
+    targets.forEach(function(t) {
+      d += ' M' + spineX + ' ' + t.y + ' H' + t.x;
+    });
+    var p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    p.setAttribute('d', d);
+    svg.appendChild(p);
+    if (!reduced) {
+      var len = p.getTotalLength();
+      p.style.strokeDasharray = len;
+      p.style.strokeDashoffset = len;
+      p.style.transition = 'stroke-dashoffset 0.6s cubic-bezier(0.22,1,0.36,1)';
+      p.getBoundingClientRect();
+      p.style.strokeDashoffset = '0';
+    }
+  }
+
+  function draw(fnEl, key) {
+    clear();
+    fnEl.classList.add('on');
+    colL.classList.add('faded');
+    colR.classList.add('faded');
+    branch(fnEl, key, colR, 'r');
+    branch(fnEl, key, colL, 'l');
+  }
+
+  fns.forEach(function(f) {
+    f.addEventListener('mouseenter', function() { draw(f, f.dataset.fn); });
+  });
+  document.getElementById('fns').addEventListener('mouseleave', clear);
+</script>
+</body>
+</html>
