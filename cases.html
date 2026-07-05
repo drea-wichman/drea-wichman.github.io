@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Andrea Wichman &middot; Case Studies</title>
+  <style>
+    /*
+    Font:     Advercase (Regular, Bold, Italic)
+    URL:      https://youworkforthem.com/font/T25140/advercase
+    Foundry:  Indieground Design
+    License:  https://www.youworkforthem.com/font-license
+    The WebFont(s) listed must follow the YouWorkForThem WebFont license rules.
+    All other parties are strictly restricted from using the WebFonts(s) listed
+    without a purchased license. All details above must always remain unaltered
+    and visible in your CSS.
+    */
+    @font-face{font-family:"Advercase";src:url("fonts/advercase-regular.woff2") format("woff2"),url("fonts/advercase-regular.woff") format("woff");font-weight:400;font-style:normal;font-display:swap;}
+    @font-face{font-family:"Advercase";src:url("fonts/advercase-italic.woff2") format("woff2"),url("fonts/advercase-italic.woff") format("woff");font-weight:400;font-style:italic;font-display:swap;}
+    @font-face{font-family:"Switzer Thin";src:url("fonts/switzer-thin.woff2") format("woff2"),url("fonts/switzer-thin.woff") format("woff");font-weight:100;font-style:normal;font-display:swap;}
+
+    @view-transition { navigation: auto; }
+
+    :root {
+      --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      --bg: #A8A5A1;
+      --text: #141414;
+      --ghost: #B0ADA9;
+      --rule: #8F8C89;
+      --dim: #4A4845;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    *, *::before, *::after { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='%23141414'/></svg>") 5 3, auto !important; }
+
+    a:hover, a:hover *, button:hover, button:hover * { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='none' stroke='%23141414' stroke-width='1.5' stroke-linejoin='round'/></svg>") 5 3, pointer !important; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    a { color: var(--text); text-decoration: none; }
+    a:hover { opacity: 0.55; }
+
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .page-head { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .lede { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.08s; }
+    .list-kicker, .case-list { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.16s; }
+    .case-meta { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.20s; }
+    .chart-head, .matrix-wrap { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.22s; }
+    .verdict { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.30s; }
+
+    .page-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 48px 48px 0;
+      font-size: 15px;
+      letter-spacing: -0.2px;
+    }
+    .back-link { color: var(--dim); }
+    .back-link a { color: var(--text); text-decoration: none; }
+    .back-link a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    main { max-width: 1060px; margin: 0 auto; padding: 64px 48px 56px; }
+
+    .lede {
+      font-family: "Advercase", Georgia, serif;
+      font-style: italic;
+      font-size: clamp(19px, 2.2vw, 24px);
+      line-height: 1.45;
+      margin-bottom: 56px;
+    }
+
+    .list-kicker {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 1.2px;
+      color: var(--dim);
+      margin-bottom: 16px;
+    }
+
+    /* Case selector */
+    .case-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 40px;
+      margin-bottom: 40px;
+    }
+    .cl-item {
+      background: none;
+      border: none;
+      color: rgba(20,20,20,0.2);
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 19px;
+      letter-spacing: -0.3px;
+      padding: 0 0 8px;
+      transition: color 0.3s ease;
+    }
+    .cl-item:hover { color: var(--text); }
+    .cl-item.on { color: var(--text); }
+    .cl-item:focus-visible { outline: 1px solid var(--text); outline-offset: 4px; }
+
+    /* Case header block */
+    .case-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 28px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.4px;
+      border-top: 0.5px solid var(--rule);
+      padding-top: 18px;
+      margin-bottom: 46px;
+      transition: opacity 0.25s ease;
+    }
+    .case-meta.swapping { opacity: 0; }
+    .case-meta .m-label { color: var(--dim); margin-right: 7px; }
+
+    /* Legend line above chart */
+    .chart-head {
+      display: flex;
+      justify-content: flex-end;
+      align-items: baseline;
+      gap: 24px;
+      margin-top: 16px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.6px;
+      color: var(--dim);
+      white-space: nowrap;
+      flex-wrap: wrap;
+    }
+
+    /* Chart */
+    .matrix-wrap {
+      overflow-x: auto;
+      transition: opacity 0.25s ease;
+    }
+    .matrix-wrap.swapping { opacity: 0; }
+    table.matrix {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+      letter-spacing: -0.2px;
+    }
+    .matrix th, .matrix td {
+      padding: 15px 8px;
+      border-top: 0.5px solid var(--rule);
+      text-align: left;
+      vertical-align: baseline;
+    }
+    .matrix th { font-weight: 400; }
+    .matrix thead th {
+      border-top: none;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 1.2px;
+      color: var(--dim);
+      padding-bottom: 11px;
+    }
+    .matrix td.gap {
+      font-size: 14px;
+      color: var(--dim);
+      line-height: 1.4;
+    }
+    .matrix td.res { text-align: center; width: 80px; }
+    .matrix thead th.res-h { text-align: center; width: 80px; }
+    .mark { font-size: 16px; }
+    .mark.fail::after { content: "\2715"; }
+    .mark.part::after { content: "\25D0"; }
+    .mark.pass::after {
+      content: "";
+      display: inline-block;
+      width: 10px;
+      height: 5px;
+      border-left: 1px solid var(--text);
+      border-bottom: 1px solid var(--text);
+      transform: rotate(-45deg) translateY(-2px);
+    }
+
+    /* Verdict panel */
+    .verdict {
+      margin-top: 40px;
+      border-top: 0.5px solid var(--rule);
+      padding-top: 24px;
+      min-height: 120px;
+      transition: opacity 0.25s ease;
+    }
+    .verdict.swapping { opacity: 0; }
+    .verdict .v-kicker {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 1.2px;
+      color: var(--dim);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    .verdict .v-body {
+      font-size: 15px;
+      line-height: 1.5;
+      max-width: 62ch;
+      color: var(--text);
+    }
+    .verdict a.v-link {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 15px;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .verdict a.v-link:hover { color: var(--dim); }
+    .verdict a.v-link::before { content: "+"; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .page-head, .lede, .list-kicker, .case-list, .case-meta, .chart-head, .matrix-wrap, .verdict { animation: none; }
+      .matrix-wrap, .verdict, .cl-item, .case-meta { transition: none; }
+    }
+
+    @media (max-width: 760px) {
+      .page-head { padding: 28px 20px 0; }
+      main { padding: 44px 20px 40px; }
+      .matrix th, .matrix td { padding: 12px 6px; }
+      .matrix td.gap { font-size: 13px; }
+      .cl-item { font-size: 17px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-head">
+    <div class="back-link"><a href="/">index</a> / case studies</div>
+  </header>
+
+  <main>
+    <p class="lede">Point-in-time analyses of published incidents, each mapped to the framework in effect at the time. Sectors and years differ. The failed controls don&rsquo;t. The pattern is the finding.</p>
+
+    <div class="list-kicker">INCIDENTS</div>
+    <div class="case-list" role="tablist" aria-label="Select a case">
+      <button class="cl-item on" data-case="wannacry">NHS &middot; WannaCry &middot; 2017 &middot; ISO 27001</button>
+      <button class="cl-item" data-case="agco">AGCO &middot; Black Basta &middot; 2022 &middot; NIST CSF</button>
+    </div>
+
+    <div class="case-meta" id="case-meta"></div>
+
+    <div class="matrix-wrap" id="matrix-wrap"></div>
+
+    <div class="chart-head">
+      <span>&#10005; failed</span>
+      <span>&#9680; partial</span>
+      <span><span class="mark pass"></span>&nbsp; held</span>
+    </div>
+
+    <div class="verdict" id="verdict" aria-live="polite"></div>
+  </main>
+
+  <script>
+    var CASES = {
+      wannacry: {
+        meta: [["CASE","CS-001"],["SECTOR","Healthcare"],["REGION","UK"],["FRAMEWORK","ISO 27001:2013"],["STATUS","Closed"]],
+        colHead: "CONTROL",
+        rows: [
+          { c: "A.12.6.1 Technical vulnerability management", g: "Patch available two months before impact. Alerts sent. No one verified they were acted on.", m: "fail" },
+          { c: "A.8.1 Asset management", g: "No centralised inventory. Windows XP still live on the day of the attack.", m: "fail" },
+          { c: "A.13.1.3 Network segregation", g: "One flat network. A single entry point reached trusts across England within hours.", m: "fail" },
+          { c: "A.16.1 Incident management", g: "No national plan, no designated lead, no rehearsal. Communications collapsed.", m: "fail" },
+          { c: "A.18.1 Compliance with legal requirements", g: "Patient data on unpatched, unsupported systems. Data Protection Act obligations unmet.", m: "fail" }
+        ],
+        verdict: {
+          b: "Microsoft patched MS17-010 on 14 March 2017, two months before impact. Department of Health and NHS Digital warnings pre-dated the attack. 81 of 236 trusts were disrupted, around 19,000 appointments cancelled, at a cost of \u00a392m. Every control failed. Recovery was improvised.",
+          link: "https://github.com/drea-wichman/case-studies/blob/main/nhs-wannacry-ransomware-2017.md",
+          label: "Read the full write-up on GitHub"
+        }
+      },
+      agco: {
+        meta: [["CASE","CS-002"],["SECTOR","Agricultural manufacturing"],["REGION","Global"],["FRAMEWORK","NIST CSF 1.1"],["STATUS","Closed"]],
+        colHead: "FUNCTION",
+        rows: [
+          { c: "Identify", g: "Two FBI warnings named the threat. No visible reassessment or response followed.", m: "fail" },
+          { c: "Protect", g: "Ransomware crossed facilities in France, Germany, and China within hours. No effective segmentation.", m: "fail" },
+          { c: "Detect", g: "Data stolen and systems encrypted before AGCO knew it was under attack.", m: "fail" },
+          { c: "Respond", g: "Systems shut down fast, disclosure next day, law enforcement engaged. Organised.", m: "pass" },
+          { c: "Recover", g: "Two weeks to restore, during planting season. Backups incomplete, untested, or reachable.", m: "part" }
+        ],
+        verdict: {
+          b: "Black Basta struck on 5 May 2022, during peak planting season. Two FBI notices about the group preceded the attack. Identification, protection, and detection failed, but the response held: operations were shut down and contained within days. Recovery still ran longer than the containment.",
+          link: "https://github.com/drea-wichman/case-studies/blob/main/agco-ransomware-2022.md",
+          label: "Read the full write-up on GitHub"
+        }
+      }
+    };
+
+    var wrap = document.getElementById('matrix-wrap');
+    var metaEl = document.getElementById('case-meta');
+    var verdict = document.getElementById('verdict');
+    var items = document.querySelectorAll('.cl-item');
+
+    function buildMatrix(c) {
+      var html = '<table class="matrix"><thead><tr>' +
+        '<th>' + c.colHead + '</th><th class="res-h">RESULT</th><th>GAP</th>' +
+        '</tr></thead><tbody>';
+      c.rows.forEach(function(r) {
+        html += '<tr><th>' + r.c + '</th>' +
+                '<td class="res"><span class="mark ' + r.m + '"></span></td>' +
+                '<td class="gap">' + r.g + '</td></tr>';
+      });
+      html += '</tbody></table>';
+      return html;
+    }
+
+    function buildMeta(c) {
+      return (c.meta || []).map(function(m) {
+        return '<span><span class="m-label">' + m[0] + '</span>' + m[1] + '</span>';
+      }).join('');
+    }
+
+    function buildVerdict(v) {
+      return '<div class="v-kicker">VERDICT</div>' +
+             '<div class="v-body">' + v.b + '</div>' +
+             '<a class="v-link" href="' + v.link + '" target="_blank" rel="noopener">' + v.label + '</a>';
+    }
+
+    function selectCase(key, animate) {
+      var c = CASES[key];
+      if (!c) return;
+      items.forEach(function(i) { i.classList.toggle('on', i.dataset.case === key); });
+      if (animate) {
+        wrap.classList.add('swapping');
+        verdict.classList.add('swapping');
+        metaEl.classList.add('swapping');
+        setTimeout(function() {
+          wrap.innerHTML = buildMatrix(c);
+          verdict.innerHTML = buildVerdict(c.verdict);
+          metaEl.innerHTML = buildMeta(c);
+          wrap.classList.remove('swapping');
+          verdict.classList.remove('swapping');
+          metaEl.classList.remove('swapping');
+        }, 250);
+      } else {
+        wrap.innerHTML = buildMatrix(c);
+        verdict.innerHTML = buildVerdict(c.verdict);
+        metaEl.innerHTML = buildMeta(c);
+      }
+    }
+
+    items.forEach(function(i) {
+      i.addEventListener('click', function() { selectCase(i.dataset.case, true); });
+    });
+
+    selectCase('wannacry', false);
+  </script>
+
+</body>
+</html>
