@@ -62,7 +62,9 @@
       font-size: 15px;
       letter-spacing: -0.2px;
     }
-    .back-link::before { content: "\2190\00a0 "; }
+    .back-link { color: var(--dim); }
+    .back-link a { color: var(--text); text-decoration: none; }
+    .back-link a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
     main { max-width: 1060px; margin: 0 auto; padding: 64px 48px 56px; }
 
@@ -188,8 +190,9 @@
       max-width: 62ch;
       color: var(--text);
     }
-    .verdict a.v-link { display: inline-block; margin-top: 12px; font-size: 15px; }
-    .verdict a.v-link::after { content: " \27F6"; }
+    .verdict a.v-link { display: inline-block; margin-top: 12px; font-size: 15px; color: var(--text); text-decoration: none; }
+    .verdict a.v-link:hover { color: var(--dim); }
+    .verdict a.v-link::before { content: "+ "; }
     .v-note { color: var(--dim); font-size: 13px; margin-top: 10px; }
 
     @media (prefers-reduced-motion: reduce) {
@@ -208,7 +211,7 @@
 <body>
 
   <header class="page-head">
-    <a class="back-link" href="/">Index</a>
+    <div class="back-link"><a href="/">index</a> / cases</div>
   </header>
 
   <main>
@@ -269,14 +272,14 @@
         t: "NHS \u00b7 WannaCry \u00b7 May 2017",
         b: "Microsoft patched MS17-010 on 14 March 2017, two months before impact. Department of Health and NHS Digital warnings pre-dated the attack. 81 of 236 trusts were disrupted, around 19,000 appointments cancelled, at a cost of \u00a392m. Every function failed except recovery, which was improvised.",
         link: "https://github.com/drea-wichman/case-studies/blob/main/nhs-wannacry-ransomware-2017.md",
-        label: "Read the full write-up"
+        label: "read the full write-up"
       },
       agco: {
         k: "INCIDENT VERDICT",
         t: "AGCO \u00b7 Black Basta \u00b7 May 2022",
         b: "Black Basta struck on 5 May 2022, during peak planting season. Two FBI notices about the group preceded the attack. Identification, protection, and detection failed, but the response held: operations were shut down and contained within days. Recovery still ran longer than the containment.",
         link: "https://github.com/drea-wichman/case-studies/blob/main/agco-ransomware-2022.md",
-        label: "Read the full write-up"
+        label: "read the full write-up"
       }
     };
 
