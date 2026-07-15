@@ -53,8 +53,7 @@
     .page-head { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
     .lede { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.08s; }
     .list-kicker, .case-list { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.16s; }
-    .case-meta { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.20s; }
-    .chart-head, .matrix-wrap { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.22s; }
+    .card { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.20s; }
     .verdict { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.30s; }
 
     .page-head {
@@ -186,6 +185,23 @@
       transform: rotate(-45deg) translateY(-2px);
     }
 
+    /* Evidence card: the record for the chosen incident */
+    .card {
+      background: #1A1916;
+      padding: 36px 40px 30px;
+    }
+    .card .case-meta { border-top: none; padding-top: 0; margin-bottom: 44px; color: #E9E5DC; }
+    .card .case-meta .m-label { color: #98948C; }
+    .card .matrix th, .card .matrix td { border-top: 0.5px solid rgba(233,229,220,0.16); }
+    .card .matrix thead th { border-top: none; color: #98948C; }
+    .card .matrix th { color: #E9E5DC; }
+    .card .matrix td.gap { color: #98948C; }
+    .card .matrix td.res { color: #E9E5DC; }
+    .card .mark.pass::after { border-left-color: #E9E5DC; border-bottom-color: #E9E5DC; }
+    .card .chart-head { color: #98948C; }
+    .card .chart-head .mark.pass::after { border-left-color: #98948C; border-bottom-color: #98948C; }
+    .card, .card *, .card *::before, .card *::after { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='%23E9E5DC'/></svg>") 5 3, auto !important; }
+
     /* Verdict panel */
     .verdict {
       margin-top: 40px;
@@ -220,13 +236,14 @@
     .verdict a.v-link::before { content: "+"; }
 
     @media (prefers-reduced-motion: reduce) {
-      .page-head, .lede, .list-kicker, .case-list, .case-meta, .chart-head, .matrix-wrap, .verdict { animation: none; }
+      .page-head, .lede, .list-kicker, .case-list, .card, .case-meta, .chart-head, .matrix-wrap, .verdict { animation: none; }
       .matrix-wrap, .verdict, .cl-item, .case-meta { transition: none; }
     }
 
     @media (max-width: 760px) {
       .page-head { padding: 28px 20px 0; }
       main { padding: 44px 20px 40px; }
+      .card { padding: 22px 18px 18px; }
       .matrix th, .matrix td { padding: 12px 6px; }
       .matrix td.gap { font-size: 13px; }
       .cl-item { font-size: 17px; }
@@ -248,14 +265,16 @@
       <button class="cl-item" data-case="agco">AGCO &middot; Black Basta &middot; 2022 &middot; NIST CSF</button>
     </div>
 
-    <div class="case-meta" id="case-meta"></div>
+    <div class="card">
+      <div class="case-meta" id="case-meta"></div>
 
-    <div class="matrix-wrap" id="matrix-wrap"></div>
+      <div class="matrix-wrap" id="matrix-wrap"></div>
 
-    <div class="chart-head">
-      <span>&#10005; failed</span>
-      <span>&#9680; partial</span>
-      <span><span class="mark pass"></span>&nbsp; held</span>
+      <div class="chart-head">
+        <span>&#10005; failed</span>
+        <span>&#9680; partial</span>
+        <span><span class="mark pass"></span>&nbsp; held</span>
+      </div>
     </div>
 
     <div class="verdict" id="verdict" aria-live="polite"></div>
