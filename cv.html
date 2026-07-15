@@ -45,7 +45,6 @@
     }
 
     a { color: var(--text); text-decoration: none; }
-    a:hover { opacity: 0.55; }
 
     @keyframes riseIn {
       from { opacity: 0; transform: translateY(14px); }
@@ -65,14 +64,40 @@
       font-size: 15px;
       letter-spacing: -0.2px;
     }
-    .back-link { color: var(--dim); }
-    .back-link a { color: var(--text); text-decoration: none; }
-    .back-link a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .head-dl { color: var(--dim); text-decoration: none; transition: color 0.3s ease; }
+    .head-dl:hover { color: var(--text); }
+    .head-dl::after {
+      content: " \2193";
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .head-dl:hover::after { opacity: 1; }
+
+    .back-link { color: var(--text); }
+    .back-link a { color: var(--dim); text-decoration: none; position: relative; transition: color 0.3s ease; }
+    .back-link a:hover { color: var(--text); }
+    .back-link a:hover .bc-plus { opacity: 1; transform: translate(0, -50%); }
+    .bc-plus {
+      position: absolute; right: 100%; top: 50%;
+      width: 9px; height: 9px;
+      padding-right: 3px; box-sizing: content-box;
+      opacity: 0; transform: translate(5px, -50%);
+      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+    .bc-plus::before {
+      content: ""; position: absolute; left: 0; right: 3px; top: 50%;
+      height: 1px; background: var(--text);
+    }
+    .bc-plus::after {
+      content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 2px);
+      width: 1px; background: var(--text);
+    }
 
     main {
       max-width: 1060px;
       margin: 0 auto;
-      padding: 64px 48px 40px;
+      padding: 64px 48px 16px;
     }
 
     .kicker {
@@ -86,7 +111,7 @@
     .lede {
       font-family: "Advercase", Georgia, serif;
       font-style: italic;
-      font-size: clamp(19px, 2.2vw, 24px);
+      font-size: clamp(18px, 2vw, 21px);
       line-height: 1.45;
       max-width: 100%;
       margin-bottom: 72px;
@@ -195,12 +220,12 @@
     .band {
       background: #1A1916;
       color: #E9E5DC;
-      margin-top: 40px;
+      margin-top: 24px;
     }
     .band-inner {
       max-width: 1060px;
       margin: 0 auto;
-      padding: 56px 48px 42px;
+      padding: 64px 48px 96px;
       font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
     .band-note {
@@ -216,7 +241,9 @@
       font-size: clamp(24px, 3.4vw, 38px);
       line-height: 1.1;
       color: #E9E5DC;
+      transition: color 0.3s ease;
     }
+    .band-mail:hover { color: #FFFFFF; }
     .band-links { display: flex; flex-wrap: wrap; gap: 8px 32px; margin-top: 30px; }
     .band-links a {
       color: #98948C;
@@ -225,13 +252,6 @@
       transition: color 0.3s ease;
     }
     .band-links a::before { content: "+"; }
-    .band-links a.dl::before { content: none; }
-    .band-links a.dl::after {
-      content: " \2193";
-      opacity: 0;
-      transition: opacity 0.2s ease;
-    }
-    .band-links a.dl:hover::after { opacity: 1; }
     .band-links a:hover { color: #E9E5DC; opacity: 1; }
     .band-foot {
       margin-top: 40px;
@@ -301,13 +321,14 @@
 <body>
 
   <header class="page-head">
-    <div class="back-link"><a href="/">index</a> / cv</div>
+    <div class="back-link"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a> / cv</div>
+    <a class="head-dl" href="Wichman_CV.pdf" download>Download PDF</a>
   </header>
 
   <main>
     <h1 class="print-name">Andrea Wichman</h1>
     <div class="kicker">PROFILE</div>
-    <p class="lede">Cyber security professional focused on governance, risk, and compliance. From a humanities background and twelve years managing organic farm operations, where regulatory compliance, risk assessment, and business continuity were core responsibilities. CompTIA A+ certified, Security+ in progress, and London-based.<br>Pursuing an MSc in Information and Cyber Security at Royal Holloway, seeking a 2027 industry placement.</p>
+    <p class="lede">Cyber security professional focused on governance, risk, and compliance. From a humanities background and twelve years managing organic farm operations, where regulatory compliance, risk assessment, and business continuity were core responsibilities. CompTIA A+ certified, Security+ in progress, and London-based. Pursuing an MSc in Information and Cyber Security at Royal Holloway.</p>
 
     <div class="cv-grid">
       <div class="mainline">
@@ -393,7 +414,7 @@
           <h2 class="sect-title">EDUCATION</h2>
           <div class="grp">
             <div class="grp-title">Royal Holloway, University of London</div>
-            <div class="grp-detail">MSc Information and Cyber Security &middot; 2028</div>
+            <div class="grp-detail">MSc Information and Cyber Security &middot; 2026&ndash;2028</div>
           </div>
           <div class="grp">
             <div class="grp-title">Columbia College Chicago</div>
@@ -405,7 +426,7 @@
           <h2 class="sect-title">CERTIFICATIONS</h2>
           <div class="grp">
             <div class="grp-title">CompTIA Security+</div>
-            <div class="grp-detail">Incoming 2026</div>
+            <div class="grp-detail">In progress</div>
           </div>
           <div class="grp">
             <div class="grp-title">CompTIA A+</div>
@@ -451,7 +472,6 @@
       <div class="band-links">
         <a href="https://linkedin.com/in/drea-wichman" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://github.com/drea-wichman" target="_blank" rel="noopener">GitHub</a>
-        <a class="dl" href="Wichman_CV.pdf" download>Download PDF</a>
       </div>
       <div class="band-foot">&copy; Wichman.io</div>
     </div>

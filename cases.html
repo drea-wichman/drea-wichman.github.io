@@ -44,7 +44,6 @@
     }
 
     a { color: var(--text); text-decoration: none; }
-    a:hover { opacity: 0.55; }
 
     @keyframes riseIn {
       from { opacity: 0; transform: translateY(14px); }
@@ -64,17 +63,34 @@
       font-size: 15px;
       letter-spacing: -0.2px;
     }
-    .back-link { color: var(--dim); }
-    .back-link a { color: var(--text); text-decoration: none; }
-    .back-link a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .back-link { color: var(--text); }
+    .back-link a { color: var(--dim); text-decoration: none; position: relative; transition: color 0.3s ease; }
+    .back-link a:hover { color: var(--text); }
+    .back-link a:hover .bc-plus { opacity: 1; transform: translate(0, -50%); }
+    .bc-plus {
+      position: absolute; right: 100%; top: 50%;
+      width: 9px; height: 9px;
+      padding-right: 3px; box-sizing: content-box;
+      opacity: 0; transform: translate(5px, -50%);
+      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+    .bc-plus::before {
+      content: ""; position: absolute; left: 0; right: 3px; top: 50%;
+      height: 1px; background: var(--text);
+    }
+    .bc-plus::after {
+      content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 2px);
+      width: 1px; background: var(--text);
+    }
 
     main { max-width: 1060px; margin: 0 auto; padding: 64px 48px 56px; }
 
     .lede {
-      font-family: "Advercase", Georgia, serif;
-      font-style: italic;
-      font-size: clamp(19px, 2.2vw, 24px);
+      font-size: clamp(16px, 1.8vw, 19px);
       line-height: 1.45;
+      color: var(--dim);
+      max-width: 44em;
       margin-bottom: 56px;
     }
 
@@ -229,10 +245,11 @@
       display: inline-block;
       margin-top: 12px;
       font-size: 15px;
-      color: var(--text);
+      color: var(--dim);
       text-decoration: none;
+      transition: color 0.3s ease;
     }
-    .verdict a.v-link:hover { color: var(--dim); }
+    .verdict a.v-link:hover { color: var(--text); }
     .verdict a.v-link::before { content: "+"; }
 
     @media (prefers-reduced-motion: reduce) {
@@ -253,7 +270,7 @@
 <body>
 
   <header class="page-head">
-    <div class="back-link"><a href="/">index</a> / case studies</div>
+    <div class="back-link"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a> / case studies</div>
   </header>
 
   <main>

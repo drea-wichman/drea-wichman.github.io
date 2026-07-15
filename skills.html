@@ -47,9 +47,26 @@
     align-items: baseline;
     z-index: 5;
   }
-  .page-head { font-size: 15px; letter-spacing: -0.2px; color: var(--dim); }
-  .page-head a { color: var(--text); text-decoration: none; }
-  .page-head a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .page-head { font-size: 15px; letter-spacing: -0.2px; color: var(--text); }
+  .page-head a { color: var(--dim); text-decoration: none; position: relative; transition: color 0.3s ease; }
+  .page-head a:hover { color: var(--text); }
+  .page-head a:hover .bc-plus { opacity: 1; transform: translate(0, -50%); }
+  .bc-plus {
+    position: absolute; right: 100%; top: 50%;
+    width: 9px; height: 9px;
+    padding-right: 3px; box-sizing: content-box;
+    opacity: 0; transform: translate(5px, -50%);
+    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+  .bc-plus::before {
+    content: ""; position: absolute; left: 0; right: 3px; top: 50%;
+    height: 1px; background: var(--text);
+  }
+  .bc-plus::after {
+    content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 2px);
+    width: 1px; background: var(--text);
+  }
   .kicker {
     font-size: 13px;
     letter-spacing: 1.5px;
@@ -65,14 +82,15 @@
     font-family: "Switzer Thin", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 100;
     font-size: clamp(34px, 4.2vw, 56px);
-    letter-spacing: 0.02em;
+    letter-spacing: -0.025em;
     line-height: 1.16;
     color: var(--dim);
-    border-bottom: 1px solid transparent;
     cursor: default;
     transition: color 0.35s ease;
   }
-  .fn:hover, .fn.on { color: var(--text); border-bottom-color: var(--text); }
+  .fn:hover, .fn.on { color: var(--text); }
+  .fns:has(.fn:hover) .fn:not(:hover) { color: rgba(20, 20, 20, 0.22); }
+  .fns:has(.fn:hover) .fn:hover { color: var(--text); }
 
   .grp { margin-bottom: 14px; }
   .grp:last-child { margin-bottom: 0; }
@@ -133,13 +151,13 @@
 <body>
 <div class="wrap" id="wrap">
   <header class="page-head">
-    <div><a href="/">index</a> / skills</div>
+    <div><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a> / skills</div>
   </header>
 
   <div class="col-l cols" id="col-l">
     <div class="grp">
       <div class="grp-k">Education &amp; certifications</div>
-      <div class="it" data-fns="assess analyze">MSc Information &amp; Cyber Security<span class="meta">Royal Holloway &middot; 2026</span></div>
+      <div class="it" data-fns="assess analyze">MSc Information &amp; Cyber Security<span class="meta">Royal Holloway &middot; 2026&ndash;2028</span></div>
       <div class="it" data-fns="assess">BA Cultural Studies<span class="meta">Columbia College Chicago</span></div>
       <div class="it cred-gap" data-fns="build defend">CompTIA A+</div>
       <div class="it" data-fns="defend analyze">Security+<span class="meta">in progress</span></div>
