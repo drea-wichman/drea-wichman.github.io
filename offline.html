@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Andrea Wichman &middot; Offline</title>
+  <style>
+    /*
+    Font:     Advercase (Regular, Bold, Italic)
+    URL:      https://youworkforthem.com/font/T25140/advercase
+    Foundry:  Indieground Design
+    License:  https://www.youworkforthem.com/font-license
+    The WebFont(s) listed must follow the YouWorkForThem WebFont license rules.
+    All other parties are strictly restricted from using the WebFonts(s) listed
+    without a purchased license. All details above must always remain unaltered
+    and visible in your CSS.
+    */
+    @font-face{font-family:"Advercase";src:url("fonts/advercase-regular.woff2") format("woff2"),url("fonts/advercase-regular.woff") format("woff");font-weight:400;font-style:normal;font-display:swap;}
+    @font-face{font-family:"Advercase";src:url("fonts/advercase-italic.woff2") format("woff2"),url("fonts/advercase-italic.woff") format("woff");font-weight:400;font-style:italic;font-display:swap;}
+
+    @view-transition { navigation: auto; }
+
+    :root {
+      --bg: #A8A5A1;
+      --text: #141414;
+      --rule: #8F8C89;
+      --dim: #4A4845;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    *, *::before, *::after { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='%23141414'/></svg>") 5 3, auto !important; }
+    a:hover, a:hover * { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='none' stroke='%23141414' stroke-width='1.5' stroke-linejoin='round'/></svg>") 5 3, pointer !important; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a { color: var(--text); text-decoration: none; }
+
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .page-head { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .note { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.08s; }
+
+    .page-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 48px 48px 0;
+      font-size: 15px;
+      letter-spacing: -0.2px;
+    }
+    .back-link { color: var(--text); }
+    .back-link a { color: var(--dim); text-decoration: none; position: relative; transition: color 0.3s ease; }
+    .back-link a:hover { color: var(--text); }
+    .back-link a:hover .bc-plus { opacity: 1; transform: translate(0, -50%); }
+    .bc-plus {
+      position: absolute; right: 100%; top: 50%;
+      width: 9px; height: 9px;
+      padding-right: 3px; box-sizing: content-box;
+      opacity: 0; transform: translate(5px, -50%);
+      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+    .bc-plus::before {
+      content: ""; position: absolute; left: 0; right: 3px; top: 50%;
+      height: 1px; background: var(--text);
+    }
+    .bc-plus::after {
+      content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 2px);
+      width: 1px; background: var(--text);
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px 48px 80px;
+    }
+
+    .note { margin: auto 0; width: 100%; }
+    .note p {
+      font-family: "Advercase", Georgia, serif;
+      font-style: italic;
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .page-head, .note { animation: none; }
+    }
+
+    @media (max-width: 900px) {
+      .page-head { padding: 28px 20px 0; }
+      main { padding: 44px 20px 70px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-head">
+    <div class="back-link"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a> / offline</div>
+  </header>
+
+  <main>
+    <div class="note">
+      <p>From a corn and soybean farm in the Midwest to Chicago, LA, NYC, and London. Tends two curated setups: a collection of vintage Apple computers and a full coffee rig to match. Celebrates finishing a tech bender with a walk somewhere green, sans electronics. A devoted fan of the Golden State Warriors, Stevie Nicks, and every animal she has ever met.</p>
+    </div>
+  </main>
+
+</body>
+</html>
