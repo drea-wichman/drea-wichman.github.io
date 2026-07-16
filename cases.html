@@ -60,7 +60,7 @@
     }
     .page-head { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
     .lede { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.08s; }
-    .list-kicker, .case-list { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.16s; }
+    .list-kicker, .sel-block { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.16s; }
     .card { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.20s; }
     .verdict { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.30s; }
 
@@ -108,29 +108,66 @@
       font-size: 12px;
       letter-spacing: 1.2px;
       color: var(--dim);
-      margin-bottom: 16px;
+      margin-bottom: 9px;
     }
 
     /* Case selector */
-    .case-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px 40px;
-      margin-bottom: 40px;
+    .sel-block { max-width: 780px; margin-bottom: 44px; }
+
+    .e-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .e-chip {
+      background: none;
+      border: 0.5px solid var(--rule);
+      color: var(--dim);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 1px;
+      padding: 6px 11px;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
     }
+    .e-chip:hover { border-color: var(--text); color: var(--text); }
+    .e-chip.on { background: var(--text); color: #E9E5DC; border-color: var(--text); }
+    .e-chip:focus-visible { outline: 1px solid var(--text); outline-offset: 3px; }
+
+    .case-list { border-top: 0.5px solid var(--rule); }
     .cl-item {
+      width: 100%;
       background: none;
       border: none;
-      color: rgba(20,20,20,0.2);
+      border-bottom: 0.5px solid var(--rule);
+      text-align: left;
+      display: grid;
+      grid-template-columns: 64px 176px 1fr 50px;
+      gap: 20px;
+      align-items: baseline;
+      padding: 15px 4px;
       font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 19px;
-      letter-spacing: -0.3px;
-      padding: 0 0 8px;
-      transition: color 0.3s ease;
+      color: var(--text);
+      opacity: 0.34;
+      transition: opacity 0.25s ease, padding-left 0.25s ease;
     }
-    .cl-item:hover { color: var(--text); }
-    .cl-item.on { color: var(--text); }
-    .cl-item:focus-visible { outline: 1px solid var(--text); outline-offset: 4px; }
+    .cl-item:hover { opacity: 0.72; }
+    .cl-item.on { opacity: 1; padding-left: 12px; }
+    .cl-item:focus-visible { outline: 1px solid var(--text); outline-offset: 2px; }
+    .cl-item .cl-id { font-family: var(--mono); font-size: 12px; letter-spacing: 0.8px; color: var(--dim); }
+    .cl-item.on .cl-id { color: var(--text); }
+    .cl-item .cl-nm { font-size: 18px; letter-spacing: -0.3px; }
+    .cl-item .cl-fw { font-family: var(--mono); font-size: 13px; letter-spacing: 0.4px; color: var(--dim); }
+    .cl-item.on .cl-fw { color: var(--text); }
+    .cl-item .cl-yr { font-family: var(--mono); font-size: 12px; letter-spacing: 0.8px; color: var(--dim); text-align: right; }
+
+    .cl-more {
+      background: none;
+      border: none;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: var(--dim);
+      padding: 14px 4px;
+      transition: color 0.2s ease;
+    }
+    .cl-more:hover { color: var(--text); }
+    .cl-more:focus-visible { outline: 1px solid var(--text); outline-offset: 2px; }
 
     /* Case header block */
     .case-meta {
@@ -151,17 +188,19 @@
     /* Legend line above chart */
     .chart-head {
       display: flex;
-      justify-content: flex-end;
+      justify-content: flex-start;
       align-items: baseline;
-      gap: 24px;
-      margin-top: 16px;
+      gap: 22px;
+      margin: -30px 0 26px;
       font-family: var(--mono);
       font-size: 11px;
       letter-spacing: 0.6px;
       color: var(--dim);
       white-space: nowrap;
       flex-wrap: wrap;
+      transition: opacity 0.25s ease;
     }
+    .chart-head.swapping { opacity: 0; }
 
     /* Chart */
     .matrix-wrap {
@@ -197,9 +236,20 @@
     }
     .matrix td.res { text-align: center; width: 80px; }
     .matrix thead th.res-h { text-align: center; width: 80px; }
+    .matrix tr.stage th {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      color: var(--dim);
+      border-top: none;
+      padding: 30px 8px 4px;
+    }
+    .matrix tr.stage:first-child th { padding-top: 4px; }
     .mark { font-size: 16px; }
     .mark.fail::after { content: "\2715"; }
     .mark.part::after { content: "\25D0"; }
+    .mark.none::after { content: "\25CB"; }
+    .mark.na::after { content: "\2013"; }
     .mark.pass::after {
       content: "";
       display: inline-block;
@@ -216,10 +266,12 @@
       padding: 36px 40px 30px;
     }
     .card .case-meta { border-top: none; padding-top: 0; margin-bottom: 44px; color: #E9E5DC; }
+    .card .chart-head { margin: -30px 0 24px; }
     .card .case-meta .m-label { color: #98948C; }
     .card .matrix th, .card .matrix td { border-top: 0.5px solid rgba(233,229,220,0.16); }
     .card .matrix thead th { border-top: none; color: #98948C; }
     .card .matrix th { color: #E9E5DC; }
+    .card .matrix tr.stage th { color: #98948C; border-top: none; }
     .card .matrix td.gap { color: #98948C; }
     .card .matrix td.res { color: #E9E5DC; }
     .card .mark.pass::after { border-left-color: #E9E5DC; border-bottom-color: #E9E5DC; }
@@ -262,8 +314,8 @@
     .verdict a.v-link::before { content: "+"; }
 
     @media (prefers-reduced-motion: reduce) {
-      .page-head, .lede, .list-kicker, .case-list, .card, .case-meta, .chart-head, .matrix-wrap, .verdict { animation: none; }
-      .matrix-wrap, .verdict, .cl-item, .case-meta { transition: none; }
+      .page-head, .lede, .list-kicker, .sel-block, .card, .case-meta, .chart-head, .matrix-wrap, .verdict { animation: none; }
+      .matrix-wrap, .verdict, .cl-item, .case-meta, .chart-head { transition: none; }
     }
 
     @media (max-width: 760px) {
@@ -272,7 +324,10 @@
       .card { padding: 22px 18px 18px; }
       .matrix th, .matrix td { padding: 12px 6px; }
       .matrix td.gap { font-size: 13px; }
-      .cl-item { font-size: 17px; }
+      .cl-item { grid-template-columns: 50px 1fr auto; gap: 6px 14px; padding: 13px 2px; }
+      .cl-item .cl-nm { font-size: 17px; }
+      .cl-item .cl-fw { grid-column: 2 / 4; }
+      .cl-item .cl-yr { grid-row: 1; grid-column: 3; }
     }
   </style>
 </head>
@@ -283,24 +338,21 @@
   </header>
 
   <main>
-    <p class="lede">Point-in-time analyses of published incidents, each mapped to the framework in effect at the time. Sectors and years differ. The failed controls don&rsquo;t. The pattern is the finding.</p>
+    <p class="lede">Point-in-time analyses of published incidents, each mapped to the framework in effect at the time.<br>Independent work drawn from public reporting, not audits or compliance assessments.</p>
 
     <div class="list-kicker">INCIDENTS</div>
-    <div class="case-list" role="tablist" aria-label="Select a case">
-      <button class="cl-item on" data-case="wannacry">NHS &middot; WannaCry &middot; 2017 &middot; ISO 27001</button>
-      <button class="cl-item" data-case="agco">AGCO &middot; Black Basta &middot; 2022 &middot; NIST CSF</button>
+    <div class="sel-block">
+      <div class="e-chips" id="chips" hidden></div>
+      <div class="case-list" id="case-list" role="tablist" aria-label="Select a case"></div>
+      <button class="cl-more" id="cl-more" hidden></button>
     </div>
 
     <div class="card">
       <div class="case-meta" id="case-meta"></div>
 
-      <div class="matrix-wrap" id="matrix-wrap"></div>
+      <div class="chart-head" id="chart-head"></div>
 
-      <div class="chart-head">
-        <span>&#10005; failed</span>
-        <span>&#9680; partial</span>
-        <span><span class="mark pass"></span>&nbsp; held</span>
-      </div>
+      <div class="matrix-wrap" id="matrix-wrap"></div>
     </div>
 
     <div class="verdict" id="verdict" aria-live="polite"></div>
@@ -309,7 +361,8 @@
   <script>
     var CASES = {
       wannacry: {
-        meta: [["CASE","CS-001"],["SECTOR","Healthcare"],["REGION","UK"],["FRAMEWORK","ISO 27001:2013"],["STATUS","Closed"]],
+        sel: { id: "CS-001", nm: "NHS", fw: "ISO 27001:2013", fwShort: "ISO 27001", yr: "2017" },
+        meta: [["SECTOR","Healthcare"],["REGION","UK"],["THREAT","WannaCry"],["ENFORCEMENT","None reported"]],
         colHead: "CONTROL",
         rows: [
           { c: "A.12.6.1 Technical vulnerability management", g: "Patch available two months before impact. Alerts sent. No one verified they were acted on.", m: "fail" },
@@ -325,7 +378,8 @@
         }
       },
       agco: {
-        meta: [["CASE","CS-002"],["SECTOR","Agricultural manufacturing"],["REGION","Global"],["FRAMEWORK","NIST CSF 1.1"],["STATUS","Closed"]],
+        sel: { id: "CS-002", nm: "AGCO", fw: "NIST CSF 1.1", fwShort: "NIST CSF", yr: "2022" },
+        meta: [["SECTOR","Agricultural manufacturing"],["REGION","Global"],["THREAT","Black Basta"],["ENFORCEMENT","None reported"]],
         colHead: "FUNCTION",
         rows: [
           { c: "Identify", g: "Two FBI warnings named the threat. No visible reassessment or response followed.", m: "fail" },
@@ -339,25 +393,156 @@
           link: "https://github.com/drea-wichman/case-studies/blob/main/agco-ransomware-2022.md",
           label: "Read the full write-up on GitHub"
         }
+      },
+      salesloft: {
+        sel: { id: "CS-003", nm: "Salesloft Drift", fw: "NCSC Supply Chain Principles v1.0", fwShort: "NCSC", yr: "2025" },
+        meta: [["SECTOR","Software / SaaS"],["REGION","Global"],["THREAT","UNC6395"],["ENFORCEMENT","None reported"]],
+        colHead: "PRINCIPLE",
+        gapHead: "FINDING",
+        legendExtra: ["none", "na"],
+        rows: [
+          { s: "STAGE I \u00b7 UNDERSTAND THE RISKS" },
+          { c: "1. Understand what needs to be protected and why", g: "Whether buyers had mapped what the token could reach is not publicly known. The scope became apparent only after the breach.", m: "part" },
+          { c: "2. Know who your suppliers are", g: "Customers knew Drift. The attack ran through the GitHub of its parent, Salesloft, one layer removed from anything a customer would have assessed.", m: "part" },
+          { c: "3. Understand the security risk posed by your supply chain", g: "Not that the chatbot would malfunction, but that its credentials could be stolen and used to reach Salesforce. The one principle that named the risk that materialized.", m: "pass" },
+
+          { s: "STAGE II \u00b7 ESTABLISH CONTROL" },
+          { c: "4. Communicate your view of security needs to your suppliers", g: "Salesloft published, buyers evaluated. Standardized MSA, no negotiated security terms. Evaluate or leave were the options.", m: "none" },
+          { c: "5. Set and communicate minimum security requirements", g: "A buyer applying this principle would have approved Salesloft. Buyers could verify, not dictate. The controls that failed were ones the vendor claimed to have in place.", m: "none" },
+          { c: "6. Build security considerations into your contracting processes", g: "Addresses supply chain depth. No subcontractor was involved. The attack ran through Salesloft's own infrastructure and its own product.", m: "na" },
+          { c: "7. Meet your own security responsibilities as a supplier", g: "SOC 2 Type 2, ISO 27001, ISO 27701. GitHub compromised for three months without detection. Initial access never disclosed.", m: "fail" },
+          { c: "8. Raise awareness of security within your supply chain", g: "Training at onboarding and annually thereafter. The GitHub compromise still ran roughly three months undetected.", m: "part" },
+          { c: "9. Provide support for security incidents", g: "Customers notified 20 August, two days after exfiltration ended. Mandiant engaged publicly. How the attackers first got in has never been disclosed.", m: "part" },
+
+          { s: "STAGE III \u00b7 CHECK YOUR ARRANGEMENTS" },
+          { c: "10. Build assurance activities into your supply chain management", g: "Audited certifications were published and accessible. Salesloft's standardized MSA grants no right to audit. The NCSC specifically recommends building one into the contract.", m: "none" },
+
+          { s: "STAGE IV \u00b7 CONTINUOUS IMPROVEMENT" },
+          { c: "11. Encourage continuous improvement within your supply chain", g: "No pathway for individual buyer input under a standardized SaaS agreement. Customers could observe what Salesloft chose to publish.", m: "none" },
+          { c: "12. Build trust with suppliers", g: "Transactional. Sign the MSA, connect the integration, use the product. What the contract established was access, not partnership.", m: "none" }
+        ],
+        verdict: {
+          b: "UNC6395 held access to Salesloft's GitHub from March 2025 and spent ten days in August exporting data from customer Salesforce environments. More than 700 organizations were potentially impacted through a connection each had approved. Their own controls did not fail. Of the NCSC's 12 principles, one failed at the supplier and five had no mechanism a buyer could use. Guidance that assumes leverage the market does not provide is aspiration without mechanism.",
+          link: "https://github.com/drea-wichman/case-studies/blob/main/salesloft-drift-supply-chain-2025.md",
+          label: "Read the full write-up on GitHub"
+        }
       }
     };
 
+    // Display order. Newest first. New cases go on top.
+    var ORDER = ["salesloft", "agco", "wannacry"];
+
+    // Framework filter chips. Flip to true once any single framework holds
+    // two or more cases; until then a chip returns one row and argues nothing.
+    var SHOW_FILTERS = false;
+
+    // Rows shown before the list collapses behind "view all".
+    var CAP = 8;
+
+    // Base assessment scale. Shown on every case, whether or not each mark occurs:
+    // an absent mark is part of the finding. Cases add to this via legendExtra.
+    var BASE_LEGEND = ["fail", "part", "pass"];
+
+    var LEGEND = {
+      fail: "failed",
+      part: "partial",
+      pass: "held",
+      none: "no mechanism",
+      na:   "not applicable"
+    };
+
     var wrap = document.getElementById('matrix-wrap');
+    var legendEl = document.getElementById('chart-head');
     var metaEl = document.getElementById('case-meta');
+    var listEl = document.getElementById('case-list');
+    var chipsEl = document.getElementById('chips');
+    var moreEl = document.getElementById('cl-more');
     var verdict = document.getElementById('verdict');
-    var items = document.querySelectorAll('.cl-item');
+
+    var current = ORDER[0];
+    var filter = "ALL";
+    var expanded = false;
+
+    function visibleKeys() {
+      return ORDER.filter(function(k) {
+        return filter === "ALL" || CASES[k].sel.fwShort === filter;
+      });
+    }
+
+    function buildChips() {
+      if (!SHOW_FILTERS) { chipsEl.hidden = true; return; }
+      var seen = [];
+      ORDER.forEach(function(k) {
+        var f = CASES[k].sel.fwShort;
+        if (seen.indexOf(f) === -1) seen.push(f);
+      });
+      chipsEl.hidden = false;
+      chipsEl.innerHTML = ["ALL"].concat(seen).map(function(c) {
+        return '<button class="e-chip' + (filter === c ? ' on' : '') + '" data-chip="' + c + '">' + c + '</button>';
+      }).join('');
+      chipsEl.querySelectorAll('[data-chip]').forEach(function(b) {
+        b.addEventListener('click', function() {
+          filter = b.dataset.chip;
+          expanded = false;
+          var keys = visibleKeys();
+          if (keys.indexOf(current) === -1 && keys.length) selectCase(keys[0], true);
+          else buildSelector();
+        });
+      });
+    }
+
+    function buildSelector() {
+      var keys = visibleKeys();
+      var shown = expanded ? keys : keys.slice(0, CAP);
+
+      listEl.innerHTML = shown.map(function(k) {
+        var d = CASES[k].sel;
+        return '<button class="cl-item' + (k === current ? ' on' : '') + '" role="tab"' +
+               ' aria-selected="' + (k === current) + '" data-case="' + k + '">' +
+               '<span class="cl-id">' + d.id + '</span>' +
+               '<span class="cl-nm">' + d.nm + '</span>' +
+               '<span class="cl-fw">' + d.fw + '</span>' +
+               '<span class="cl-yr">' + d.yr + '</span>' +
+               '</button>';
+      }).join('');
+
+      listEl.querySelectorAll('.cl-item').forEach(function(b) {
+        b.addEventListener('click', function() { selectCase(b.dataset.case, true); });
+      });
+
+      if (keys.length > CAP) {
+        moreEl.hidden = false;
+        moreEl.textContent = expanded ? 'SHOW FEWER' : 'VIEW ALL (' + keys.length + ')';
+      } else {
+        moreEl.hidden = true;
+      }
+    }
+
+    moreEl.addEventListener('click', function() { expanded = !expanded; buildSelector(); });
 
     function buildMatrix(c) {
       var html = '<table class="matrix"><thead><tr>' +
-        '<th>' + c.colHead + '</th><th class="res-h">RESULT</th><th>GAP</th>' +
+        '<th>' + c.colHead + '</th><th class="res-h">RESULT</th><th>' +
+        (c.gapHead || 'GAP') + '</th>' +
         '</tr></thead><tbody>';
       c.rows.forEach(function(r) {
+        if (r.s) {
+          html += '<tr class="stage"><th colspan="3">' + r.s + '</th></tr>';
+          return;
+        }
         html += '<tr><th>' + r.c + '</th>' +
                 '<td class="res"><span class="mark ' + r.m + '"></span></td>' +
                 '<td class="gap">' + r.g + '</td></tr>';
       });
       html += '</tbody></table>';
       return html;
+    }
+
+    function buildLegend(c) {
+      var keys = BASE_LEGEND.concat(c.legendExtra || []);
+      return keys.map(function(k) {
+        return '<span><span class="mark ' + k + '"></span>&nbsp; ' + LEGEND[k] + '</span>';
+      }).join('');
     }
 
     function buildMeta(c) {
@@ -372,34 +557,32 @@
              '<a class="v-link" href="' + v.link + '" target="_blank" rel="noopener">' + v.label + '</a>';
     }
 
+    function paint(c) {
+      metaEl.innerHTML = buildMeta(c);
+      legendEl.innerHTML = buildLegend(c);
+      wrap.innerHTML = buildMatrix(c);
+      verdict.innerHTML = buildVerdict(c.verdict);
+    }
+
     function selectCase(key, animate) {
       var c = CASES[key];
       if (!c) return;
-      items.forEach(function(i) { i.classList.toggle('on', i.dataset.case === key); });
+      current = key;
+      buildSelector();
       if (animate) {
-        wrap.classList.add('swapping');
-        verdict.classList.add('swapping');
-        metaEl.classList.add('swapping');
+        [wrap, verdict, metaEl, legendEl].forEach(function(el) { el.classList.add('swapping'); });
         setTimeout(function() {
-          wrap.innerHTML = buildMatrix(c);
-          verdict.innerHTML = buildVerdict(c.verdict);
-          metaEl.innerHTML = buildMeta(c);
-          wrap.classList.remove('swapping');
-          verdict.classList.remove('swapping');
-          metaEl.classList.remove('swapping');
+          paint(c);
+          [wrap, verdict, metaEl, legendEl].forEach(function(el) { el.classList.remove('swapping'); });
         }, 250);
       } else {
-        wrap.innerHTML = buildMatrix(c);
-        verdict.innerHTML = buildVerdict(c.verdict);
-        metaEl.innerHTML = buildMeta(c);
+        paint(c);
       }
     }
 
-    items.forEach(function(i) {
-      i.addEventListener('click', function() { selectCase(i.dataset.case, true); });
-    });
+    buildChips();
+    selectCase(ORDER[0], false);
 
-    selectCase('wannacry', false);
   </script>
 
 </body>
