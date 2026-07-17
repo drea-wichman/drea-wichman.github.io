@@ -108,7 +108,7 @@
       font-size: 12px;
       letter-spacing: 1.2px;
       color: var(--dim);
-      margin-bottom: 9px;
+      margin-bottom: 1px;
     }
 
     /* Case selector */
@@ -131,30 +131,48 @@
 
     .case-list { border-top: 0.5px solid var(--rule); }
     .cl-item {
+      position: relative;
       width: 100%;
-      background: none;
-      border: none;
       border-bottom: 0.5px solid var(--rule);
-      text-align: left;
       display: grid;
-      grid-template-columns: 64px 176px 1fr 50px;
+      grid-template-columns: 64px 160px 1fr 215px;
       gap: 20px;
       align-items: baseline;
       padding: 15px 4px;
-      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
       color: var(--text);
       opacity: 0.34;
       transition: opacity 0.25s ease, padding-left 0.25s ease;
     }
     .cl-item:hover { opacity: 0.72; }
     .cl-item.on { opacity: 1; padding-left: 12px; }
-    .cl-item:focus-visible { outline: 1px solid var(--text); outline-offset: 2px; }
+    .cl-hit {
+      position: absolute;
+      top: 0; bottom: 0; left: 0; right: 235px;
+      background: none;
+      border: none;
+      padding: 0;
+      z-index: 1;
+    }
+    .cl-hit:focus-visible { outline: 1px solid var(--text); outline-offset: 2px; }
+    .cl-item > span, .cl-item > a { position: relative; z-index: 2; }
+    .cl-item > span { pointer-events: none; }
     .cl-item .cl-id { font-family: var(--mono); font-size: 12px; letter-spacing: 0.8px; color: var(--dim); }
     .cl-item.on .cl-id { color: var(--text); }
-    .cl-item .cl-nm { font-size: 18px; letter-spacing: -0.3px; }
-    .cl-item .cl-fw { font-family: var(--mono); font-size: 13px; letter-spacing: 0.4px; color: var(--dim); }
+    .cl-item .cl-nm { font-size: 16px; letter-spacing: -0.2px; }
+    .cl-item .cl-fw { font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16px; letter-spacing: -0.2px; color: var(--dim); }
     .cl-item.on .cl-fw { color: var(--text); }
-    .cl-item .cl-yr { font-family: var(--mono); font-size: 12px; letter-spacing: 0.8px; color: var(--dim); text-align: right; }
+    .cl-link {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.4px;
+      white-space: nowrap;
+      color: var(--dim);
+      text-decoration: none;
+      text-align: right;
+      transition: color 0.3s ease;
+    }
+    .cl-link:hover { color: var(--text); }
+    .cl-link::before { content: "+ "; }
 
     .cl-more {
       background: none;
@@ -174,16 +192,16 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px 28px;
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: 0.4px;
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      letter-spacing: -0.2px;
       border-top: 0.5px solid var(--rule);
       padding-top: 18px;
       margin-bottom: 46px;
       transition: opacity 0.25s ease;
     }
     .case-meta.swapping { opacity: 0; }
-    .case-meta .m-label { color: var(--dim); margin-right: 7px; }
+    .case-meta .m-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.4px; color: var(--dim); margin-right: 8px; }
 
     /* Legend line above chart */
     .chart-head {
@@ -302,17 +320,6 @@
       max-width: 62ch;
       color: var(--text);
     }
-    .verdict a.v-link {
-      display: inline-block;
-      margin-top: 12px;
-      font-size: 15px;
-      color: var(--dim);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    .verdict a.v-link:hover { color: var(--text); }
-    .verdict a.v-link::before { content: "+"; }
-
     @media (prefers-reduced-motion: reduce) {
       .page-head, .lede, .list-kicker, .sel-block, .card, .case-meta, .chart-head, .matrix-wrap, .verdict { animation: none; }
       .matrix-wrap, .verdict, .cl-item, .case-meta, .chart-head { transition: none; }
@@ -324,10 +331,10 @@
       .card { padding: 22px 18px 18px; }
       .matrix th, .matrix td { padding: 12px 6px; }
       .matrix td.gap { font-size: 13px; }
-      .cl-item { grid-template-columns: 50px 1fr auto; gap: 6px 14px; padding: 13px 2px; }
+      .cl-item { grid-template-columns: 50px 1fr; gap: 6px 14px; padding: 13px 2px; }
       .cl-item .cl-nm { font-size: 17px; }
-      .cl-item .cl-fw { grid-column: 2 / 4; }
-      .cl-item .cl-yr { grid-row: 1; grid-column: 3; }
+      .cl-item .cl-fw, .cl-item .cl-link { grid-column: 2; text-align: left; }
+      .cl-hit { right: 0; bottom: 28px; }
     }
   </style>
 </head>
@@ -362,7 +369,7 @@
     var CASES = {
       wannacry: {
         sel: { id: "CS-001", nm: "NHS", fw: "ISO 27001:2013", fwShort: "ISO 27001", yr: "2017" },
-        meta: [["SECTOR","Healthcare"],["REGION","UK"],["THREAT","WannaCry"],["ENFORCEMENT","None reported"]],
+        meta: [["YEAR","2017"],["SECTOR","Healthcare"],["REGION","UK"],["THREAT","WannaCry"],["ENFORCEMENT","None reported"]],
         colHead: "CONTROL",
         rows: [
           { c: "A.12.6.1 Technical vulnerability management", g: "Patch available two months before impact. Alerts sent. No one verified they were acted on.", m: "fail" },
@@ -379,7 +386,7 @@
       },
       agco: {
         sel: { id: "CS-002", nm: "AGCO", fw: "NIST CSF 1.1", fwShort: "NIST CSF", yr: "2022" },
-        meta: [["SECTOR","Agricultural manufacturing"],["REGION","Global"],["THREAT","Black Basta"],["ENFORCEMENT","None reported"]],
+        meta: [["YEAR","2022"],["SECTOR","Agricultural manufacturing"],["REGION","Global"],["THREAT","Black Basta"],["ENFORCEMENT","None reported"]],
         colHead: "FUNCTION",
         rows: [
           { c: "Identify", g: "Two FBI warnings named the threat. No visible reassessment or response followed.", m: "fail" },
@@ -395,8 +402,8 @@
         }
       },
       salesloft: {
-        sel: { id: "CS-003", nm: "Salesloft Drift", fw: "NCSC Supply Chain Principles v1.0", fwShort: "NCSC", yr: "2025" },
-        meta: [["SECTOR","Software / SaaS"],["REGION","Global"],["THREAT","UNC6395"],["ENFORCEMENT","None reported"]],
+        sel: { id: "CS-003", nm: "Salesloft Drift", fw: "NCSC Supply Chain Principles", fwShort: "NCSC", yr: "2025" },
+        meta: [["YEAR","2025"],["SECTOR","Software / SaaS"],["REGION","Global"],["THREAT","UNC6395"],["ENFORCEMENT","None reported"]],
         colHead: "PRINCIPLE",
         gapHead: "FINDING",
         legendExtra: ["none", "na"],
@@ -496,17 +503,18 @@
       var shown = expanded ? keys : keys.slice(0, CAP);
 
       listEl.innerHTML = shown.map(function(k) {
-        var d = CASES[k].sel;
-        return '<button class="cl-item' + (k === current ? ' on' : '') + '" role="tab"' +
-               ' aria-selected="' + (k === current) + '" data-case="' + k + '">' +
+        var c = CASES[k], d = c.sel, on = (k === current);
+        return '<div class="cl-item' + (on ? ' on' : '') + '">' +
+               '<button class="cl-hit" role="tab" aria-selected="' + on + '"' +
+               ' data-case="' + k + '" aria-label="' + d.nm + ', ' + d.fw + '"></button>' +
                '<span class="cl-id">' + d.id + '</span>' +
                '<span class="cl-nm">' + d.nm + '</span>' +
                '<span class="cl-fw">' + d.fw + '</span>' +
-               '<span class="cl-yr">' + d.yr + '</span>' +
-               '</button>';
+               (on ? '<a class="cl-link" href="' + c.verdict.link + '" target="_blank" rel="noopener">read the write-up on GitHub</a>' : '<span></span>') +
+               '</div>';
       }).join('');
 
-      listEl.querySelectorAll('.cl-item').forEach(function(b) {
+      listEl.querySelectorAll('.cl-hit').forEach(function(b) {
         b.addEventListener('click', function() { selectCase(b.dataset.case, true); });
       });
 
@@ -540,9 +548,10 @@
 
     function buildLegend(c) {
       var keys = BASE_LEGEND.concat(c.legendExtra || []);
-      return keys.map(function(k) {
+      var html = keys.map(function(k) {
         return '<span><span class="mark ' + k + '"></span>&nbsp; ' + LEGEND[k] + '</span>';
       }).join('');
+      return html;
     }
 
     function buildMeta(c) {
@@ -553,8 +562,7 @@
 
     function buildVerdict(v) {
       return '<div class="v-kicker">VERDICT</div>' +
-             '<div class="v-body">' + v.b + '</div>' +
-             '<a class="v-link" href="' + v.link + '" target="_blank" rel="noopener">' + v.label + '</a>';
+             '<div class="v-body">' + v.b + '</div>';
     }
 
     function paint(c) {
