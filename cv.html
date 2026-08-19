@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Andrea Wichman &middot; CV</title>
+  <meta name="description" content="Cyber security professional focused on governance, risk, and compliance. MSc Information and Cyber Security, Royal Holloway. London-based.">
+  <meta property="og:title" content="Andrea Wichman · Cyber Security & GRC">
+  <meta property="og:description" content="Cyber security professional focused on governance, risk, and compliance. MSc Information and Cyber Security, Royal Holloway. London-based.">
+  <meta property="og:image" content="https://wichman.io/img/og.png">
+  <meta property="og:url" content="https://wichman.io/cv.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <style>
+    /*
+    Font:     Advercase (Regular, Bold, Italic)
+    URL:      https://youworkforthem.com/font/T25140/advercase
+    Foundry:  Indieground Design
+    License:  https://www.youworkforthem.com/font-license
+    The WebFont(s) listed must follow the YouWorkForThem WebFont license rules.
+    All other parties are strictly restricted from using the WebFonts(s) listed
+    without a purchased license. All details above must always remain unaltered
+    and visible in your CSS.
+    */
+    @font-face{font-family:"Advercase";src:url("fonts/advercase-regular.woff2") format("woff2"),url("fonts/advercase-regular.woff") format("woff");font-weight:400;font-style:normal;font-display:swap;}
+    @font-face{font-family:"Advercase";src:url("fonts/advercase-bold.woff2") format("woff2"),url("fonts/advercase-bold.woff") format("woff");font-weight:700;font-style:normal;font-display:swap;}
+    @font-face{font-family:"Advercase";src:url("fonts/advercase-italic.woff2") format("woff2"),url("fonts/advercase-italic.woff") format("woff");font-weight:400;font-style:italic;font-display:swap;}
+    @font-face{font-family:"Switzer Thin";src:url("fonts/switzer-thin.woff2") format("woff2"),url("fonts/switzer-thin.woff") format("woff");font-weight:100;font-style:normal;font-display:swap;}
+    @font-face{font-family:"Switzer";src:url("fonts/switzer-light.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap;}
+    @font-face{font-family:"Switzer";src:url("fonts/switzer-regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap;}
+    @font-face{font-family:"Switzer";src:url("fonts/switzer-medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap;}
+
+    @view-transition { navigation: auto; }
+
+    :root {
+      --bg: #A8A5A1;
+      --text: #141414;
+      --ghost: #B0ADA9;
+      --rule: #8F8C89;
+      --dim: #4A4845;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    *, *::before, *::after { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='%23141414'/></svg>") 5 3, auto !important; }
+
+    a:hover, a:hover *, button:hover, button:hover * { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='none' stroke='%23141414' stroke-width='1.5' stroke-linejoin='round'/></svg>") 5 3, pointer !important; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Advercase", Georgia, serif;
+      font-weight: 400;
+      min-height: 100vh;
+    }
+
+    a { color: var(--text); text-decoration: none; }
+
+    ::selection { background: #877F76; }
+
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .page-head { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .lede { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.08s; }
+    .cv-grid { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.16s; }
+    .band { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.24s; }
+
+    .page-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 48px 48px 0;
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      letter-spacing: -0.2px;
+    }
+    .head-dl { color: var(--dim); text-decoration: none; transition: color 0.3s ease; }
+    .head-dl:hover { color: var(--text); }
+    .head-dl::after {
+      content: " \2193";
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .head-dl:hover::after { opacity: 1; }
+
+    .back-link { color: var(--text); }
+    .back-link a { color: var(--dim); text-decoration: none; position: relative; transition: color 0.3s ease; }
+    .back-link a:hover { color: var(--text); }
+    .back-link a:hover .bc-plus { opacity: 1; transform: translate(0, -50%); }
+    .bc-plus {
+      position: absolute; right: 100%; top: 50%;
+      width: 9px; height: 9px;
+      padding-right: 3px; box-sizing: content-box;
+      opacity: 0; transform: translate(5px, -50%);
+      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+    .bc-plus::before {
+      content: ""; position: absolute; left: 0; right: 3px; top: 50%;
+      height: 1px; background: var(--text);
+    }
+    .bc-plus::after {
+      content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 2px);
+      width: 1px; background: var(--text);
+    }
+
+    main {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 64px 48px 16px;
+    }
+
+    .kicker {
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      color: var(--dim);
+      margin-bottom: 22px;
+    }
+
+    .lede {
+      font-family: "Advercase", Georgia, serif;
+      font-style: italic;
+      font-size: clamp(18px, 2vw, 21px);
+      line-height: 1.45;
+      max-width: 100%;
+      margin-bottom: 72px;
+    }
+
+    .cv-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: 72px;
+    }
+
+    .sect-title {
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      color: var(--dim);
+      margin: 0 0 6px;
+      font-weight: 400;
+    }
+
+    .role { border-top: 0.5px solid var(--rule); transition: opacity 0.45s ease; }
+    .role:last-of-type { border-bottom: 0.5px solid var(--rule); }
+    .roles.hover-active .role:not(.open) { opacity: 0.35; }
+
+    .role-head {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 20px;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 18px 0 16px;
+      color: var(--text);
+    }
+    .role-head:focus-visible { outline: 1px solid var(--text); outline-offset: 4px; }
+    .role-title {
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 20px;
+      letter-spacing: -0.5px;
+    }
+    .role-meta {
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: var(--dim);
+      letter-spacing: -0.2px;
+      margin-top: 2px;
+    }
+    .role-dates {
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: var(--dim);
+      white-space: nowrap;
+    }
+
+    .role-body {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.45s ease;
+    }
+    .role.open .role-body { opacity: 1; }
+    html.no-js .role-body { max-height: none; opacity: 1; }
+
+    .role-body ul {
+      list-style: none;
+      padding: 0 0 20px;
+    }
+    .role-body li {
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--text);
+      padding: 3px 0 3px 16px;
+      position: relative;
+      max-width: 52ch;
+    }
+    .role-body li::before {
+      content: "\00b7";
+      position: absolute;
+      left: 0;
+    }
+
+    .side .grp { padding: 10px 0; }
+    .mainline .sec-edu { margin-bottom: 44px; }
+    .mainline .sec-edu .grp { padding: 10px 0; }
+    .side .sec-skills .sect-title { margin-top: 0; }
+    .side section { margin-bottom: 44px; }
+    .grp-title {
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 18px;
+      letter-spacing: -0.5px;
+    }
+    a.grp-link { display: block; transition: opacity 0.45s ease; }
+    a.grp-link:hover { opacity: 1; }
+    section:has(a.grp-link:hover) a.grp-link:not(:hover) { opacity: 0.35; }
+    a.grp-link .grp-title::before { content: "+"; }
+    .grp-row { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; }
+    .grp-date {
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: var(--dim);
+      white-space: nowrap;
+    }
+    .grp-detail {
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: var(--dim);
+      letter-spacing: -0.2px;
+      line-height: 1.45;
+      margin-top: 1px;
+    }
+
+    /* Closing band */
+    .band {
+      background: #1A1916;
+      color: #E9E5DC;
+      margin-top: 24px;
+    }
+    .band-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 64px 48px 96px;
+      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .band-note {
+      font-size: 17px;
+      letter-spacing: -0.2px;
+      color: #E9E5DC;
+      margin-bottom: 26px;
+    }
+    .band-mail {
+      display: inline-block;
+      font-family: "Switzer Thin", "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 100;
+      font-size: clamp(24px, 3.4vw, 38px);
+      line-height: 1.1;
+      color: #E9E5DC;
+      transition: color 0.3s ease;
+    }
+    .band-mail:hover { color: #FFFFFF; }
+    .band-links { display: flex; flex-wrap: wrap; gap: 8px 32px; margin-top: 30px; }
+    .band-links a {
+      color: #98948C;
+      font-size: 15px;
+      letter-spacing: -0.5px;
+      transition: color 0.3s ease;
+    }
+    .band-links a::before { content: "+"; }
+    .band-links a:hover { color: #E9E5DC; opacity: 1; }
+    .print-contact { display: none; }
+    .band-foot {
+      margin-top: 40px;
+      border-top: 0.5px solid rgba(233,229,220,0.16);
+      padding-top: 14px;
+      display: flex;
+      justify-content: flex-end;
+      font-size: 13px;
+      letter-spacing: -0.2px;
+      color: #98948C;
+    }
+    .band, .band *, .band *::before, .band *::after { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='%23E9E5DC'/></svg>") 5 3, auto !important; }
+    .band a:hover, .band a:hover * { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='none' stroke='%23E9E5DC' stroke-width='1.5' stroke-linejoin='round'/></svg>") 5 3, pointer !important; }
+    @media (prefers-reduced-motion: reduce) {
+      .page-head, .lede, .cv-grid, .band { animation: none; }
+      .role, .role-body { transition: none; }
+    }
+
+    @media (max-width: 760px) {
+      .page-head { padding: 28px 20px 0; }
+      main { padding: 44px 20px 30px; }
+      .cv-grid { grid-template-columns: 1fr; gap: 44px; }
+      .lede { margin-bottom: 48px; }
+      .band-inner { padding: 38px 20px 32px; }
+    }
+
+    .print-name { display: none; }
+    .print-tag { display: none; }
+
+    /* ------------------------------------------------------------------
+       PRINT / PDF
+       Cmd+P from this page produces the CV PDF. A4, one page.
+       Hierarchy comes from size, tracking, color, and rules. Switzer ships
+       in Light 300 and Regular 400 only, so nothing here relies on bold.
+       ------------------------------------------------------------------ */
+    @media print {
+      @page { size: A4; margin: 0; }
+
+      * { text-rendering: geometricPrecision; }
+      body { padding: 16mm 13mm 24.5mm; }
+      html, body {
+        background: #C0BDB9;
+        color: #141414;
+        font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      :root { --bg: #C0BDB9; --text: #141414; --rule: #8F8C89; --dim: #4A4845; }
+
+      .page-head, .secline, .band-foot { display: none; }
+      .page-head, .lede, .cv-grid, .band { animation: none; }
+      .role, .role-body { transition: none; }
+      a { text-decoration: none; color: inherit; }
+      main { padding: 0; max-width: none; }
+
+      /* Top row: name left, profile right */
+      .cv-top { margin-bottom: 33pt; }
+      .profile-blk { margin-bottom: 20pt; }
+      .print-name {
+        display: block;
+        font-family: "Switzer Thin", "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 100;
+        font-size: 31pt;
+        line-height: 1;
+        letter-spacing: -1.1pt;
+        margin: 0;
+        text-align: center;
+        color: #000;
+      }
+      .pn-an { color: #6E6B67; }
+      .print-tag {
+        display: block;
+        font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        font-size: 7.6pt;
+        letter-spacing: 1.7pt;
+        color: var(--text);
+        text-align: center;
+        margin-top: 5pt;
+      }
+
+      /* Section headers. One treatment, both columns. */
+      .kicker, .sect-title {
+        font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        font-size: 7.6pt;
+        letter-spacing: 1.7pt;
+        text-transform: uppercase;
+        color: var(--text);
+        margin: 0 0 7pt;
+        break-after: avoid;
+        display: flex;
+        align-items: center;
+        gap: 0 7pt;
+      }
+      .sect-title[style] { margin-top: 13pt !important; }
+      .kicker::after, .sect-title::after {
+        content: "";
+        flex: 1;
+        border-top: 0.2pt solid #ABA8A4;
+        transform: translateY(0.5pt);
+      }
+
+      /* Profile. Advercase italic, matching the site's lede. */
+      .lede {
+        font-family: "Advercase", Georgia, serif;
+        font-weight: 400;
+        font-style: italic;
+        font-size: 8.6pt;
+        line-height: 1.52;
+        max-width: none;
+        margin-bottom: 0;
+      }
+
+      .cv-grid { grid-template-columns: 1.12fr 1fr; gap: 0 9mm; }
+      .sect-title[style] { margin-top: 0 !important; }
+      .mainline .sec-edu { margin-bottom: 20pt; }
+      .mainline .sec-edu .grp { padding: 4pt 0; }
+      .mainline .sec-edu .grp:first-of-type { padding-top: 0; }
+
+      /* Experience */
+      .roles.hover-active .role:not(.open) { opacity: 1; }
+      .role, .role:last-of-type { border: none; opacity: 1 !important; break-inside: avoid; }
+      .role + .role { margin-top: 8pt; }
+      .role-head { padding: 0 0 1pt; gap: 10pt; align-items: baseline; }
+      .role-title { font-size: 9.5pt; font-weight: 500; letter-spacing: -0.1pt; }
+      .role-meta, .role-dates {
+        font-weight: 300;
+        font-size: 8.4pt;
+        color: var(--dim);
+        letter-spacing: 0;
+        margin-top: 1pt;
+      }
+      .role-body { max-height: none !important; opacity: 1 !important; overflow: visible; }
+      .role-body ul { padding: 2pt 0 0; }
+      .role-body li {
+        font-size: 8.4pt;
+        font-weight: 300;
+        line-height: 1.34;
+        max-width: none;
+        padding: 1pt 0 1pt 7.5pt;
+      }
+      .role-body li::before { content: "\00b7"; color: var(--dim); }
+
+      /* Technical skills, left column */
+      .mainline .grp { padding: 5pt 0 0; break-inside: avoid; }
+
+      /* Right column */
+      .side section { margin-bottom: 20pt; break-inside: avoid; }
+      .side .grp { padding: 4pt 0; break-inside: avoid; }
+      .side section .grp:first-of-type { padding-top: 0; }
+      .grp-title { font-size: 9.5pt; font-weight: 500; letter-spacing: -0.1pt; }
+      a.grp-link .grp-title::before { content: ""; }
+      .grp-detail { font-size: 8.4pt; font-weight: 300; line-height: 1.34; color: var(--text); margin-top: 1.5pt; }
+      .grp-date { font-size: 8.4pt; font-weight: 300; color: var(--dim); }
+
+      /* Contact footer */
+      .band {
+        background: none;
+        color: #141414;
+        margin: 0;
+        break-inside: avoid;
+        position: fixed;
+        bottom: 8mm;
+        left: 13mm;
+        right: 13mm;
+      }
+      .band-inner {
+        max-width: none;
+        padding: 6pt 0 0;
+        border-top: 0.2pt solid #ABA8A4;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      .band-note { font-size: 8.4pt; font-weight: 300; color: var(--dim); margin: 0; line-height: 1.55; }
+      .bn-sep { display: none; }
+      .bn1, .bn2 { display: block; }
+      .band-mail {
+        font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        font-size: 8.8pt;
+        color: #141414;
+        margin-left: auto;
+      }
+      .band-links { margin: 0; gap: 0 14pt; }
+      .band-links a { font-size: 8.8pt; color: #141414; letter-spacing: 0; }
+      .band-links a::before { content: ""; }
+      .band-links a.dl { display: none; }
+      .nwi { white-space: nowrap; }
+      .band-mail, .band-links { display: none; }
+      .print-contact {
+        display: flex;
+        gap: 0 24pt;
+        font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        font-size: 8.2pt;
+        letter-spacing: -0.28pt;
+        line-height: 1.28;
+        white-space: nowrap;
+        text-align: right;
+        color: #141414;
+      }
+      .pc-col { display: flex; flex-direction: column; gap: 0; align-items: flex-end; }
+      .print-contact a::before { content: "+"; }
+      .print-contact a { color: #141414; }
+    }
+  </style>
+  <script>document.documentElement.classList.add('js-pending');</script>
+</head>
+<body>
+
+  <header class="page-head">
+    <div class="back-link"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a> / cv</div>
+    <a class="head-dl" href="Wichman_CV.pdf" download>Download PDF</a>
+  </header>
+
+  <main>
+    <div class="cv-top">
+      <h1 class="print-name"><span class="pn-an">AN</span>DREA WICHMAN</h1>
+      <div class="print-tag">CYBER SECURITY &middot; GOVERNANCE, RISK &amp; COMPLIANCE</div>
+      <div class="profile-blk">
+        <div class="kicker">PROFILE</div>
+        <p class="lede">From a humanities background and twelve years managing organic farm operations, where regulatory compliance, risk assessment, and business continuity were core responsibilities. Pursuing an MSc in Information and Cyber Security at Royal Holloway.</p>
+      </div>
+    </div>
+
+    <div class="cv-grid">
+      <div class="mainline">
+        <section class="sec-edu">
+          <h2 class="sect-title">EDUCATION</h2>
+          <div class="grp">
+            <div class="grp-row"><div class="grp-title">Royal Holloway, University of London</div><div class="grp-date">2026&ndash;2028</div></div>
+            <div class="grp-detail">MSc Information and Cyber Security</div>
+          </div>
+          <div class="grp">
+            <div class="grp-row"><div class="grp-title">Columbia College Chicago</div><div class="grp-date">2013</div></div>
+            <div class="grp-detail">Bachelor of Arts in Cultural Studies</div>
+          </div>
+        </section>
+        <h2 class="sect-title">EXPERIENCE</h2>
+        <div class="roles">
+
+          <div class="role">
+            <button class="role-head" aria-expanded="false">
+              <span>
+                <span class="role-title">Farm Operations Manager</span>
+                <div class="role-meta">Organic Farm &middot; Central Illinois, USA</div>
+              </span>
+              <span class="role-dates">2013&ndash;2025</span>
+            </button>
+            <div class="role-body">
+              <ul>
+                <li>Managed administrative operations for a 600-acre organic corn and soybean farm</li>
+                <li>Managed the transition from conventional to USDA-certified organic production</li>
+                <li>Maintained compliance with USDA organic certification standards and state/federal agricultural regulations across four consecutive annual certification cycles</li>
+                <li>Oversaw financial planning, contract negotiations, and multi-year operational strategy</li>
+                <li>Assessed and mitigated operational risks including environmental factors, supply chain disruptions, and regulatory changes</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="role">
+            <button class="role-head" aria-expanded="false">
+              <span>
+                <span class="role-title">Assistant Manager</span>
+                <div class="role-meta">Queen &middot; Los Angeles, California, USA</div>
+              </span>
+              <span class="role-dates">2020&ndash;2021</span>
+            </button>
+            <div class="role-body">
+              <ul>
+                <li>Owned wholesale supplier relationships and weekly purchasing across a client portfolio recognized in American Express's national "Shop Small" campaign</li>
+                <li>Negotiated and managed B2B service contracts with accounts including the Peninsula Beverly Hills Hotel and Ron Herman</li>
+                <li>Enforced store policies and standard operating procedures and trained staff to apply them consistently</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="role">
+            <button class="role-head" aria-expanded="false">
+              <span>
+                <span class="role-title">Lead Cultivator</span>
+                <div class="role-meta">Buddha Company &middot; Los Angeles, California, USA</div>
+              </span>
+              <span class="role-dates">2020</span>
+            </button>
+            <div class="role-body">
+              <ul>
+                <li>Led cross-functional team in setup and operational launch of four industrial cultivation facilities</li>
+                <li>Developed standard operating procedures within state regulations covering production, environmental controls, and quality assurance</li>
+                <li>Maintained detailed application records and scheduling logs across cultivation operations</li>
+                <li>Co-developed standard operating procedures for stock plant maintenance and propagation across commercial operations</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+              </div>
+
+      <div class="side">
+                <section class="sec-certs">
+          <h2 class="sect-title">CERTIFICATIONS</h2>
+          <div class="grp">
+            <div class="grp-row"><div class="grp-title">CompTIA Security+</div><div class="grp-date">In progress</div></div>
+          </div>
+          <div class="grp">
+            <div class="grp-row"><div class="grp-title">CompTIA A+</div><div class="grp-date">2026</div></div>
+          </div>
+          <div class="grp">
+            <div class="grp-row"><div class="grp-title">CELTA</div><div class="grp-date">International House Roma &middot; 2016</div></div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="sect-title">PROJECTS</h2>
+          <a class="grp grp-link" href="https://fenn.wichman.io" target="_blank" rel="noopener">
+            <div class="grp-title">Fenn</div>
+            <div class="grp-detail"><span class="nwi">Fictional agritech company</span> &middot; <span class="nwi">Policy suite</span> &middot; <span class="nwi">Access control</span> &middot; <span class="nwi">Risk register</span> &middot; <span class="nwi">Incident response</span> &middot; <span class="nwi">UK GDPR</span> &middot; <span class="nwi">ISO 27001</span> &middot; <span class="nwi">Vendor &amp; subprocessor management</span></div>
+          </a>
+          <a class="grp grp-link" href="https://burrow.wichman.io" target="_blank" rel="noopener">
+            <div class="grp-title">The Burrow</div>
+            <div class="grp-detail"><span class="nwi">Notes and curiosities</span> &middot; <span class="nwi">Surveillance law</span> &middot; <span class="nwi">Cybercrime</span> &middot; <span class="nwi">Data protection</span> &middot; <span class="nwi">Civil liberties</span> &middot; <span class="nwi">Governance failures</span></div>
+          </a>
+        </section>
+
+        <section>
+          <h2 class="sect-title">CASE STUDIES</h2>
+          <a class="grp grp-link" href="https://github.com/drea-wichman/case-studies/blob/main/salesloft-drift-supply-chain-2025.md" target="_blank" rel="noopener">
+            <div class="grp-title">Salesloft Drift Supply Chain 2025</div>
+            <div class="grp-detail"><span class="nwi">NCSC principles</span> &middot; <span class="nwi">Third-party risk</span> &middot; <span class="nwi">Token compromise</span></div>
+          </a>
+          <a class="grp grp-link" href="https://github.com/drea-wichman/case-studies/blob/main/agco-ransomware-2022.md" target="_blank" rel="noopener">
+            <div class="grp-title">AGCO Ransomware 2022</div>
+            <div class="grp-detail"><span class="nwi">NIST CSF</span> &middot; <span class="nwi">Supply chain risk</span> &middot; <span class="nwi">Incident response</span></div>
+          </a>
+          <a class="grp grp-link" href="https://github.com/drea-wichman/case-studies/blob/main/nhs-wannacry-ransomware-2017.md" target="_blank" rel="noopener">
+            <div class="grp-title">NHS WannaCry 2017</div>
+            <div class="grp-detail"><span class="nwi">ISO 27001</span> &middot; <span class="nwi">Gap analysis</span> &middot; <span class="nwi">Remediation roadmap</span></div>
+          </a>
+        </section>
+        <section class="sec-skills">
+        <h2 class="sect-title">TECHNICAL SKILLS</h2>
+        <div class="grp">
+          <div class="grp-title">Governance, Risk, and Compliance</div>
+          <div class="grp-detail">USDA FSA program compliance and enrollment documentation &middot; <span class="nwi">Risk assessment</span> &middot; <span class="nwi">Gap analysis</span> &middot; <span class="nwi">Regulatory research</span> &middot; Framework analysis (ISO 27001, UK GDPR, NIST CSF, NCSC)</div>
+        </div>
+        <div class="grp">
+          <div class="grp-title">Systems and Infrastructure</div>
+          <div class="grp-detail">Home lab (Active Directory, Windows Server 2022, VirtualBox) &middot; <span class="nwi">System hardening</span> &middot; <span class="nwi">Linux and Windows administration</span> &middot; <span class="nwi">Terminal and command line navigation</span> &middot; <span class="nwi">Git version control</span></div>
+        </div>
+        <div class="grp">
+          <div class="grp-title">Network and Security</div>
+          <div class="grp-detail">DNS, TCP/IP, and custom domain management &middot; <span class="nwi">Email authentication (SPF, DKIM, DMARC)</span> &middot; <span class="nwi">VPN and encrypted transit</span></div>
+        </div>
+        <div class="grp">
+          <div class="grp-title">Security Tools and Practices</div>
+          <div class="grp-detail">Encrypted storage and communications (VeraCrypt, Proton) &middot; <span class="nwi">Hardware 2FA (Nitrokey)</span> &middot; <span class="nwi">Password management (Bitwarden)</span> &middot; Identity compartmentalization (SimpleLogin)</div>
+        </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="band">
+    <div class="band-inner">
+      <p class="band-note"><span class="bn1">Seeking a GRC placement in London for 2027</span><span class="bn-sep"> &middot; </span><span class="bn2">Right to work in the UK</span></p>
+      <a class="band-mail" href="mailto:hello@wichman.io">hello@wichman.io</a>
+      <div class="band-links">
+        <a href="https://linkedin.com/in/drea-wichman" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/drea-wichman" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <div class="print-contact">
+        <div class="pc-col">
+          <span>London, UK</span>
+          <a href="mailto:hello@wichman.io">hello@wichman.io</a>
+        </div>
+        <div class="pc-col">
+          <a href="https://wichman.io">wichman.io</a>
+          <a href="https://github.com/drea-wichman">github.com/drea-wichman</a>
+          <a href="https://linkedin.com/in/drea-wichman">linkedin.com/in/drea-wichman</a>
+        </div>
+      </div>
+      <div class="band-foot">&copy; Wichman.io</div>
+    </div>
+  </footer>
+
+  <script>
+    document.documentElement.classList.remove('js-pending');
+
+    var roles = document.querySelectorAll('.role');
+    var rolesWrap = document.querySelector('.roles');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var canHover = window.matchMedia('(hover: hover)').matches;
+
+    function setBody(role, open) {
+      var body = role.querySelector('.role-body');
+      var head = role.querySelector('.role-head');
+      if (open) {
+        role.classList.add('open');
+        head.setAttribute('aria-expanded', 'true');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      } else {
+        role.classList.remove('open');
+        head.setAttribute('aria-expanded', 'false');
+        body.style.maxHeight = '0px';
+      }
+      var anyOpen = document.querySelector('.role.open');
+      rolesWrap.classList.toggle('hover-active', !!anyOpen);
+    }
+
+    roles.forEach(function(role) {
+      var head = role.querySelector('.role-head');
+
+      head.addEventListener('click', function() {
+        var isOpen = role.classList.contains('open');
+        role.classList.toggle('pinned', !isOpen);
+        setBody(role, !isOpen);
+      });
+
+      if (canHover) {
+        role.addEventListener('mouseenter', function() { setBody(role, true); });
+        role.addEventListener('mouseleave', function() {
+          if (!role.classList.contains('pinned')) setBody(role, false);
+        });
+      }
+    });
+
+    if (reduced) {
+      document.querySelectorAll('.role-body').forEach(function(b) { b.style.transition = 'none'; });
+    }
+
+    // Print: profile paragraph joins the left column.
+    (function() {
+      var mainline = document.querySelector('.mainline');
+      var cvTop = document.querySelector('.cv-top');
+      var profileBlk = document.querySelector('.profile-blk');
+      function arrange() { mainline.insertBefore(profileBlk, mainline.firstElementChild); }
+      function restore() { cvTop.appendChild(profileBlk); }
+      window.addEventListener('beforeprint', arrange);
+      window.addEventListener('afterprint', restore);
+      window.__printArrange = arrange;
+    })();
+  </script>
+
+</body>
+</html>
