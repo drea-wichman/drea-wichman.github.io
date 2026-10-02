@@ -115,7 +115,7 @@
   .it {
     font-size: 14px;
     letter-spacing: -0.1px;
-    padding: 2px 0;
+    padding: 1.5px 0;
     transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.22,1,0.36,1);
   }
   .col-l .it { margin-left: auto; width: fit-content; }
@@ -133,7 +133,10 @@
   .col-r .it.lit { transform: translateX(8px); }
   .col-l .it.lit { transform: translateX(-8px); }
   .faded .grp-k { opacity: 0.3; }
+  .faded .grp-k.hk-lit { opacity: 1; }
 
+  .grid2 { display: grid; grid-template-columns: max-content max-content; column-gap: 24px; align-items: start; }
+  .col-r .grid2 .it.lit { transform: none; }
   svg.threads {
     position: absolute;
     inset: 0;
@@ -155,6 +158,7 @@
     .fns { grid-column: 1; text-align: left; }
     svg.threads { display: none; }
     .page-head { left: 20px; right: 20px; }
+    .grid2 { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -174,11 +178,12 @@
       <div class="it" data-fns="build">CELTA<span class="meta">International House Roma</span></div>
     </div>
     <div class="grp">
-      <div class="grp-k">Communications</div>
+      <div class="grp-k">Business &amp; language</div>
       <div class="it" data-fns="prove">Policy &amp; technical writing<span class="meta">Fenn policy suite</span></div>
-      <div class="it" data-fns="build">SOP development</div>
       <div class="it" data-fns="build">Training design &amp; delivery<span class="meta">CELTA</span></div>
+      <div class="it" data-fns="build">SOP development</div>
       <div class="it" data-fns="assess">Contract negotiation</div>
+      <div class="it" data-fns="build">Entrepreneurship<span class="meta">Small business</span></div>
     </div>
     <div class="grp">
       <div class="grp-k">Systems &amp; Infrastructure</div>
@@ -186,17 +191,18 @@
       <div class="it" data-fns="build defend">System hardening</div>
       <div class="it" data-fns="build">Linux &amp; Windows administration</div>
       <div class="it" data-fns="build">Terminal &amp; command line navigation</div>
-      <div class="it" data-fns="build">Git version control</div>
-      <div class="it" data-fns="build">VS Code, Astro</div>
+      <div class="it" data-fns="build">Git version control<span class="meta">GitHub &middot; VS Code</span></div>
     </div>
     <div class="grp">
-      <div class="grp-k">Network</div>
-      <div class="it" data-fns="defend">DNS, TCP/IP &amp; email authentication<span class="meta">SPF &middot; DKIM &middot; DMARC</span></div>
-      <div class="it" data-fns="defend">VPN &amp; encrypted transit</div>
+      <div class="grp-k">Network &amp; web security</div>
+      <div class="it" data-fns="defend analyze">Network segmentation &amp; DNS monitoring<span class="meta">IoT isolation &middot; Pi-hole</span></div>
+      <div class="it" data-fns="defend">Email authentication<span class="meta">SPF &middot; DKIM &middot; DMARC</span></div>
+      <div class="it" data-fns="defend">Security headers &amp; CSP<span class="meta">HSTS &middot; Cloudflare</span></div>
     </div>
     <div class="grp">
       <div class="grp-k">Operational Security</div>
       <div class="it" data-fns="defend">Encrypted comms &amp; storage<span class="meta">VeraCrypt &middot; Proton</span></div>
+      <div class="it" data-fns="defend">VPN &amp; encrypted transit<span class="meta">Proton VPN</span></div>
       <div class="it" data-fns="defend">Hardware 2FA<span class="meta">Nitrokey</span></div>
       <div class="it" data-fns="defend">Password management<span class="meta">Bitwarden</span></div>
       <div class="it" data-fns="defend">Identity compartmentalization<span class="meta">SimpleLogin</span></div>
@@ -217,10 +223,12 @@
       <div class="it" data-fns="assess">FSA program compliance &amp; enrollment documentation</div>
       <div class="it" data-fns="prove">Audit preparation &amp; evidence management<span class="meta">Farm &middot; USDA Organic</span></div>
       <div class="it" data-fns="build">Change management<span class="meta">Farm &middot; USDA Organic transition</span></div>
+      <div class="it" data-fns="build">Business continuity planning</div>
       <div class="it" data-fns="assess">Risk assessment</div>
+      <div class="it" data-fns="assess">Third-party risk management</div>
       <div class="it" data-fns="assess">Gap analysis</div>
       <div class="it" data-fns="assess">Framework analysis<span class="meta">ISO &middot; NIST &middot; UK GDPR &middot; NCSC</span></div>
-      <div class="it" data-fns="assess analyze">Regulatory research</div>
+      <div class="it" data-fns="assess analyze">Legal &amp; regulatory research</div>
     </div>
     <div class="grp">
       <div class="grp-k">Case studies</div>
@@ -230,29 +238,33 @@
     </div>
     <div class="grp">
       <div class="grp-k">Fenn Agritech &middot; trust center</div>
-      <div class="it" data-fns="assess prove">Information Security Policy</div>
-      <div class="it" data-fns="defend prove">Access Control Policy</div>
-      <div class="it" data-fns="defend prove">Incident Response Plan</div>
-      <div class="it" data-fns="assess prove">Business Continuity Plan</div>
-      <div class="it" data-fns="assess prove">Data Retention Policy</div>
-      <div class="it" data-fns="assess prove">Vendor Risk Management Policy</div>
-      <div class="it" data-fns="assess prove">Sub-processor List</div>
-      <div class="it" data-fns="assess prove">Data Processing Agreement</div>
-      <div class="it" data-fns="assess prove">Risk Assessment &amp; Treatment Methodology</div>
-      <div class="it" data-fns="assess prove">Risk Register</div>
-      <div class="it" data-fns="assess prove">Scope and Context</div>
-      <div class="it" data-fns="assess prove">Data Protection Complaints Procedure</div>
+      <div class="grid2">
+        <div class="it" data-fns="assess prove">Risk Assessment &amp; Treatment Methodology</div>
+        <div class="it" data-fns="defend prove">Incident Response Plan</div>
+        <div class="it" data-fns="assess prove">Data Protection Complaints Procedure</div>
+        <div class="it" data-fns="defend prove">Access Control Policy</div>
+        <div class="it" data-fns="assess prove">Vendor Risk Management Policy</div>
+        <div class="it" data-fns="assess prove">Data Retention Policy</div>
+        <div class="it" data-fns="assess prove">Data Processing Agreement</div>
+        <div class="it" data-fns="assess prove">Scope and Context</div>
+        <div class="it" data-fns="assess prove">Information Security Policy</div>
+        <div class="it" data-fns="assess prove">Sub-processor List</div>
+        <div class="it" data-fns="assess prove">Business Continuity Plan</div>
+        <div class="it" data-fns="assess prove">Risk Register</div>
+      </div>
     </div>
     <div class="grp">
       <div class="grp-k">The Burrow &middot; law &amp; policy research</div>
-      <div class="it" data-fns="analyze assess">CFAA &amp; Computer Misuse Act 1990</div>
-      <div class="it" data-fns="analyze">Wiretap Act</div>
-      <div class="it" data-fns="analyze">FISA Section 702</div>
-      <div class="it" data-fns="analyze">Executive Order 12333</div>
-      <div class="it" data-fns="analyze">Five Eyes</div>
-      <div class="it" data-fns="analyze assess">MLATs</div>
-      <div class="it" data-fns="analyze assess">Schrems II &amp; GDPR</div>
-      <div class="it" data-fns="analyze">Swiss surveillance law &middot; VUPF</div>
+      <div class="grid2">
+        <div class="it" data-fns="analyze assess">CFAA &amp; Computer Misuse Act 1990</div>
+        <div class="it" data-fns="analyze">Five Eyes</div>
+        <div class="it" data-fns="analyze">Wiretap Act</div>
+        <div class="it" data-fns="analyze assess">MLATs</div>
+        <div class="it" data-fns="analyze">FISA Section 702</div>
+        <div class="it" data-fns="analyze assess">Schrems II &amp; GDPR</div>
+        <div class="it" data-fns="analyze">Executive Order 12333</div>
+        <div class="it" data-fns="analyze">Swiss surveillance law &middot; VUPF</div>
+      </div>
     </div>
   </div>
 
@@ -271,6 +283,7 @@
     svg.innerHTML = '';
     document.querySelectorAll('.cols').forEach(function(c) { c.classList.remove('faded'); });
     document.querySelectorAll('.it').forEach(function(i) { i.classList.remove('lit'); });
+    document.querySelectorAll('.hk-lit').forEach(function(h) { h.classList.remove('hk-lit'); });
     fns.forEach(function(f) { f.classList.remove('on'); });
   }
 
@@ -286,9 +299,21 @@
 
     var ys = [y1];
     var targets = [];
+    var headsDone = [];
     col.querySelectorAll('.it').forEach(function(it) {
       if (!(' ' + it.dataset.fns + ' ').includes(' ' + key + ' ')) return;
       it.classList.add('lit');
+      var g2 = it.closest('.grid2');
+      if (g2) {
+        var hk = g2.parentNode.querySelector('.grp-k');
+        if (headsDone.indexOf(hk) > -1) return;
+        headsDone.push(hk);
+        hk.classList.add('hk-lit');
+        var hr = hk.getBoundingClientRect();
+        targets.push({ x: hr.left - wr.left - 5, y: hr.top - wr.top + hr.height / 2 });
+        ys.push(hr.top - wr.top + hr.height / 2);
+        return;
+      }
       var ir = it.getBoundingClientRect();
       var tx = (side === 'r') ? ir.left - wr.left - 5 : ir.right - wr.left + 5;
       targets.push({ x: tx, y: ir.top - wr.top + ir.height / 2 });
