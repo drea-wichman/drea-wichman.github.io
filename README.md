@@ -1,1 +1,1 @@
-Personal portfolio site for wichman.io, built with HTML and CSS. Hosted on GitHub Pages.
+Personal portfolio site for wichman.io, built with HTML, CSS, and JavaScript. Hosted on GitHub Pages.
