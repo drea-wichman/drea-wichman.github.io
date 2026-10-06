@@ -85,8 +85,8 @@
     #tabs { display: flex; gap: 34px; border-bottom: 0.5px solid var(--text); margin: 16px var(--pw) 0 var(--lm); }
     .tab { position: relative; font-size: 16px; padding: 8px 0; color: var(--dim); border-bottom: 2px solid transparent; margin-bottom: -0.5px; cursor: pointer; transition: color .3s, border-color .3s; }
     .tab[aria-selected="true"] { color: var(--text); border-color: var(--text); }
-    .tab::before { content: "+"; position: absolute; left: -12px; top: 50%; line-height: 1; opacity: 0; transform: translate(4px, calc(-50% + 1px)); transition: opacity .3s, transform .3s; color: var(--text); }
-    .tab:hover::before { opacity: 1; transform: translate(0, calc(-50% + 1px)); }
+    .tab .tab-t { position: relative; }
+    .tab:hover .bc-plus { opacity: 1; transform: translate(0, -50%); }
 
     #pg { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) var(--pw); }
     #lf { position: relative; min-height: 0; padding: calc(14px + var(--shift, 0px)) 40px 52px var(--lm); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto minmax(0, 1fr) auto; column-gap: 24px; row-gap: 38px; align-items: stretch; grid-template-areas: "ti ti ti" "se rs rs" "st st st"; }
@@ -129,6 +129,8 @@
     .vt { font-size: 16px; line-height: 1.4; margin-top: 10px; }
     .gh { position: relative; display: inline-block; margin-top: 18px; font-size: 13px; text-decoration: none; color: #1f1e1b; }
     .gh::before { content: "+"; }
+    #info .vt, #info .k { transition: opacity .45s ease; }
+    #info:has(.gh:hover) .vt, #info:has(.gh:hover) .k, #info:has(.gh:focus-visible) .vt, #info:has(.gh:focus-visible) .k { opacity: .35; }
     .spacer { flex: 1 1 0; }
     #circ { flex: none; margin: 0 auto; width: 224px; height: 100px; border-radius: 50%; border: 0.5px solid var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10px 16px calc(10px + var(--bn) * var(--lift)); }
     #circ .big { color: var(--text); }
@@ -320,7 +322,7 @@
     ORDER.forEach(function (k) {
       var b = document.createElement("button");
       b.className = "tab"; b.type = "button"; b.dataset.k = k; b.setAttribute("role", "tab");
-      b.textContent = C[k].nm;
+      b.innerHTML = '<span class="tab-t"><span class="bc-plus" aria-hidden="true"></span>' + C[k].nm + '</span>';
       b.addEventListener("click", function () { show(k, true); });
       $("tabs").appendChild(b);
     });
