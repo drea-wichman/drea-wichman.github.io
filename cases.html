@@ -92,7 +92,7 @@
     #lf { position: relative; min-height: 0; padding: calc(14px + var(--shift, 0px)) 40px 52px var(--lm); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto minmax(0, 1fr) auto; column-gap: 24px; row-gap: 38px; align-items: stretch; grid-template-areas: "ti ti ti" "se rs rs" "st st st"; }
     .cell { min-height: 0; opacity: 0; transform: translateY(4px); transition: opacity .4s, transform .4s; }
     .cell.in { opacity: 1; transform: none; }
-    .k { font-size: 11px; letter-spacing: .04em; color: var(--dim); }
+    .k { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); }
     #rp .k { color: #1f1e1b; }
 
     #ttl { font-family: "Advercase", Georgia, serif; font-weight: 400; font-size: clamp(44px, 7vh, 68px); line-height: .95; margin-top: 2px; }
@@ -106,7 +106,7 @@
     #se .first { margin-top: 12px; }
 
     #rs { align-self: start; margin-left: 18px; display: flex; flex-direction: column; }
-    .rhead { display: grid; grid-template-columns: 150px 1fr 1fr; font-size: 11px; letter-spacing: .04em; color: var(--dim); margin-bottom: 14px; }
+    .rhead { display: grid; grid-template-columns: 150px 1fr 1fr; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); margin-bottom: 14px; }
     .rhead span:last-child { text-align: right; }
     #rows { display: flex; flex-direction: column; position: relative; }
     #rows::before { content: ""; position: absolute; top: 0; bottom: 0; left: calc(150px + (100% - 150px) / 2); border-left: 0.5px solid var(--text); }
