@@ -43,6 +43,8 @@
       --mute: #9A968F;
       --lm: max(32px, calc((100vw - 1240px) / 2 + 32px));
       --pw: 372px;
+      --bn: clamp(36px, 4.6vh, 50px);
+      --lift: 0.055;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -118,8 +120,8 @@
     .rw.dim .lbl { color: var(--dim); }
 
     #st { grid-area: st; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr) minmax(0, 1fr); gap: 20px; }
-    .box { background: var(--fill); border-radius: 50%; height: 78px; padding: 8px 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-    .big { font-weight: 700; letter-spacing: -0.02em; line-height: 1; color: var(--light); font-size: clamp(36px, 4.6vh, 50px); }
+    .box { background: var(--fill); border-radius: 50%; height: 78px; padding: 8px 28px calc(8px + var(--bn) * var(--lift)); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+    .big { font-weight: 700; letter-spacing: -0.02em; line-height: 1; color: var(--light); font-size: var(--bn); }
     .box .sub { color: var(--mute); font-size: 12px; line-height: 1.4; margin-top: -3px; }
 
     #rp { position: relative; background: var(--panel); padding: 22px 44px; display: flex; flex-direction: column; min-height: 0; }
@@ -129,7 +131,7 @@
     .gh::before { content: "+"; position: absolute; left: -11px; top: 0; opacity: 0; transform: translateX(4px); transition: opacity .3s, transform .3s; text-decoration: none; }
     .gh:hover::before { opacity: 1; transform: none; }
     .spacer { flex: 1 1 0; }
-    #circ { flex: none; margin: 0 auto; width: 224px; height: 100px; border-radius: 50%; border: 0.5px solid var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10px 16px; }
+    #circ { flex: none; margin: 0 auto; width: 224px; height: 100px; border-radius: 50%; border: 0.5px solid var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10px 16px calc(10px + var(--bn) * var(--lift)); }
     #circ .big { color: var(--text); }
     #circ .sub { font-size: 11px; color: var(--dim); margin-top: -3px; line-height: 1.25; }
 
