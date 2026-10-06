@@ -127,10 +127,13 @@
     #rp { position: relative; background: var(--panel); padding: 22px 44px; display: flex; flex-direction: column; min-height: 0; }
     #info { flex: none; transition: opacity .2s; }
     .vt { font-size: 16px; line-height: 1.4; margin-top: 10px; }
-    .gh { position: relative; display: inline-block; margin-top: 18px; font-size: 13px; text-decoration: none; color: #1f1e1b; }
+    .gh { text-decoration: none; }
     .gh::before { content: "+"; }
-    #info .vt, #info .k { transition: opacity .45s ease; }
-    #info:has(.gh:hover) .vt, #info:has(.gh:hover) .k, #info:has(.gh:focus-visible) .vt, #info:has(.gh:focus-visible) .k { opacity: .35; }
+    #info .vt { transition: color .45s ease; }
+    #info .k, #info .ft { transition: opacity .45s ease; }
+    #info .vt .gh { color: var(--text); }
+    #info:has(.gh:hover) .vt, #info:has(.gh:focus-visible) .vt { color: rgba(20, 20, 20, .35); }
+    #info:has(.gh:hover) .k, #info:has(.gh:hover) .ft, #info:has(.gh:focus-visible) .k, #info:has(.gh:focus-visible) .ft { opacity: .35; }
     .spacer { flex: 1 1 0; }
     #circ { flex: none; margin: 0 auto; width: 224px; height: 100px; border-radius: 50%; border: 0.5px solid var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10px 16px calc(10px + var(--bn) * var(--lift)); }
     #circ .big { color: var(--text); }
@@ -159,7 +162,6 @@
     @media (max-height: 820px) and (min-width: 1001px) {
       #rp { padding-top: 16px; padding-bottom: 8px; }
       .vt { font-size: 15px; line-height: 1.35; margin-top: 8px; }
-      .gh { margin-top: 12px; }
       #circ { width: 208px; height: 80px; }
       #tl { padding-top: 6px; margin-bottom: 10px; }
       .tlist li { height: 44px; }
@@ -225,19 +227,19 @@
     function later(f, ms) { tm.push(setTimeout(f, ms)); }
 
     function infoHTML(c) {
-      return '<div class="k">Verdict</div><div class="vt">' + c.v + '</div><div><a class="gh" href="' + c.link + '" target="_blank" rel="noopener">Read the full write-up on GitHub.</a></div>';
+      return '<div class="k">Verdict</div><div class="vt">' + c.v + '<br>' + linkHTML(c) + '</div>';
     }
     function showInfo(c) { IN.innerHTML = infoHTML(c); }
-    function linkHTML(c) { return '<div><a class="gh" href="' + c.link + '" target="_blank" rel="noopener">Read the full write-up on GitHub</a></div>'; }
+    function linkHTML(c) { return '<a class="gh" href="' + c.link + '" target="_blank" rel="noopener">Read the full write-up on GitHub.</a>'; }
     function showFinding(r, c) {
-      IN.innerHTML = '<div class="k">' + r[1] + ' \u00b7 ' + L[r[3]] + '</div><div style="font-size:22px;font-weight:700;margin-top:10px;line-height:1.15">' + r[0] + '</div><div class="vt">' + r[2] + '</div>' + linkHTML(c);
+      IN.innerHTML = '<div class="k">' + r[1] + ' \u00b7 ' + L[r[3]] + '</div><div class="ft" style="font-size:22px;font-weight:700;margin-top:10px;line-height:1.15">' + r[0] + '</div><div class="vt">' + r[2] + '<br>' + linkHTML(c) + '</div>';
     }
     function reserve() {
       var rp = $("rp"), m = document.createElement("div");
       m.style.cssText = "position:absolute;visibility:hidden;left:0;top:0;width:" + IN.offsetWidth + "px";
       m.innerHTML = infoHTML(C.sl);
       rp.appendChild(m);
-      IN.style.minHeight = m.offsetHeight + "px";
+      IN.style.minHeight = Math.ceil(m.getBoundingClientRect().height) + "px";
       rp.removeChild(m);
     }
 
@@ -316,7 +318,7 @@
       draw(C[k]);
       IN.style.opacity = 0;
       later(function () { IN.style.opacity = 1; }, 180);
-      if (fromClick && history.replaceState) history.replaceState(null, "", "#" + k);
+      if (fromClick && history.replaceState) { try { history.replaceState(null, "", "#" + k); } catch (e) {} }
     }
 
     ORDER.forEach(function (k) {
