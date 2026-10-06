@@ -89,7 +89,7 @@
     .tab:hover::before { opacity: 1; transform: translate(0, calc(-50% + 1px)); }
 
     #pg { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) var(--pw); }
-    #lf { min-height: 0; padding: 14px 40px 52px var(--lm); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto minmax(0, 1fr) auto; column-gap: 24px; row-gap: 38px; align-items: stretch; grid-template-areas: "ti ti ti" "se rs rs" "st st st"; }
+    #lf { position: relative; min-height: 0; padding: calc(14px + var(--shift, 0px)) 40px 52px var(--lm); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto minmax(0, 1fr) auto; column-gap: 24px; row-gap: 38px; align-items: stretch; grid-template-areas: "ti ti ti" "se rs rs" "st st st"; }
     .cell { min-height: 0; opacity: 0; transform: translateY(4px); transition: opacity .4s, transform .4s; }
     .cell.in { opacity: 1; transform: none; }
     .k { font-size: 11px; letter-spacing: .04em; color: var(--dim); }
@@ -289,6 +289,12 @@
       }).join("") + '</ol>';
     }
 
+    function shift() {
+      var lf = $("lf"), se = $("se"), st = $("st");
+      lf.style.setProperty("--shift", "0px");
+      var gap = st.offsetTop - (se.offsetTop + se.offsetHeight);
+      lf.style.setProperty("--shift", Math.max(0, Math.round(gap / 2)) + "px");
+    }
     function draw(c) {
       clearT(); reserve(); showInfo(c); header(c); side(c); results(c); stats(c); timeline(c);
       $("circ").innerHTML = '<div class="big">' + c.inv[0] + '</div><div class="sub">' + c.inv[1] + '</div>';
@@ -297,6 +303,7 @@
         e.classList.remove("in");
         later(function () { e.classList.add("in"); }, 30 + i * 50);
       });
+      shift();
     }
 
     function show(k, fromClick) {
@@ -323,7 +330,8 @@
       if (document.querySelector(".rw:focus")) return;
       showInfo(C[cur]);
     });
-    window.addEventListener("resize", reserve);
+    window.addEventListener("resize", function () { reserve(); shift(); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(shift);
 
     var h = (location.hash || "").replace("#", "");
     show(C[h] ? h : ORDER[0]);
