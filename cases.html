@@ -41,7 +41,7 @@
       --panel: #8C8883;
       --light: #D6D2CB;
       --mute: #9A968F;
-      --lm: max(32px, calc((100vw - 1240px) / 2 + 32px));
+      --lm: max(124px, calc((100vw - 1240px) / 2 + 32px));
       --pw: 372px;
       --bn: clamp(36px, 4.6vh, 50px);
       --lift: 0.055;
@@ -65,7 +65,7 @@
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      padding: 48px 48px 0;
+      padding: 48px 64px 0; position: relative; z-index: 30;
       font-size: 15px;
       letter-spacing: -0.2px;
     }
@@ -106,11 +106,11 @@
     #se .first { margin-top: 12px; }
 
     #rs { align-self: start; margin-left: 18px; display: flex; flex-direction: column; }
-    .rhead { display: grid; grid-template-columns: 150px 1fr 1fr; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); margin-bottom: 14px; }
+    .rhead { display: grid; grid-template-columns: 150px minmax(0, 150px) minmax(0, 150px); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); margin-bottom: 14px; }
     .rhead span:last-child { text-align: right; }
     #rows { display: flex; flex-direction: column; position: relative; }
-    #rows::before { content: ""; position: absolute; top: 0; bottom: 0; left: calc(150px + (100% - 150px) / 2); border-left: 0.5px solid var(--text); }
-    .rw { display: grid; grid-template-columns: 150px minmax(0, 1fr); align-items: center; font-size: 13px; cursor: default; transition: opacity .25s; }
+    #rows::before { content: ""; position: absolute; top: 0; bottom: 0; left: calc(150px + min(300px, 100% - 150px) / 2); border-left: 0.5px solid var(--text); }
+    .rw { display: grid; grid-template-columns: 150px minmax(0, 300px); align-items: center; font-size: 13px; cursor: default; transition: opacity .25s; }
     #rows:hover .rw:not(:hover), #rows:focus-within .rw:not(:focus) { opacity: .38; }
     .tr { position: relative; height: 9px; }
     .bar { position: absolute; top: 0; height: 9px; width: 0; transition: width .5s cubic-bezier(.22, 1, .36, 1); }
@@ -187,12 +187,23 @@
       #info { min-height: 0 !important; }
       .spacer { flex: none; height: 24px; }
     }
+  
+    /* Page menu: hover "index" to switch pages */
+    .ixw { position: relative; display: inline-block; }
+    .pm { position: absolute; right: 0; top: calc(100% + 10px); display: flex; flex-direction: column; align-items: flex-end; gap: 7px; white-space: nowrap; opacity: 0; transform: translateY(-4px); transition: opacity .3s ease, transform .3s ease; pointer-events: none; }
+    .pm::before { content: ""; position: absolute; left: -16px; right: -8px; top: -12px; height: 12px; }
+    .ixw.open .pm, .ixw:focus-within .pm { opacity: 1; transform: none; pointer-events: auto; }
+    .pm a { color: var(--dim); text-decoration: none; position: relative; transition: color .3s ease; }
+    .pm a:hover { color: var(--text); }
+    .pm a:hover .bc-plus { opacity: 1; transform: translate(0, -50%); }
+    .pm .cur { color: var(--text); }
+    @media (hover: none), (max-width: 900px) { .pm { display: none; } }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header class="page-head">
-      <div class="back-link"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a> / case studies</div>
+      <div class="back-link"><span class="ixw"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a><span class="pm"><a href="profile.html"><span class="bc-plus" aria-hidden="true"></span>profile</a><span class="cur">case studies</span><a href="projects.html"><span class="bc-plus" aria-hidden="true"></span>projects</a><a href="skills.html"><span class="bc-plus" aria-hidden="true"></span>skills</a><a href="cv.html"><span class="bc-plus" aria-hidden="true"></span>cv</a><a href="offline.html"><span class="bc-plus" aria-hidden="true"></span>offline</a></span></span> / case studies</div>
     </header>
     <div id="tabs" role="tablist" aria-label="Select a case"></div>
     <div id="pg">
@@ -339,5 +350,13 @@
     var h = (location.hash || "").replace("#", "");
     show(C[h] ? h : ORDER[0]);
   </script>
+
+<script>
+  (function () {
+    var w = document.querySelector('.ixw'); if (!w) return; var t;
+    w.addEventListener('mouseenter', function () { clearTimeout(t); t = setTimeout(function () { w.classList.add('open'); }, 150); });
+    w.addEventListener('mouseleave', function () { clearTimeout(t); t = setTimeout(function () { w.classList.remove('open'); }, 120); });
+  })();
+</script>
 </body>
 </html>

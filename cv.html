@@ -72,7 +72,7 @@
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      padding: 48px 48px 0;
+      padding: 48px 64px 0; position: relative; z-index: 30;
       font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 15px;
       letter-spacing: -0.2px;
@@ -486,13 +486,24 @@
       .print-contact a::before { content: "+"; }
       .print-contact a { color: #141414; }
     }
+  
+    /* Page menu: hover "index" to switch pages */
+    .ixw { position: relative; display: inline-block; }
+    .pm { position: absolute; right: 0; top: calc(100% + 10px); display: flex; flex-direction: column; align-items: flex-end; gap: 7px; white-space: nowrap; opacity: 0; transform: translateY(-4px); transition: opacity .3s ease, transform .3s ease; pointer-events: none; }
+    .pm::before { content: ""; position: absolute; left: -16px; right: -8px; top: -12px; height: 12px; }
+    .ixw.open .pm, .ixw:focus-within .pm { opacity: 1; transform: none; pointer-events: auto; }
+    .pm a { color: var(--dim); text-decoration: none; position: relative; transition: color .3s ease; }
+    .pm a:hover { color: var(--text); }
+    .pm a:hover .bc-plus { opacity: 1; transform: translate(0, -50%); }
+    .pm .cur { color: var(--text); }
+    @media (hover: none), (max-width: 900px) { .pm { display: none; } }
   </style>
   <script>document.documentElement.classList.add('js-pending');</script>
 </head>
 <body>
 
   <header class="page-head">
-    <div class="back-link"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a> / cv</div>
+    <div class="back-link"><span class="ixw"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a><span class="pm"><a href="profile.html"><span class="bc-plus" aria-hidden="true"></span>profile</a><a href="cases.html"><span class="bc-plus" aria-hidden="true"></span>case studies</a><a href="projects.html"><span class="bc-plus" aria-hidden="true"></span>projects</a><a href="skills.html"><span class="bc-plus" aria-hidden="true"></span>skills</a><span class="cur">cv</span><a href="offline.html"><span class="bc-plus" aria-hidden="true"></span>offline</a></span></span> / cv</div>
     <a class="head-dl" href="Drea_Wichman_CV.pdf" download>Download PDF</a>
   </header>
 
@@ -724,5 +735,13 @@
     })();
   </script>
 
+
+<script>
+  (function () {
+    var w = document.querySelector('.ixw'); if (!w) return; var t;
+    w.addEventListener('mouseenter', function () { clearTimeout(t); t = setTimeout(function () { w.classList.add('open'); }, 150); });
+    w.addEventListener('mouseleave', function () { clearTimeout(t); t = setTimeout(function () { w.classList.remove('open'); }, 120); });
+  })();
+</script>
 </body>
 </html>

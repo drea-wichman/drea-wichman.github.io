@@ -50,12 +50,12 @@
   .page-head {
     position: fixed;
     top: 48px;
-    left: 48px;
-    right: 48px;
+    left: 64px;
+    right: 64px;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    z-index: 5;
+    z-index: 30;
   }
   .page-head { font-size: 15px; letter-spacing: -0.2px; color: var(--text); }
   .page-head a { color: var(--dim); text-decoration: none; position: relative; transition: color 0.3s ease; }
@@ -150,6 +150,7 @@
     stroke-width: 0.75;
   }
 
+  @media (min-width: 901px) and (max-width: 1439px) { .wrap { padding-left: 92px; } }
   @media (max-width: 900px) {
     body { overflow: auto; }
     .wrap { height: auto; grid-template-columns: 1fr; padding: 110px 20px 48px; gap: 40px 0; }
@@ -160,12 +161,23 @@
     .page-head { left: 20px; right: 20px; }
     .grid2 { grid-template-columns: 1fr; }
   }
-</style>
+
+    /* Page menu: hover "index" to switch pages */
+    .ixw { position: relative; display: inline-block; }
+    .pm { position: absolute; right: 0; top: calc(100% + 10px); display: flex; flex-direction: column; align-items: flex-end; gap: 7px; white-space: nowrap; opacity: 0; transform: translateY(-4px); transition: opacity .3s ease, transform .3s ease; pointer-events: none; }
+    .pm::before { content: ""; position: absolute; left: -16px; right: -8px; top: -12px; height: 12px; }
+    .ixw.open .pm, .ixw:focus-within .pm { opacity: 1; transform: none; pointer-events: auto; }
+    .pm a { color: var(--dim); text-decoration: none; position: relative; transition: color .3s ease; }
+    .pm a:hover { color: var(--text); }
+    .pm a:hover .bc-plus { opacity: 1; transform: translate(0, -50%); }
+    .pm .cur { color: var(--text); }
+    @media (hover: none), (max-width: 900px) { .pm { display: none; } }
+  </style>
 </head>
 <body>
 <div class="wrap" id="wrap">
   <header class="page-head">
-    <div><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a> / skills</div>
+    <div><span class="ixw"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a><span class="pm"><a href="profile.html"><span class="bc-plus" aria-hidden="true"></span>profile</a><a href="cases.html"><span class="bc-plus" aria-hidden="true"></span>case studies</a><a href="projects.html"><span class="bc-plus" aria-hidden="true"></span>projects</a><span class="cur">skills</span><a href="cv.html"><span class="bc-plus" aria-hidden="true"></span>cv</a><a href="offline.html"><span class="bc-plus" aria-hidden="true"></span>offline</a></span></span> / skills</div>
   </header>
 
   <div class="col-l cols" id="col-l">
@@ -388,6 +400,32 @@
     f.addEventListener('mouseenter', function() { draw(f, f.dataset.fn); });
   });
   document.getElementById('fns').addEventListener('mouseleave', clear);
+</script>
+
+<script>
+  (function () {
+    var w = document.querySelector('.ixw'); if (!w) return; var t;
+    w.addEventListener('mouseenter', function () { clearTimeout(t); t = setTimeout(function () { w.classList.add('open'); }, 150); });
+    w.addEventListener('mouseleave', function () { clearTimeout(t); t = setTimeout(function () { w.classList.remove('open'); }, 120); });
+  })();
+</script>
+
+<script>
+  (function () {
+    var wrap = document.getElementById('wrap');
+    var parts = ['col-l', 'col-r', 'fns'].map(function (id) { return document.getElementById(id); });
+    function lower() {
+      wrap.style.paddingTop = '';
+      if (window.innerWidth <= 900) return;
+      var top = Infinity, bottom = -Infinity;
+      parts.forEach(function (p) { var r = p.getBoundingClientRect(); top = Math.min(top, r.top); bottom = Math.max(bottom, r.bottom); });
+      var free = window.innerHeight - (bottom - top);
+      wrap.style.paddingTop = Math.max(0, Math.round(free / 2)) + 'px';
+    }
+    lower();
+    window.addEventListener('resize', lower);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(lower);
+  })();
 </script>
 </body>
 </html>
