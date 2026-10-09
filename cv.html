@@ -131,6 +131,13 @@
       margin-bottom: 72px;
     }
 
+    /* Profile panel: the case studies verdict panel color, across the full content width */
+    /* --cl: distance from the page's left edge to the content's left edge; the panel bleeds across it */
+    main { --cl: max(48px, calc((100vw - 1060px) / 2 + 48px)); }
+    .profile-blk { background: #8C8883; padding: 32px 36px 34px calc(var(--cl) + 36px); margin: 0 0 72px calc(-1 * var(--cl)); }
+    .profile-blk .kicker { color: #1F1E1B; }
+    .profile-blk .lede { margin-bottom: 0; }
+
     .cv-grid {
       display: grid;
       grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
@@ -214,8 +221,8 @@
     }
 
     .side .grp { padding: 10px 0; }
-    .mainline .sec-edu { margin-bottom: 44px; }
-    .mainline .sec-edu .grp { padding: 10px 0; }
+    .mainline .sec-edu, .mainline .sec-certs { margin-bottom: 44px; }
+    .mainline .sec-edu .grp, .mainline .sec-certs .grp { padding: 10px 0; }
     .side .sec-skills .sect-title { margin-top: 0; }
     .side section { margin-bottom: 44px; }
     .grp-title {
@@ -301,7 +308,7 @@
 
     @media (max-width: 760px) {
       .page-head { padding: 28px 20px 0; }
-      main { padding: 44px 20px 30px; }
+      main { padding: 44px 20px 30px; --cl: 20px; }
       .cv-grid { grid-template-columns: 1fr; gap: 44px; }
       .lede { margin-bottom: 48px; }
       .band-inner { padding: 38px 20px 32px; }
@@ -342,7 +349,8 @@
 
       /* Top row: name left, profile right */
       .cv-top { margin-bottom: 33pt; }
-      .profile-blk { margin-bottom: 20pt; }
+      .profile-blk { margin: 0 0 20pt; background: none; padding: 0; }
+      .profile-blk .kicker { color: var(--dim); }
       .print-name {
         display: block;
         font-family: "Switzer Thin", "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -536,6 +544,18 @@
             <div class="grp-detail">Bachelor of Arts in Cultural Studies</div>
           </div>
         </section>
+        <section class="sec-certs">
+          <h2 class="sect-title">CERTIFICATIONS</h2>
+          <div class="grp">
+            <div class="grp-row"><div class="grp-title">CompTIA Security+</div><div class="grp-date">2026</div></div>
+          </div>
+          <div class="grp">
+            <div class="grp-row"><div class="grp-title">CompTIA A+</div><div class="grp-date">2026</div></div>
+          </div>
+          <div class="grp">
+            <div class="grp-row"><div class="grp-title">CELTA</div><div class="grp-date">International House Roma &middot; 2016</div></div>
+          </div>
+        </section>
         <h2 class="sect-title">EXPERIENCE</h2>
         <div class="roles">
 
@@ -597,18 +617,6 @@
               </div>
 
       <div class="side">
-                <section class="sec-certs">
-          <h2 class="sect-title">CERTIFICATIONS</h2>
-          <div class="grp">
-            <div class="grp-row"><div class="grp-title">CompTIA Security+</div><div class="grp-date">2026</div></div>
-          </div>
-          <div class="grp">
-            <div class="grp-row"><div class="grp-title">CompTIA A+</div><div class="grp-date">2026</div></div>
-          </div>
-          <div class="grp">
-            <div class="grp-row"><div class="grp-title">CELTA</div><div class="grp-date">International House Roma &middot; 2016</div></div>
-          </div>
-        </section>
 
         <section>
           <h2 class="sect-title">PROJECTS</h2>
@@ -703,38 +711,47 @@
         head.setAttribute('aria-expanded', 'false');
         body.style.maxHeight = '0px';
       }
-      var anyOpen = document.querySelector('.role.open');
-      rolesWrap.classList.toggle('hover-active', !!anyOpen);
     }
+
+    // Exactly one entry is open at all times. "selected" is the one a click chose
+    // (Farm Operations Manager by default); hovering previews another, and leaving
+    // the list returns to the selected one.
+    var selected = roles[0];
+    function show(role) { roles.forEach(function(r) { setBody(r, r === role); }); }
 
     roles.forEach(function(role) {
       var head = role.querySelector('.role-head');
-
-      head.addEventListener('click', function() {
-        var isOpen = role.classList.contains('open');
-        role.classList.toggle('pinned', !isOpen);
-        setBody(role, !isOpen);
-      });
-
+      head.addEventListener('click', function() { selected = role; show(role); });
       if (canHover) {
-        role.addEventListener('mouseenter', function() { setBody(role, true); });
-        role.addEventListener('mouseleave', function() {
-          if (!role.classList.contains('pinned')) setBody(role, false);
-        });
+        role.addEventListener('mouseenter', function() { show(role); });
       }
     });
+    if (canHover) {
+      rolesWrap.addEventListener('mouseenter', function() { rolesWrap.classList.add('hover-active'); });
+      rolesWrap.addEventListener('mouseleave', function() { rolesWrap.classList.remove('hover-active'); show(selected); });
+    }
+
+    // Open the default entry without animating
+    var firstBody = selected.querySelector('.role-body');
+    firstBody.style.transition = 'none';
+    show(selected);
+    firstBody.getBoundingClientRect();
+    firstBody.style.transition = '';
 
     if (reduced) {
       document.querySelectorAll('.role-body').forEach(function(b) { b.style.transition = 'none'; });
     }
 
-    // Print: profile paragraph joins the left column.
+    // Print: profile paragraph joins the left column; Certifications go back to the right column.
     (function() {
       var mainline = document.querySelector('.mainline');
       var cvTop = document.querySelector('.cv-top');
       var profileBlk = document.querySelector('.profile-blk');
-      function arrange() { mainline.insertBefore(profileBlk, mainline.firstElementChild); }
-      function restore() { cvTop.appendChild(profileBlk); }
+      var certs = document.querySelector('.sec-certs'), side = document.querySelector('.side');
+      var certsHome = certs.nextElementSibling;
+      // Print: Certifications return to the top of the right column, where the printed layout expects them
+      function arrange() { mainline.insertBefore(profileBlk, mainline.firstElementChild); side.insertBefore(certs, side.firstElementChild); }
+      function restore() { cvTop.appendChild(profileBlk); mainline.insertBefore(certs, certsHome); }
       window.addEventListener('beforeprint', arrange);
       window.addEventListener('afterprint', restore);
       window.__printArrange = arrange;
