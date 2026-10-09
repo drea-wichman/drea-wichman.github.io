@@ -53,6 +53,8 @@
       font-family: "Advercase", Georgia, serif;
       font-weight: 400;
       min-height: 100vh;
+      /* the profile panel runs past the right edge; clip it so the page never scrolls sideways */
+      overflow-x: clip;
     }
 
     a { color: var(--text); text-decoration: none; }
@@ -132,9 +134,9 @@
     }
 
     /* Profile panel: the case studies verdict panel color, across the full content width */
-    /* --cl: distance from the page's left edge to the content's left edge; the panel bleeds across it */
+    /* --cl: distance from the content's right edge to the page's right edge; the panel bleeds across it */
     main { --cl: max(48px, calc((100vw - 1060px) / 2 + 48px)); }
-    .profile-blk { background: #8C8883; padding: 32px 36px 34px calc(var(--cl) + 36px); margin: 0 0 72px calc(-1 * var(--cl)); }
+    .profile-blk { background: #8C8883; padding: 32px calc(var(--cl) + 36px) 34px 36px; margin: 0 calc(-1 * var(--cl)) 72px 0; }
     .profile-blk .kicker { color: #1F1E1B; }
     .profile-blk .lede { margin-bottom: 0; }
 
