@@ -89,8 +89,9 @@
     .bc-plus::before { content: ""; position: absolute; left: 0; right: 3px; top: 50%; height: 1px; background: var(--text); }
     .bc-plus::after { content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 2px); width: 1px; background: var(--text); }
 
-    #tabs { display: flex; gap: 34px; border-bottom: 0.5px solid var(--text); margin: 16px var(--pw) 0 var(--lm); }
-    .tab { position: relative; font-size: 16px; letter-spacing: -0.033em; padding: 8px 0; color: var(--dim); border-bottom: 2px solid transparent; margin-bottom: -0.5px; cursor: pointer; transition: color .3s, border-color .3s; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+    /* margin-bottom -0.5px: the rule's top edge lines up with the verdict panel's top edge */
+    #tabs { display: flex; gap: 34px; border-bottom: 0.5px solid var(--text); margin: 16px var(--pw) -0.5px var(--lm); }
+    .tab { position: relative; font-size: 16px; letter-spacing: -0.033em; padding: 8px 0 0; color: var(--dim); border-bottom: 2px solid transparent; margin-bottom: -0.5px; cursor: pointer; transition: color .3s, border-color .3s; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
     .tab[aria-selected="true"] { color: var(--text); border-color: var(--text); }
     .tab .tab-t { position: relative; }
     .tab:hover .bc-plus, .tab:focus-visible .bc-plus { opacity: 1; transform: translate(0, -50%); }

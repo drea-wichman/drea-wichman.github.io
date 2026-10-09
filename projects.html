@@ -47,6 +47,15 @@
       --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
       --step: 560ms;
       --th-h: 48px;
+      /* Mirrored layout: square frame on the left (side --fs, left edge --fl), text column to its right */
+      /* Room needed under the frame: 16px gap, SELECTIONS row, rule, 20px gap, other-project block, 16px margin */
+      --below: 241px;
+      --fs: min(66vh, 44vw, calc(100vh - 96px - var(--below)));
+      /* Frame top: centered, but raised on short windows so the block below the rule still fits */
+      --ft: min(calc(50vh - var(--fs) / 2), calc(100vh - var(--fs) - var(--below)));
+      /* Frame starts just right of the open index menu, whose widest item ("case studies") ends at 98px */
+      --fl: 122px;
+      --tl: calc(var(--fl) + var(--fs) + 64px);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -93,7 +102,8 @@
 
     /* Left: project name leads, then links, description, tags */
     /* Starts below the open index menu (sized for five items) so the menu never overlaps the name */
-    #col { position: fixed; left: 64px; top: max(17vh, 212px); width: min(30vw, 470px); z-index: 10; }
+    /* Text column is vertically centered on the image frame */
+    #col { position: fixed; left: var(--tl); top: var(--ft); height: var(--fs); display: flex; flex-direction: column; justify-content: center; width: min(470px, calc(100vw - var(--tl) - 48px)); z-index: 10; }
     #pname { font-family: "Advercase", Georgia, serif; font-weight: 400; font-size: clamp(52px, 5.8vw, 86px); line-height: 0.95; letter-spacing: -0.5px; }
     .links { margin-top: 20px; display: flex; flex-direction: column; align-items: flex-start; gap: 3px; font-size: 13px; letter-spacing: -0.033em; }
     .links a { color: var(--dim); position: relative; transition: color 0.3s ease; }
@@ -107,24 +117,25 @@
     .swap.out { opacity: 0; transform: translateY(6px); transition: opacity 0.16s ease-out, transform 0.16s ease-out; }
 
     /* Selections row: only the current selection carries color */
-    /* Selections follow the links. To pin them to the bottom of the screen instead, replace the next line with:
-       #rowwrap { position: fixed; left: 64px; bottom: 11vh; z-index: 10; } */
-    #rowwrap { margin-top: 40px; }
+    /* Selections sit under the image frame, aligned with its left edge */
+    #rowwrap { position: fixed; left: var(--fl); top: calc(var(--ft) + var(--fs) + 16px); z-index: 10; }
     #rowhead { margin-bottom: 10px; }
-    #row { display: flex; gap: 6px; }
+    /* Tab-style rule, as on case studies: 0.5px under the row, running off the right edge; 2px segment under the active selection */
+    #row { position: relative; display: flex; gap: 6px; padding-bottom: 6px; }
+    #row::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100vw; border-top: 0.5px solid var(--text); pointer-events: none; }
     .th { position: relative; height: var(--th-h); overflow: hidden; background: #8C8883; filter: grayscale(1); opacity: 0.62; transition: filter 0.3s ease, opacity 0.3s ease, transform 0.16s ease-out; }
     /* Active selection: a 2px rule beneath it, like the active tab on case studies */
-    .th[aria-current="true"] { filter: none; opacity: 1; box-shadow: 0 3px 0 0 var(--bg), 0 5px 0 0 var(--text); }
+    .th[aria-current="true"] { filter: none; opacity: 1; box-shadow: 0 4px 0 0 var(--bg), 0 6px 0 0 var(--text); }
     .th:active { transform: scale(0.97); }
     @media (hover: hover) and (pointer: fine) { .th:not([aria-current="true"]):hover { opacity: 0.85; } }
     .th > * { pointer-events: none; }
 
     /* Every crop is 1500×1500, so one square frame serves every passage. */
-    #doc { position: fixed; left: 36vw; top: 15vh; width: 66vh; height: 66vh; overflow: hidden; background: #8C8883; z-index: 5; }
+    #doc { position: fixed; left: var(--fl); top: var(--ft); width: var(--fs); height: var(--fs); overflow: hidden; background: #8C8883; z-index: 5; }
     .layer { position: absolute; inset: 0; }
 
-    /* Pulled quote hangs off the document's right edge */
-    #quote { position: fixed; left: 0; top: 0; width: min(25vw, 360px); z-index: 20; background: var(--fill); color: var(--light); padding: 22px 26px 30px; --qx: 0px; --qy: 0px; transform: translate(var(--qx), var(--qy)); }
+    /* Pulled quote hangs off the document's left edge */
+    #quote { position: fixed; left: 0; top: 0; width: min(25vw, 360px); z-index: 20; background: var(--fill); color: var(--light); padding: 22px 26px 30px; box-shadow: 0 6px 18px -4px rgba(20, 20, 20, 0.45); --qx: 0px; --qy: 0px; transform: translate(var(--qx), var(--qy)); }
     #quote.out { opacity: 0; }
     /* Image and quote come in together on one short fade */
     .layer.in, #quote.in { animation: popIn 70ms ease-out both; }
@@ -133,10 +144,11 @@
     #qc { display: block; margin-top: 22px; font-style: normal; color: var(--mute); }
 
     /* The other project introduces itself in the corner */
-    #next { position: fixed; right: 16px; bottom: 32px; width: min(17vw, 245px); z-index: 10; color: var(--dim); transition: color 0.3s ease, opacity 0.32s var(--ease-out), transform 0.32s var(--ease-out); }
+    /* Bottom-right corner, below the ground rule, top-aligned with the SELECTIONS row */
+    #next { position: fixed; right: 16px; top: calc(var(--ft) + var(--fs) + 16px + 24px + var(--th-h) + 6px + 20px); width: max-content; z-index: 10; color: var(--dim); transition: color 0.3s ease, opacity 0.32s var(--ease-out), transform 0.32s var(--ease-out); }
     #next.out { opacity: 0; transform: translateY(6px); transition: opacity 0.16s ease-out, transform 0.16s ease-out; }
     #next .nn { position: relative; display: inline-block; margin-top: 8px; font-family: "Advercase", Georgia, serif; font-size: 30px; line-height: 1; }
-    #next .nt { display: block; margin-top: 10px; font-size: 13px; font-weight: 700; line-height: 1.5; letter-spacing: -0.033em; }
+    #next .nt { display: block; margin-top: 4px; white-space: nowrap; font-size: 13px; font-weight: 700; line-height: 1.5; letter-spacing: -0.033em; }
     #next:hover, #next:focus-visible { color: var(--text); }
     #next:hover .bc-plus, #next:focus-visible .bc-plus { opacity: 1; transform: translate(0, -50%); }
     #next:active { transform: scale(0.98); }
@@ -144,7 +156,6 @@
     .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
     @media (max-height: 760px) and (min-width: 901px) {
-      #col { top: max(15vh, 212px); }
       #pname { font-size: clamp(46px, 5vw, 64px); }
       #pdesc { font-size: 14.5px; line-height: 1.5; }
       :root { --th-h: 40px; }
@@ -162,6 +173,9 @@
       body { overflow: auto; }
       .page-head { padding: 28px 20px 0; }
       #col, #info, #rowwrap, #doc, #quote, #next { position: static; width: auto; }
+      #col { height: auto; display: block; }
+      #next .nt { white-space: normal; }
+      #row::after { width: 100%; }
       #info { padding: 36px 20px 0; }
       #doc { display: block; margin: 28px 20px 0; height: 70vh; }
       #quote { margin: -40px 20px 0 40px; transform: none !important; }
@@ -240,9 +254,9 @@
           name: "Fenn Agritech", url: "fenn.wichman.io", href: "https://fenn.wichman.io",
           log: "https://github.com/drea-wichman/fenn/blob/main/build-log.md",
           desc: 'A fictional UK agritech company built end to end to run a real security program. The policies are live and mapped to ISO 27001 and UK GDPR. <em>The company is invented. The security decisions are not.</em>',
-          tags: "ISO 27001 · UK GDPR · Trust Center · Incident Response",
+          tags: "ISO 27001 · UK GDPR · Trust Center",
           passages: [
-            { doc: "f1", cite: "Fenn · Landing page", hl: [55, 520, 1105, 970], q: ["center"],
+            { doc: "f1", cite: "Fenn · Landing page", hl: [55, 520, 1105, 970], q: ["below", 945, 0],
               quote: "Your land.\nYour data.\nYour decision." },
             { doc: "f2", cite: "Information Security Policy · §2", hl: [0, 1366, 1500, 1435], q: ["above", 1366, -45],
               quote: "Fenn has no technical ability to access customer data in plaintext." },
@@ -252,7 +266,7 @@
               quote: "Do not wait for certainty. A suspected incident that turns out to be a false alarm is preferable to a delayed report." },
             { doc: "f5", cite: "Trust Center · Compliance", hl: [740, 1353, 1280, 1382], q: ["above", 1064, 80],
               quote: "ISMS documentation - published for transparency" },
-            { doc: "f6", cite: "Fenn · The app", hl: [0, 0, 1500, 1500], q: ["overTop", 185],
+            { doc: "f6", cite: "Fenn · The app", hl: [0, 0, 1500, 1500], q: ["below", 409, 8],
               quote: "Wherever work takes you.\nFrom home to harvest." }
           ]
         },
@@ -261,15 +275,15 @@
           desc: 'Early-2000s nostalgia with a point: a browser-based, Mac OS X Jaguar-inspired desktop with sourced <span style="white-space:nowrap">write-ups</span> on the bills, court cases, and incidents shaping surveillance and privacy. There&rsquo;s more for anyone willing to go down the rabbit hole.',
           tags: "Surveillance Law · Privacy Research · Data Transfers",
           passages: [
-            { doc: "b2", cite: "Burrow · Landing page", hl: [0, 0, 1500, 1500], q: ["below", 900],
+            { doc: "b2", cite: "Burrow · Landing page", hl: [0, 0, 1500, 1500], q: ["below", 840],
               quote: "Each write-up reflects events as of its logged date and isn't updated as the story develops." },
-            { doc: "b6", cite: "Terminal · wakeup.sh", hl: [0, 310, 1500, 930], q: ["below", 940],
+            { doc: "b6", cite: "Terminal · wakeup.sh", hl: [0, 310, 1500, 930], q: ["below", 990],
               quote: "Caffeinate drea? [y/n]" },
             { doc: "b3", cite: "Encrypted, Not Invisible · TL;DR", hl: [0, 1146, 1500, 1170], q: ["above", 1146],
               quote: "Your privacy has to match your threat." },
             { doc: "b4", cite: "Section 702 · FISC memorandum", hl: [0, 640, 1500, 780], q: ["below", 790, 0],
               quote: "In the course of that targeting, the communications of U.S. persons are incidentally acquired and retained in Government databases." },
-            { doc: "b5", cite: "peek.app · Browser fingerprinting", hl: [0, 0, 1500, 1500], q: ["below", 174, 8],
+            { doc: "b5", cite: "peek.app · Browser fingerprinting", hl: [0, 0, 1500, 1500], q: ["below", 240, 6],
               quote: "look what they took." },
             { doc: "b1", cite: "Burrow OS · Nostalgia with a point", hl: [0, 0, 1500, 1500], q: ["below", 870],
               quote: "Down the rabbit hole." }
@@ -309,8 +323,8 @@
         if (!single.matches) return null;
         var d = DOCS[s.doc], vw = window.innerWidth, vh = window.innerHeight, w, h;
         // Every passage uses the same square frame, so it never changes shape
-        h = Math.round(vh * 0.66); w = h;
-        return { w: w, h: h, top: Math.round(vh * 0.5 - h / 2) };
+        h = Math.round(Math.min(vh * 0.66, vw * 0.44, vh - 96 - 241)); w = h;
+        return { w: w, h: h, top: Math.round(Math.min(vh * 0.5 - h / 2, vh - h - 241)) };
       }
       function setFrame(sz, animate) {
         if (!sz) { docBox.style.width = docBox.style.height = docBox.style.top = ""; return; }
@@ -330,12 +344,11 @@
         else if (m[0] === "below") y = at(m[1]) + (m[2] != null ? m[2] : 8);
         else if (m[0] === "overTop") y = sz.top - qh + m[1];
         else y = at((s.hl[1] + s.hl[3]) / 2) - qh / 2;
-        // Horizontal position is the same on every passage: hanging off the frame's right edge.
+        // Horizontal position is the same on every passage: hanging off the frame's left edge.
         // Only the vertical position changes per passage.
-        var x = Math.round(Math.min(window.innerWidth - qw - 16, left + sz.w - 0.55 * qw));
-        // Keep clear of the other-project block when the box sits over it
-        var nx = $("next").getBoundingClientRect();
-        if (x + qw > nx.left) y = Math.min(nx.top - qh - 24, y);
+        var x = Math.round(Math.max(16, left - 0.45 * qw));
+        // Never hang below the frame's bottom edge
+        y = Math.min(sz.top + sz.h - qh, y);
         y = Math.round(Math.max(16, y));
         q.style.left = x + "px"; q.style.setProperty("--qy", y + "px");
       }
@@ -458,13 +471,27 @@
         placeQuote(s, f, sz);
       });
 
+      // The other-project block keeps one width (the wider of the two projects' contents),
+      // so with its right edge fixed, its left edge never moves when switching projects
+      function lockNext() {
+        var nx = $("next"), nn = $("nname"), nt = $("ntags"), keepN = nn.textContent, keepT = nt.innerHTML, w = 0;
+        nx.style.width = "max-content";
+        PROJECTS.forEach(function (o) {
+          nn.textContent = o.name; nt.innerHTML = tagsHTML(o.tags);
+          w = Math.max(w, Math.ceil(nx.getBoundingClientRect().width));
+        });
+        nn.textContent = keepN; nt.innerHTML = keepT;
+        nx.style.width = single.matches ? w + "px" : "";
+      }
+      window.addEventListener("resize", lockNext);
+
       pi = location.hash === "#burrow" ? 1 : 0;
       buildProject(pi);
       var fontsReady = document.fonts && document.fonts.load
         ? Promise.all(['400 40px "Advercase"', '400 16px "Switzer"']
             .map(function (f) { return document.fonts.load(f).catch(function () {}); }))
         : Promise.resolve();
-      fontsReady.then(function () { show(0, 1, true); });
+      fontsReady.then(function () { lockNext(); show(0, 1, true); });
     })();
   </script>
 
