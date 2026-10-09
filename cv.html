@@ -75,7 +75,7 @@
       padding: 48px 64px 0; position: relative; z-index: 30;
       font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 15px;
-      letter-spacing: -0.2px;
+      letter-spacing: -0.033em;
     }
     .head-dl { color: var(--dim); text-decoration: none; transition: color 0.3s ease; }
     .head-dl:hover { color: var(--text); }
@@ -173,12 +173,13 @@
       font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 14px;
       color: var(--dim);
-      letter-spacing: -0.2px;
+      letter-spacing: -0.033em;
       margin-top: 2px;
     }
     .role-dates {
       font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 14px;
+      letter-spacing: -0.033em;
       color: var(--dim);
       white-space: nowrap;
     }
@@ -200,6 +201,7 @@
       font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 15px;
       line-height: 1.5;
+      letter-spacing: -0.033em;
       color: var(--text);
       padding: 3px 0 3px 16px;
       position: relative;
@@ -229,6 +231,7 @@
     .grp-date {
       font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 14px;
+      letter-spacing: -0.033em;
       color: var(--dim);
       white-space: nowrap;
     }
@@ -236,7 +239,7 @@
       font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size: 14px;
       color: var(--dim);
-      letter-spacing: -0.2px;
+      letter-spacing: -0.033em;
       line-height: 1.45;
       margin-top: 1px;
     }
@@ -255,7 +258,7 @@
     }
     .band-note {
       font-size: 17px;
-      letter-spacing: -0.2px;
+      letter-spacing: -0.033em;
       color: #E9E5DC;
       margin-bottom: 26px;
     }
@@ -286,7 +289,7 @@
       display: flex;
       justify-content: flex-end;
       font-size: 13px;
-      letter-spacing: -0.2px;
+      letter-spacing: -0.033em;
       color: #98948C;
     }
     .band, .band *, .band *::before, .band *::after { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='%23E9E5DC'/></svg>") 5 3, auto !important; }
@@ -314,6 +317,9 @@
        in Light 300 and Regular 400 only, so nothing here relies on bold.
        ------------------------------------------------------------------ */
     @media print {
+      /* Keep the printed CV's spacing exactly as it was before the screen change */
+      .role-body li, .grp-date { letter-spacing: normal; }
+      .grp-detail, .band-note { letter-spacing: -0.2px; }
       @page { size: A4; margin: 0; }
 
       * { text-rendering: geometricPrecision; }

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#A8A5A1">
   <title>Drea Wichman &middot; Projects</title>
   <meta name="description" content="Cyber security professional focused on governance, risk, and compliance. MSc Information and Cyber Security, Royal Holloway. London-based.">
   <meta property="og:title" content="Drea Wichman · Cyber Security & GRC">
@@ -12,6 +13,7 @@
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preload" href="fonts/advercase-regular.woff2" as="font" type="font/woff2" crossorigin>
   <style>
     /*
     Font:     Advercase (Regular, Bold, Italic)
@@ -26,6 +28,10 @@
     @font-face{font-family:"Advercase";src:url("fonts/advercase-regular.woff2") format("woff2"),url("fonts/advercase-regular.woff") format("woff");font-weight:400;font-style:normal;font-display:swap;}
     @font-face{font-family:"Advercase";src:url("fonts/advercase-italic.woff2") format("woff2"),url("fonts/advercase-italic.woff") format("woff");font-weight:400;font-style:italic;font-display:swap;}
     @font-face{font-family:"Switzer Thin";src:url("fonts/switzer-thin.woff2") format("woff2"),url("fonts/switzer-thin.woff") format("woff");font-weight:100;font-style:normal;font-display:swap;}
+    @font-face{font-family:"Switzer";src:url("fonts/switzer-light.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap;}
+    @font-face{font-family:"Switzer";src:url("fonts/switzer-regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap;}
+    @font-face{font-family:"Switzer";src:url("fonts/switzer-medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap;}
+    @font-face{font-family:"Switzer";src:url("fonts/switzer-bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap;}
 
     @view-transition { navigation: auto; }
 
@@ -33,32 +39,34 @@
       --bg: #A8A5A1;
       --text: #141414;
       --rule: #8F8C89;
-      --dim: #4A4845;
+      --dim: #3D3B38;
+      --fill: #1A1916;
+      --light: #D6D2CB;
+      --mute: #9A968F;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --step: 560ms;
+      --th-h: 48px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     *, *::before, *::after { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='%23141414'/></svg>") 5 3, auto !important; }
-    a:hover, a:hover * { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='none' stroke='%23141414' stroke-width='1.5' stroke-linejoin='round'/></svg>") 5 3, pointer !important; }
+    a:hover, a:hover *, button:hover, button:hover * { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='none' stroke='%23141414' stroke-width='1.5' stroke-linejoin='round'/></svg>") 5 3, pointer !important; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      min-height: 100vh;
-    }
+    html, body { height: 100%; }
+    body { background: var(--bg); color: var(--text); font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif; overflow: hidden; overscroll-behavior: none; }
     a { color: var(--text); text-decoration: none; }
-
+    button { font: inherit; color: inherit; background: none; border: 0; text-align: left; }
     ::selection { background: #877F76; }
+    :focus-visible { outline: 1px solid var(--text); outline-offset: 3px; }
+    .k { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); }
 
     @keyframes riseIn {
       from { opacity: 0; transform: translateY(14px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .page-head { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
-    .lede { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.08s; }
-    .work:nth-of-type(1) { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.16s; }
-    .work:nth-of-type(2) { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.24s; }
+    .page-head { animation: riseIn 0.85s var(--ease-out) both; }
 
     .page-head {
       display: flex;
@@ -66,140 +74,101 @@
       align-items: baseline;
       padding: 48px 64px 0; position: relative; z-index: 30;
       font-size: 15px;
-      letter-spacing: -0.2px;
+      letter-spacing: -0.033em;
     }
     .back-link { color: var(--text); }
     .back-link a { color: var(--dim); text-decoration: none; position: relative; transition: color 0.3s ease; }
     .back-link a:hover { color: var(--text); }
-    .back-link a:hover .bc-plus { opacity: 1; transform: translate(0, -50%); }
+    .back-link a:hover .bc-plus, .back-link a:focus-visible .bc-plus { opacity: 1; transform: translate(0, -50%); }
     .bc-plus {
       position: absolute; right: 100%; top: 50%;
       width: 9px; height: 9px;
       padding-right: 3px; box-sizing: content-box;
       opacity: 0; transform: translate(5px, -50%);
-      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
       pointer-events: none;
     }
-    .bc-plus::before {
-      content: ""; position: absolute; left: 0; right: 3px; top: 50%;
-      height: 1px; background: var(--text);
-    }
-    .bc-plus::after {
-      content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 2px);
-      width: 1px; background: var(--text);
-    }
+    .bc-plus::before { content: ""; position: absolute; left: 0; right: 3px; top: 50%; height: 1px; background: var(--text); }
+    .bc-plus::after { content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 2px); width: 1px; background: var(--text); }
 
-    main { max-width: 1160px; margin: 0 auto; padding: 64px 48px 96px; }
-    @media (min-width: 901px) and (max-width: 1439px) { main { padding-left: max(48px, calc(124px - (100vw - 1160px) / 2)); } }
+    /* Left: project name leads, then links, description, tags */
+    /* Starts below the open index menu (sized for five items) so the menu never overlaps the name */
+    #col { position: fixed; left: 64px; top: max(17vh, 212px); width: min(30vw, 470px); z-index: 10; }
+    #pname { font-family: "Advercase", Georgia, serif; font-weight: 400; font-size: clamp(52px, 5.8vw, 86px); line-height: 0.95; letter-spacing: -0.5px; }
+    .links { margin-top: 20px; display: flex; flex-direction: column; align-items: flex-start; gap: 3px; font-size: 13px; letter-spacing: -0.033em; }
+    .links a { color: var(--dim); position: relative; transition: color 0.3s ease; }
+    .links a::before { content: "+"; }
+    .links a:hover, .links a:focus-visible { color: var(--text); }
+    #pdesc { margin-top: 20px; font-size: 15.5px; line-height: 1.6; letter-spacing: -0.033em; max-width: 40ch; }
+    #pdesc em { font-style: normal; }
+    .tag { white-space: nowrap; }
+    #ptags { margin-top: 26px; font-size: 13px; font-weight: 700; line-height: 1.5; letter-spacing: -0.033em; color: var(--dim); }
+    .swap { transition: opacity 0.32s var(--ease-out), transform 0.32s var(--ease-out); }
+    .swap.out { opacity: 0; transform: translateY(6px); transition: opacity 0.16s ease-out, transform 0.16s ease-out; }
 
-    .lede {
-      font-size: clamp(16px, 1.8vw, 19px);
-      line-height: 1.45;
-      color: var(--dim);
-      max-width: 44em;
-      margin-bottom: 72px;
-    }
+    /* Selections row: only the current selection carries color */
+    /* Selections follow the links. To pin them to the bottom of the screen instead, replace the next line with:
+       #rowwrap { position: fixed; left: 64px; bottom: 11vh; z-index: 10; } */
+    #rowwrap { margin-top: 40px; }
+    #rowhead { margin-bottom: 10px; }
+    #row { display: flex; gap: 6px; }
+    .th { position: relative; height: var(--th-h); overflow: hidden; background: #8C8883; filter: grayscale(1); opacity: 0.62; transition: filter 0.3s ease, opacity 0.3s ease, transform 0.16s ease-out; }
+    /* Active selection: a 2px rule beneath it, like the active tab on case studies */
+    .th[aria-current="true"] { filter: none; opacity: 1; box-shadow: 0 3px 0 0 var(--bg), 0 5px 0 0 var(--text); }
+    .th:active { transform: scale(0.97); }
+    @media (hover: hover) and (pointer: fine) { .th:not([aria-current="true"]):hover { opacity: 0.85; } }
+    .th > * { pointer-events: none; }
 
-    .works { display: flex; flex-direction: column; gap: 100px; }
-    .work {
-      display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-      gap: 56px;
-      align-items: start;
-      transition: opacity 0.45s ease;
-    }
-    .work.flip { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); }
-    .work.flip .work-shot { grid-column: 2; grid-row: 1; }
-    .work.flip .work-meta { grid-column: 1; grid-row: 1; }
-    .works:has(.work:hover) .work:not(:hover) { opacity: 0.35; }
+    /* Every crop is 1500×1500, so one square frame serves every passage. */
+    #doc { position: fixed; left: 36vw; top: 15vh; width: 66vh; height: 66vh; overflow: hidden; background: #8C8883; z-index: 5; }
+    .layer { position: absolute; inset: 0; }
 
-    .work-shot {
-      position: relative;
-      aspect-ratio: 16 / 10;
-      overflow: hidden;
-      border: 1px solid var(--rule);
-      border-radius: 4px;
-      background: #26311c;
-      transform: scale(1);
-      transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .burrow-shot { background: #d98a3d; }
-    .work:hover .work-shot { transform: scale(1.015); }
-    .work-shot .frame {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center top;
-      opacity: 0;
-      filter: saturate(0.70) brightness(1);
-      transition: filter 0.25s ease, opacity 0.5s ease;
-    }
-    .work-shot .frame.on { opacity: 1; }
-    .work-shot::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: var(--bg);
-      opacity: 0.12;
-      transition: opacity 0.25s ease;
-      pointer-events: none;
-      z-index: 5;
-    }
-    .work:hover .work-shot::after { opacity: 0; }
-    .work:hover .work-shot .frame { filter: saturate(1.02) contrast(1.04) brightness(1); }
+    /* Pulled quote hangs off the document's right edge */
+    #quote { position: fixed; left: 0; top: 0; width: min(25vw, 360px); z-index: 20; background: var(--fill); color: var(--light); padding: 22px 26px 30px; --qx: 0px; --qy: 0px; transform: translate(var(--qx), var(--qy)); }
+    #quote.out { opacity: 0; }
+    /* Image and quote come in together on one short fade */
+    .layer.in, #quote.in { animation: popIn 70ms ease-out both; }
+    @keyframes popIn { from { opacity: 0; } to { opacity: 1; } }
+    #qt { white-space: pre-line; font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif; font-style: italic; font-size: clamp(19px, 1.5vw, 22px); line-height: 1.45; letter-spacing: -0.033em; }
+    #qc { display: block; margin-top: 22px; font-style: normal; color: var(--mute); }
 
-    .work-meta { padding-bottom: 4px; }
-    .work-title {
-      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-weight: 400;
-      font-size: clamp(26px, 2.8vw, 34px);
-      letter-spacing: -0.015em;
-      line-height: 1.15;
-      margin-bottom: 0;
+    /* The other project introduces itself in the corner */
+    #next { position: fixed; right: 16px; bottom: 32px; width: min(17vw, 245px); z-index: 10; color: var(--dim); transition: color 0.3s ease, opacity 0.32s var(--ease-out), transform 0.32s var(--ease-out); }
+    #next.out { opacity: 0; transform: translateY(6px); transition: opacity 0.16s ease-out, transform 0.16s ease-out; }
+    #next .nn { position: relative; display: inline-block; margin-top: 8px; font-family: "Advercase", Georgia, serif; font-size: 30px; line-height: 1; }
+    #next .nt { display: block; margin-top: 10px; font-size: 13px; font-weight: 700; line-height: 1.5; letter-spacing: -0.033em; }
+    #next:hover, #next:focus-visible { color: var(--text); }
+    #next:hover .bc-plus, #next:focus-visible .bc-plus { opacity: 1; transform: translate(0, -50%); }
+    #next:active { transform: scale(0.98); }
+
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+    @media (max-height: 760px) and (min-width: 901px) {
+      #col { top: max(15vh, 212px); }
+      #pname { font-size: clamp(46px, 5vw, 64px); }
+      #pdesc { font-size: 14.5px; line-height: 1.5; }
+      :root { --th-h: 40px; }
     }
-    .work-desc {
-      font-size: 15.5px;
-      line-height: 1.7;
-      color: var(--text);
-      max-width: 46ch;
-      margin-bottom: 22px;
-    }
-    .work-desc em { font-style: normal; color: inherit; }
-    .work-tags {
-      font-size: 12px;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: var(--dim);
-      margin-bottom: 24px;
-    }
-    .work-url {
-      display: inline-block;
-      font-size: 15px;
-      letter-spacing: -0.2px;
-      margin-bottom: 22px;
-      color: var(--dim);
-      transition: color 0.3s ease;
-    }
-    .work-url::before { content: "+"; }
-    .work-url:hover { color: var(--text); }
 
     @media (prefers-reduced-motion: reduce) {
-      .page-head, .lede, .work { animation: none; }
-      .work, .work-shot, .work-shot .frame, .work-shot::after { transition: none; }
-      .work:hover .work-shot { transform: none; }
+      .page-head { animation: none; }
+      #doc { transition: none; }
+      .layer.in, #quote.in { animation: none; }
+      .swap, .swap.out, #next, #next.out { transform: none; }
     }
 
-    @media (max-width: 900px) {
+    /* Small screens: let the page scroll and stack */
+    @media (max-width: 900px), (max-height: 660px) {
+      body { overflow: auto; }
       .page-head { padding: 28px 20px 0; }
-      main { padding: 44px 20px 70px; }
-      .lede { margin-bottom: 48px; }
-      .works { gap: 64px; }
-      .work, .work.flip { grid-template-columns: 1fr; gap: 24px; align-items: start; }
-      .work.flip .work-shot { grid-column: auto; grid-row: auto; }
-      .work.flip .work-meta { grid-column: auto; grid-row: auto; }
-      .works:has(.work:hover) .work:not(:hover) { opacity: 1; }
+      #col, #info, #rowwrap, #doc, #quote, #next { position: static; width: auto; }
+      #info { padding: 36px 20px 0; }
+      #doc { display: block; margin: 28px 20px 0; height: 70vh; }
+      #quote { margin: -40px 20px 0 40px; transform: none !important; }
+      #rowwrap { padding: 28px 20px 0; }
+      #next { display: block; margin: 40px 20px 48px; }
     }
-  
+
     /* Page menu: hover "index" to switch pages */
     .ixw { position: relative; display: inline-block; }
     .pm { position: absolute; right: 0; top: calc(100% + 10px); display: flex; flex-direction: column; align-items: flex-end; gap: 7px; white-space: nowrap; opacity: 0; transform: translateY(-4px); transition: opacity .3s ease, transform .3s ease; pointer-events: none; }
@@ -219,64 +188,285 @@
   </header>
 
   <main>
-    <p class="lede">Two builds, both live.<br>One runs a real security program for a company that doesn&rsquo;t exist. The other runs a Mac stuck in 2003 that has no interest in leaving.</p>
+    <div id="col">
+    <section id="info" class="swap" aria-live="polite">
+      <h1 id="pname"></h1>
+      <div id="ptags"></div>
+      <p id="pdesc"></p>
+      <div class="links"><a id="purl" href="#" target="_blank" rel="noopener"></a><a id="blog" href="#" target="_blank" rel="noopener">build log on GitHub</a></div>
+    </section>
 
-    <div class="works">
-
-      <div class="work" id="work-fenn">
-        <div class="work-shot fenn-shot">
-          <span class="frame on" style="background-image:url('img/proj-fenn.png')"></span>
-          <span class="frame" style="background-image:url('img/proj-fenn-2.png')"></span>
-          <span class="frame" style="background-image:url('img/proj-fenn-3.png')"></span>
-        </div>
-        <div class="work-meta">
-          <h2 class="work-title">Fenn Agritech</h2>
-          <a class="work-url" href="https://fenn.wichman.io" target="_blank" rel="noopener">fenn.wichman.io</a>
-          <p class="work-desc">A fictional UK agritech company built end to end to run a real security program. The policies are live and mapped to ISO 27001 and UK GDPR. <em>The company is invented. The security decisions are not.</em></p>
-          <div class="work-tags">ISO 27001 &middot; UK GDPR &middot; Trust Center &middot; Incident Response</div>
-        </div>
-      </div>
-
-      <div class="work flip" id="work-burrow">
-        <div class="work-shot burrow-shot">
-          <span class="frame on" style="background-image:url('img/proj-burrow-1.png')"></span>
-          <span class="frame" style="background-image:url('img/proj-burrow-2.png')"></span>
-          <span class="frame" style="background-image:url('img/proj-burrow-3.png')"></span>
-        </div>
-        <div class="work-meta">
-          <h2 class="work-title">The Burrow</h2>
-          <a class="work-url" href="https://burrow.wichman.io" target="_blank" rel="noopener">burrow.wichman.io</a>
-          <p class="work-desc">Early-2000s nostalgia with a point: a browser-based, Mac OS X Jaguar-inspired desktop with sourced <span style="white-space:nowrap">write-ups</span> on the bills, court cases, and incidents shaping surveillance and privacy. There&rsquo;s more for anyone curious to look around.</p>
-          <div class="work-tags">Surveillance Law &middot; Privacy Research &middot; Data Transfers</div>
-        </div>
-      </div>
-
+    <div id="rowwrap" class="swap">
+      <div id="rowhead"><span class="k">Selections</span></div>
+      <div id="row" role="group" aria-label="Selections"></div>
     </div>
+    </div>
+
+    <figure id="doc" aria-hidden="true">
+      <div class="layer" id="L0"></div><div class="layer" id="L1"></div>
+    </figure>
+
+    <blockquote id="quote"><p id="qt"></p><cite class="k" id="qc"></cite></blockquote>
+
+    <button id="next" type="button">
+      <span class="k">Other project</span><br>
+      <span class="nn"><span class="bc-plus" aria-hidden="true"></span><span id="nname"></span></span>
+      <span class="nt" id="ntags"></span>
+    </button>
   </main>
 
   <script>
-    (function(){
-      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      function cycle(id){
-        var card = document.getElementById(id);
-        if(!card) return;
-        var frames = card.querySelectorAll('.frame');
-        if(frames.length < 2) return;
-        var timer = null;
-        function show(i){ frames.forEach(function(f,n){ f.classList.toggle('on', n===i); }); }
-        card.addEventListener('mouseenter', function(){
-          if(reduced) return;
-          show(0); clearInterval(timer);
-          var i = 0;
-          timer = setInterval(function(){ i = (i+1) % frames.length; show(i); }, 1400);
-        });
-        card.addEventListener('mouseleave', function(){ clearInterval(timer); show(0); });
+    (function () {
+      // Source documents at their real pixel size.
+      // fit: the frame takes the crop's shape and the crop fills it (Fenn crops).
+      // vx/vw: otherwise, the slice of the source shown across the frame's width (Burrow screenshots).
+      var DOCS = {
+        f1: { img: "img/proj-fenn-sq-1.png", w: 1500, h: 1500, fit: true },
+        f2: { img: "img/proj-fenn-sq-2.png", w: 1500, h: 1500, fit: true },
+        f3: { img: "img/proj-fenn-sq-3.png", w: 1500, h: 1500, fit: true },
+        f4: { img: "img/proj-fenn-sq-4.png", w: 1500, h: 1500, fit: true },
+        f5: { img: "img/proj-fenn-sq-5.png", w: 1500, h: 1500, fit: true },
+        f6: { img: "img/proj-fenn-sq-6.png", w: 1500, h: 1500, fit: true },
+        b1: { img: "img/proj-burrow-sq-1.png", w: 1500, h: 1500, fit: true },
+        b2: { img: "img/proj-burrow-sq-2.png", w: 1500, h: 1500, fit: true },
+        b3: { img: "img/proj-burrow-sq-3.png", w: 1500, h: 1500, fit: true },
+        b4: { img: "img/proj-burrow-sq-4.png", w: 1500, h: 1500, fit: true },
+        b5: { img: "img/proj-burrow-sq-5.png", w: 1500, h: 1500, fit: true },
+        b6: { img: "img/proj-burrow-sq-6.png", w: 1500, h: 1500, fit: true }
+      };
+
+      var PROJECTS = [
+        {
+          name: "Fenn Agritech", url: "fenn.wichman.io", href: "https://fenn.wichman.io",
+          log: "https://github.com/drea-wichman/fenn/blob/main/build-log.md",
+          desc: 'A fictional UK agritech company built end to end to run a real security program. The policies are live and mapped to ISO 27001 and UK GDPR. <em>The company is invented. The security decisions are not.</em>',
+          tags: "ISO 27001 · UK GDPR · Trust Center · Incident Response",
+          passages: [
+            { doc: "f1", cite: "Fenn · Landing page", hl: [55, 520, 1105, 970], q: ["center"],
+              quote: "Your land.\nYour data.\nYour decision." },
+            { doc: "f2", cite: "Information Security Policy · §2", hl: [0, 1366, 1500, 1435], q: ["above", 1366, -45],
+              quote: "Fenn has no technical ability to access customer data in plaintext." },
+            { doc: "f3", cite: "Building Fenn · Lessons learned", hl: [0, 676, 1500, 700], q: ["above", 676],
+              quote: "What felt like redundancy across the deliverables turned out to be traceability." },
+            { doc: "f4", cite: "Incident Response Plan · §4.2", hl: [0, 434, 1500, 503], q: ["below", 503, 2],
+              quote: "Do not wait for certainty. A suspected incident that turns out to be a false alarm is preferable to a delayed report." },
+            { doc: "f5", cite: "Trust Center · Compliance", hl: [740, 1353, 1280, 1382], q: ["above", 1064, 80],
+              quote: "ISMS documentation - published for transparency" },
+            { doc: "f6", cite: "Fenn · The app", hl: [0, 0, 1500, 1500], q: ["overTop", 185],
+              quote: "Wherever work takes you.\nFrom home to harvest." }
+          ]
+        },
+        {
+          name: "The Burrow", url: "burrow.wichman.io", href: "https://burrow.wichman.io",
+          desc: 'Early-2000s nostalgia with a point: a browser-based, Mac OS X Jaguar-inspired desktop with sourced <span style="white-space:nowrap">write-ups</span> on the bills, court cases, and incidents shaping surveillance and privacy. There&rsquo;s more for anyone willing to go down the rabbit hole.',
+          tags: "Surveillance Law · Privacy Research · Data Transfers",
+          passages: [
+            { doc: "b2", cite: "Burrow · Landing page", hl: [0, 0, 1500, 1500], q: ["below", 900],
+              quote: "Each write-up reflects events as of its logged date and isn't updated as the story develops." },
+            { doc: "b6", cite: "Terminal · wakeup.sh", hl: [0, 310, 1500, 930], q: ["below", 940],
+              quote: "Caffeinate drea? [y/n]" },
+            { doc: "b3", cite: "Encrypted, Not Invisible · TL;DR", hl: [0, 1146, 1500, 1170], q: ["above", 1146],
+              quote: "Your privacy has to match your threat." },
+            { doc: "b4", cite: "Section 702 · FISC memorandum", hl: [0, 640, 1500, 780], q: ["below", 790, 0],
+              quote: "In the course of that targeting, the communications of U.S. persons are incidentally acquired and retained in Government databases." },
+            { doc: "b5", cite: "peek.app · Browser fingerprinting", hl: [0, 0, 1500, 1500], q: ["below", 174, 8],
+              quote: "look what they took." },
+            { doc: "b1", cite: "Burrow OS · Nostalgia with a point", hl: [0, 0, 1500, 1500], q: ["below", 870],
+              quote: "Down the rabbit hole." }
+          ]
+        }
+      ];
+      var $ = function (id) { return document.getElementById(id); };
+      var docBox = $("doc"), L = [$("L0"), $("L1")], front = 0;
+      var pi = 0, si = -1, seq = 0, STEP = 250, switching = false;
+      var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var single = window.matchMedia("(min-width: 901px) and (min-height: 661px)");
+
+      function makeDoc(s) {
+        var d = DOCS[s.doc], el = document.createElement("div");
+        el.style.cssText = "position:absolute;left:0;top:0;width:" + d.w + "px;height:" + d.h + "px;background:url('" + d.img + "') 0 0 / 100% 100% no-repeat;transform-origin:0 0";
+        return el;
       }
-      cycle('work-fenn');
-      cycle('work-burrow');
+
+      // Place the passage in the frame: whole and centered for fitted crops,
+      // otherwise a slice of the screenshot centered on the quoted lines
+      function frame(s, W, H) {
+        var d = DOCS[s.doc], hl = s.hl, sc, tx, ty;
+        if (d.fit) {
+          sc = Math.max(W / d.w, H / d.h);
+          tx = (W - d.w * sc) / 2; ty = (H - d.h * sc) / 2;
+        } else {
+          sc = W / s.vw; tx = -s.vx * sc;
+          ty = H / 2 - ((hl[1] + hl[3]) / 2) * sc;
+          ty = d.h * sc > H ? Math.min(0, Math.max(H - d.h * sc, ty)) : (H - d.h * sc) / 2;
+        }
+        return { s: sc, tx: tx, ty: ty };
+      }
+      function tf(f) { return "translate(" + f.tx + "px," + f.ty + "px) scale(" + f.s + ")"; }
+
+      // Frame size for a passage: landscape crops get a landscape frame, everything else the portrait one
+      function frameSize(s) {
+        if (!single.matches) return null;
+        var d = DOCS[s.doc], vw = window.innerWidth, vh = window.innerHeight, w, h;
+        // Every passage uses the same square frame, so it never changes shape
+        h = Math.round(vh * 0.66); w = h;
+        return { w: w, h: h, top: Math.round(vh * 0.5 - h / 2) };
+      }
+      function setFrame(sz, animate) {
+        if (!sz) { docBox.style.width = docBox.style.height = docBox.style.top = ""; return; }
+        if (!animate) docBox.style.transition = "none";
+        docBox.style.width = sz.w + "px"; docBox.style.height = sz.h + "px"; docBox.style.top = sz.top + "px";
+        if (!animate) { docBox.getBoundingClientRect(); docBox.style.transition = ""; }
+      }
+
+      // Each quote box is placed per passage, against the frame's final size
+      function placeQuote(s, f, sz) {
+        var q = $("quote");
+        if (!sz) { q.style.left = ""; q.style.removeProperty("--qy"); return; }
+        var left = docBox.getBoundingClientRect().left, qw = q.offsetWidth, qh = q.offsetHeight;
+        var at = function (y) { return sz.top + y * f.s + f.ty; }, m = s.q || ["beside"], y;
+        if (m[0] === "center") y = sz.top + (sz.h - qh) / 2;
+        else if (m[0] === "above") y = at(m[1]) - qh + (m[2] != null ? m[2] : -8);
+        else if (m[0] === "below") y = at(m[1]) + (m[2] != null ? m[2] : 8);
+        else if (m[0] === "overTop") y = sz.top - qh + m[1];
+        else y = at((s.hl[1] + s.hl[3]) / 2) - qh / 2;
+        // Horizontal position is the same on every passage: hanging off the frame's right edge.
+        // Only the vertical position changes per passage.
+        var x = Math.round(Math.min(window.innerWidth - qw - 16, left + sz.w - 0.55 * qw));
+        // Keep clear of the other-project block when the box sits over it
+        var nx = $("next").getBoundingClientRect();
+        if (x + qw > nx.left) y = Math.min(nx.top - qh - 24, y);
+        y = Math.round(Math.max(16, y));
+        q.style.left = x + "px"; q.style.setProperty("--qy", y + "px");
+      }
+
+      // Square thumbnails, each cropped to the center of its image
+      function thumbStyle(s) {
+        return "width:var(--th-h);background:url('" + DOCS[s.doc].img + "') center / cover no-repeat";
+      }
+
+      // Each tag stays whole when the line wraps; the separator travels with the tag before it
+      function tagsHTML(t) {
+        var parts = t.split(" · ");
+        return parts.map(function (x, i) { return '<span class="tag">' + x + (i < parts.length - 1 ? " ·" : "") + "</span>"; }).join(" ");
+      }
+
+      function buildProject(p) {
+        var P = PROJECTS[p], o = PROJECTS[1 - p];
+        $("pname").textContent = P.name;
+        $("purl").textContent = P.url; $("purl").href = P.href;
+        $("pdesc").innerHTML = P.desc;
+        $("ptags").innerHTML = tagsHTML(P.tags);
+        // Only Fenn has a build log
+        $("blog").hidden = !P.log;
+        if (P.log) $("blog").href = P.log;
+        $("row").innerHTML = P.passages.map(function (s, n) {
+          return '<button class="th" type="button" data-n="' + n + '" style="' + thumbStyle(s) + '" aria-label="Selection ' + (n + 1) + ': ' + s.cite.replace(/"/g, "&quot;") + '"></button>';
+        }).join("");
+        $("row").querySelectorAll(".th").forEach(function (b) {
+          b.addEventListener("click", function () { step(+b.dataset.n); });
+        });
+        $("nname").textContent = o.name;
+        $("ntags").innerHTML = tagsHTML(o.tags);
+        $("next").setAttribute("aria-label", "Switch to " + o.name);
+      }
+
+      function show(n, dir, animate) {
+        var my = ++seq, P = PROJECTS[pi], s = P.passages[n], prev = si >= 0 ? P.passages[si] : null;
+        si = n;
+        $("row").querySelectorAll(".th").forEach(function (b) { b.setAttribute("aria-current", +b.dataset.n === n ? "true" : "false"); });
+
+        // Every step is the same and near-instant: the old image and quote go, the frame
+        // takes its new shape, and the new image and quote appear together in the same frame
+        var sz = frameSize(s);
+        setFrame(sz, false);
+        var f = frame(s, sz ? sz.w : docBox.clientWidth, sz ? sz.h : docBox.clientHeight);
+        var back = 1 - front, layer = L[back], el = makeDoc(s), old = front, q = $("quote");
+        layer.innerHTML = ""; el.style.transform = tf(f); layer.appendChild(el);
+        L[old].innerHTML = ""; L[old].classList.remove("in"); L[old].style.opacity = 0;
+        L[old].style.zIndex = 1; layer.style.zIndex = 2; layer.style.opacity = 1;
+        front = back;
+        $("qt").textContent = s.quote; $("qc").textContent = s.cite;
+        q.classList.remove("out");
+        placeQuote(s, f, sz);
+        var pop = animate && (prev || switching);
+        [layer, q].forEach(function (x) { x.classList.remove("in"); });
+        if (pop) { void q.offsetWidth; layer.classList.add("in"); q.classList.add("in"); }
+      }
+
+      function step(n) {
+        var max = PROJECTS[pi].passages.length - 1;
+        n = Math.max(0, Math.min(max, n));
+        if (n === si) return;
+        show(n, n > si ? 1 : -1, true);
+      }
+
+      function switchProject() {
+        var my = ++seq, parts = [$("info"), $("rowwrap"), $("next")];
+        parts.forEach(function (el) { el.classList.add("out"); });
+        $("quote").classList.add("out");
+        setTimeout(function () {
+          if (my !== seq) return;
+          pi = 1 - pi; si = -1;
+          buildProject(pi);
+          switching = true; show(0, 1, true); switching = false;
+          parts.forEach(function (el, n) { setTimeout(function () { el.classList.remove("out"); }, n * 40); });
+          try { history.replaceState(null, "", pi ? "#burrow" : "#fenn"); } catch (e) {}
+        }, 170);
+      }
+      $("next").addEventListener("click", switchProject);
+
+      // Input: one trackpad swipe, one step. Inertia keeps firing wheel events,
+      // so a new step needs a fresh gesture once the transition has run.
+      var lockUntil = 0, lastT = 0, acc = 0, needNew = false;
+      window.addEventListener("wheel", function (e) {
+        if (!single.matches) return;
+        e.preventDefault();
+        var t = performance.now(), gap = t - lastT; lastT = t;
+        if (gap > 180) { acc = 0; needNew = false; }
+        if (t < lockUntil || needNew) return;
+        acc += Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+        if (Math.abs(acc) >= 30) { step(si + (acc > 0 ? 1 : -1)); acc = 0; lockUntil = t + STEP; needNew = true; }
+      }, { passive: false });
+      window.addEventListener("keydown", function (e) {
+        if (e.target.closest && e.target.closest(".pm")) return;
+        var k = e.key, t = performance.now();
+        var fwd = k === "ArrowDown" || k === "ArrowRight" || k === "PageDown" || k === " ";
+        var back = k === "ArrowUp" || k === "ArrowLeft" || k === "PageUp";
+        if (!fwd && !back) return;
+        if (single.matches) e.preventDefault();
+        if (t < lockUntil) return;
+        lockUntil = t + STEP;
+        step(si + (fwd ? 1 : -1));
+      });
+      var sy = 0, sx = 0, st = 0;
+      docBox.addEventListener("touchstart", function (e) { sy = e.touches[0].clientY; sx = e.touches[0].clientX; st = Date.now(); }, { passive: true });
+      docBox.addEventListener("touchend", function (e) {
+        var dy = sy - e.changedTouches[0].clientY, dx = sx - e.changedTouches[0].clientX;
+        var d = single.matches && Math.abs(dy) > Math.abs(dx) ? dy : dx;
+        var v = Math.abs(d) / Math.max(1, Date.now() - st);
+        if (Math.abs(d) > 50 || (Math.abs(d) > 12 && v > 0.11)) step(si + (d > 0 ? 1 : -1));
+      }, { passive: true });
+
+      // Resizing refits the current passage in place, without animating
+      window.addEventListener("resize", function () {
+        if (si < 0) return;
+        var s = PROJECTS[pi].passages[si], sz = frameSize(s);
+        setFrame(sz, false);
+        var f = frame(s, sz ? sz.w : docBox.clientWidth, sz ? sz.h : docBox.clientHeight), el = L[front].firstChild;
+        if (el) el.style.transform = tf(f);
+        placeQuote(s, f, sz);
+      });
+
+      pi = location.hash === "#burrow" ? 1 : 0;
+      buildProject(pi);
+      var fontsReady = document.fonts && document.fonts.load
+        ? Promise.all(['400 40px "Advercase"', '400 16px "Switzer"']
+            .map(function (f) { return document.fonts.load(f).catch(function () {}); }))
+        : Promise.resolve();
+      fontsReady.then(function () { show(0, 1, true); });
     })();
   </script>
-
 
 <script>
   (function () {

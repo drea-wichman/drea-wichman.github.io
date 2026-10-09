@@ -74,7 +74,7 @@
       align-items: baseline;
       padding: 48px 64px 0; position: relative; z-index: 30;
       font-size: 15px;
-      letter-spacing: -0.2px;
+      letter-spacing: -0.033em;
     }
     .back-link { color: var(--text); }
     .back-link a { color: var(--dim); text-decoration: none; position: relative; transition: color 0.3s ease; }
@@ -90,7 +90,7 @@
     .bc-plus::after { content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 2px); width: 1px; background: var(--text); }
 
     #tabs { display: flex; gap: 34px; border-bottom: 0.5px solid var(--text); margin: 16px var(--pw) 0 var(--lm); }
-    .tab { position: relative; font-size: 16px; padding: 8px 0; color: var(--dim); border-bottom: 2px solid transparent; margin-bottom: -0.5px; cursor: pointer; transition: color .3s, border-color .3s; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+    .tab { position: relative; font-size: 16px; letter-spacing: -0.033em; padding: 8px 0; color: var(--dim); border-bottom: 2px solid transparent; margin-bottom: -0.5px; cursor: pointer; transition: color .3s, border-color .3s; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
     .tab[aria-selected="true"] { color: var(--text); border-color: var(--text); }
     .tab .tab-t { position: relative; }
     .tab:hover .bc-plus, .tab:focus-visible .bc-plus { opacity: 1; transform: translate(0, -50%); }
@@ -105,7 +105,7 @@
 
     #ttl { font-family: "Advercase", Georgia, serif; font-weight: 400; font-size: clamp(44px, 7vh, 68px); line-height: .95; margin-top: 2px; }
     #fwl { margin-top: 14px; display: flex; gap: 36px; }
-    .v16 { font-size: 16px; margin-top: 1px; }
+    .v16 { font-size: 16px; margin-top: 1px; letter-spacing: -0.033em; }
 
     #se { align-self: start; display: flex; flex-direction: column; }
     #se .ph { flex: none; height: clamp(190px, calc(30vh - clamp(0px, calc((860px - 100vh) / 3.2), 25px)), 330px); position: relative; overflow: hidden; background: #3a3936; }
@@ -118,27 +118,27 @@
     .rhead span:last-child { text-align: right; }
     #rows { display: flex; flex-direction: column; position: relative; }
     #rows::before { content: ""; position: absolute; top: 0; bottom: 0; left: calc(150px + min(300px, 100% - 150px) / 2); border-left: 0.5px solid var(--text); }
-    .rw { display: grid; grid-template-columns: 150px minmax(0, 300px); align-items: center; font-size: 13px; cursor: default; transition: opacity .25s; }
+    .rw { display: grid; grid-template-columns: 150px minmax(0, 300px); align-items: center; font-size: 13px; letter-spacing: -0.033em; cursor: default; transition: opacity .25s; }
     #rows:hover .rw:not(:hover), #rows:focus-within .rw:not(:focus) { opacity: .38; }
     .tr { position: relative; height: 9px; }
     .bar { position: absolute; top: 0; height: 9px; width: 0; transform: scaleX(0); transition: transform .5s cubic-bezier(.22, 1, .36, 1); }
     .bar.l { right: 50%; background: var(--fill); transform-origin: right; }
     .bar.r { left: 50%; border: 0.75px solid var(--fill); transform-origin: left; }
     .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-    .note { position: absolute; left: calc(50% + 10px); top: -2px; font-size: 12px; font-style: italic; color: var(--dim); white-space: nowrap; }
+    .note { position: absolute; left: calc(50% + 10px); top: -2px; font-size: 12px; font-style: italic; letter-spacing: -0.033em; color: var(--dim); white-space: nowrap; }
     .rw.dim .lbl { color: var(--dim); }
 
     #st { grid-area: st; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
     .box { background: var(--fill); border-radius: 50%; height: 100px; padding: 8px 28px calc(8px + var(--bn) * var(--lift)); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
     .big { white-space: nowrap; font-weight: 700; letter-spacing: -0.05em; line-height: 1; color: var(--light); font-size: var(--bn); font-variant-numeric: tabular-nums; }
-    .box .sub { color: var(--mute); font-size: 12px; line-height: 1.4; margin-top: 0; }
+    .box .sub { color: var(--mute); font-size: 12px; letter-spacing: -0.033em; line-height: 1.4; margin-top: 0; }
 
     #rp { position: relative; background: var(--panel); padding: 22px 44px; display: flex; flex-direction: column; min-height: 0; }
     #info { flex: none; transition: opacity .2s; }
     @keyframes infoIn { from { opacity: 0; } to { opacity: 1; } }
     #info > * { animation: infoIn 150ms ease-out; }
-    .vt { font-size: 16px; line-height: 1.4; margin-top: 10px; text-wrap: pretty; }
-    .gh { text-decoration: none; }
+    .vt { font-size: 16px; line-height: 1.4; margin-top: 10px; text-wrap: pretty; letter-spacing: -0.033em; }
+    .gh { text-decoration: none; font-size: 13px; transition: color .3s ease; }
     .gh::before { content: "+"; }
     #info .vt { transition: color .45s ease; }
     #info .k, #info .ft { transition: opacity .45s ease; }
@@ -148,7 +148,7 @@
     .spacer { flex: 1 1 0; }
     #circ { flex: none; margin: 0 auto; width: 224px; height: 100px; border-radius: 50%; border: 0.5px solid var(--text); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10px 16px calc(10px + var(--bn) * var(--lift)); }
     #circ .big { color: var(--text); font-family: "Switzer Thin", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 100; }
-    #circ .sub { font-size: 11px; color: #1F1E1B; margin-top: 0; line-height: 1.25; }
+    #circ .sub { font-size: 11px; letter-spacing: -0.033em; color: #1F1E1B; margin-top: 0; line-height: 1.25; }
 
     #tl { flex: none; padding-top: 12px; margin-bottom: 18px; }
     .tlist { list-style: none; margin-top: 8px; }
@@ -158,8 +158,8 @@
     .tp::before { content: ""; position: absolute; left: 0; right: 0; top: 5px; height: 1px; background: var(--text); }
     .tp::after { content: ""; position: absolute; top: 0; bottom: 0; left: 5px; width: 1px; background: var(--text); }
     .tlist li:not(:last-child)::after { content: ""; position: absolute; left: 5px; top: 21px; height: 25px; width: 1px; background: var(--text); transform-origin: top; }
-    .tt { font-size: 13px; font-weight: 700; line-height: 1.25; font-variant-numeric: tabular-nums; }
-    .td { font-size: 12px; line-height: 1.3; color: #1f1e1b; }
+    .tt { font-size: 13px; font-weight: 700; line-height: 1.25; letter-spacing: -0.033em; font-variant-numeric: tabular-nums; }
+    .td { font-size: 12px; line-height: 1.3; letter-spacing: -0.033em; color: #1f1e1b; }
     @keyframes tlIn { from { opacity: 0; transform: translate3d(-4px, 0, 0); } to { opacity: 1; transform: none; } }
     @keyframes tlDraw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
     .tp, .tt, .td { animation: tlIn .55s cubic-bezier(.22, 1, .36, 1) both; }
