@@ -50,11 +50,15 @@
       /* Mirrored layout: square frame on the left (side --fs, left edge --fl), text column to its right */
       /* Room needed under the frame: 16px gap, SELECTIONS row, rule, 20px gap, other-project block, 16px margin */
       --below: 241px;
-      --fs: min(66vh, 44vw, calc(100vh - 96px - var(--below)));
+      /* --fs0: the frame's natural size. --fs gives back to the text column whatever the frame's shift right takes from it,
+         so the column is never narrower than it was with the frame at 122px */
+      --fs0: min(66vh, 44vw, calc(100vh - 96px - var(--below)));
+      --fs: min(var(--fs0), max(calc(100vw - var(--fl) - 582px), calc(var(--fs0) - var(--fl) + 122px)));
       /* Frame top: centered, but raised on short windows so the block below the rule still fits */
       --ft: min(calc(50vh - var(--fs) / 2), calc(100vh - var(--fs) - var(--below)));
-      /* Frame starts just right of the open index menu, whose widest item ("case studies") ends at 98px */
-      --fl: 122px;
+      /* Quote's left edge sits on the 64px breadcrumb line; the frame starts where the quote hangs 45% of its width off it */
+      --qw: min(25vw, 360px);
+      --fl: calc(64px + 0.45 * var(--qw));
       --tl: calc(var(--fl) + var(--fs) + 64px);
     }
 
@@ -109,7 +113,7 @@
     .links a { color: var(--dim); position: relative; transition: color 0.3s ease; }
     .links a::before { content: "+"; }
     .links a:hover, .links a:focus-visible { color: var(--text); }
-    #pdesc { margin-top: 20px; font-size: 15.5px; line-height: 1.6; letter-spacing: -0.033em; max-width: 40ch; }
+    #pdesc { margin-top: 20px; font-size: 15.5px; line-height: 1.3; letter-spacing: -0.033em; max-width: 40ch; }
     #pdesc em { font-style: normal; }
     .tag { white-space: nowrap; }
     #ptags { margin-top: 26px; font-size: 13px; font-weight: 700; line-height: 1.5; letter-spacing: -0.033em; color: var(--dim); }
@@ -135,7 +139,7 @@
     .layer { position: absolute; inset: 0; }
 
     /* Pulled quote hangs off the document's left edge */
-    #quote { position: fixed; left: 0; top: 0; width: min(25vw, 360px); z-index: 20; background: var(--fill); color: var(--light); padding: 22px 26px 30px; box-shadow: 0 6px 18px -4px rgba(20, 20, 20, 0.45); --qx: 0px; --qy: 0px; transform: translate(var(--qx), var(--qy)); }
+    #quote { position: fixed; left: 0; top: 0; width: var(--qw); z-index: 20; background: var(--fill); color: var(--light); padding: 22px 26px 30px; box-shadow: 0 6px 18px -4px rgba(20, 20, 20, 0.45); --qx: 0px; --qy: 0px; transform: translate(var(--qx), var(--qy)); }
     #quote.out { opacity: 0; }
     /* Image and quote come in together on one short fade */
     .layer.in, #quote.in { animation: popIn 70ms ease-out both; }
@@ -145,7 +149,7 @@
 
     /* The other project introduces itself in the corner */
     /* Bottom-right corner, below the ground rule, top-aligned with the SELECTIONS row */
-    #next { position: fixed; right: 16px; top: calc(var(--ft) + var(--fs) + 16px + 24px + var(--th-h) + 6px + 20px); width: max-content; z-index: 10; color: var(--dim); transition: color 0.3s ease, opacity 0.32s var(--ease-out), transform 0.32s var(--ease-out); }
+    #next { position: fixed; right: 64px; top: calc(var(--ft) + var(--fs) + 16px + 24px + var(--th-h) + 6px + 20px); width: max-content; z-index: 10; color: var(--dim); transition: color 0.3s ease, opacity 0.32s var(--ease-out), transform 0.32s var(--ease-out); }
     #next.out { opacity: 0; transform: translateY(6px); transition: opacity 0.16s ease-out, transform 0.16s ease-out; }
     #next .nn { position: relative; display: inline-block; margin-top: 8px; font-family: "Advercase", Georgia, serif; font-size: 30px; line-height: 1; }
     #next .nt { display: block; margin-top: 4px; white-space: nowrap; font-size: 13px; font-weight: 700; line-height: 1.5; letter-spacing: -0.033em; }
@@ -157,7 +161,7 @@
 
     @media (max-height: 760px) and (min-width: 901px) {
       #pname { font-size: clamp(46px, 5vw, 64px); }
-      #pdesc { font-size: 14.5px; line-height: 1.5; }
+      #pdesc { font-size: 14.5px; line-height: 1.3; }
       :root { --th-h: 40px; }
     }
 
@@ -323,7 +327,9 @@
         if (!single.matches) return null;
         var d = DOCS[s.doc], vw = window.innerWidth, vh = window.innerHeight, w, h;
         // Every passage uses the same square frame, so it never changes shape
-        h = Math.round(Math.min(vh * 0.66, vw * 0.44, vh - 96 - 241)); w = h;
+        // Mirrors --fs0, --fl and --fs in the CSS
+        var fs0 = Math.min(vh * 0.66, vw * 0.44, vh - 96 - 241), fl = 64 + 0.45 * Math.min(vw * 0.25, 360);
+        h = Math.round(Math.min(fs0, Math.max(vw - fl - 582, fs0 - fl + 122))); w = h;
         return { w: w, h: h, top: Math.round(Math.min(vh * 0.5 - h / 2, vh - h - 241)) };
       }
       function setFrame(sz, animate) {
@@ -346,7 +352,7 @@
         else y = at((s.hl[1] + s.hl[3]) / 2) - qh / 2;
         // Horizontal position is the same on every passage: hanging off the frame's left edge.
         // Only the vertical position changes per passage.
-        var x = Math.round(Math.max(16, left - 0.45 * qw));
+        var x = Math.round(Math.max(64, left - 0.45 * qw));
         // Never hang below the frame's bottom edge
         y = Math.min(sz.top + sz.h - qh, y);
         y = Math.round(Math.max(16, y));
