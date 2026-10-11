@@ -126,10 +126,15 @@
     #rowhead { margin-bottom: 10px; }
     /* Tab-style rule, as on case studies: 0.5px under the row, running off the right edge; 2px segment under the active selection */
     #row { position: relative; display: flex; gap: 6px; padding-bottom: 6px; }
-    #row::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100vw; border-top: 0.5px solid var(--text); pointer-events: none; }
+    #row::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100vw; border-top: 0.5px solid var(--text); pointer-events: none; animation: lineDraw .6s cubic-bezier(.65, 0, .35, 1) .8s backwards; }
+    /* Entrance, once per load (shared with profile and cases): the rule draws left to right over 0.6s after 0.8s,
+       then the segment fades in (script, first load only, since the segment is rebuilt on project switches) */
+    @keyframes lineDraw { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+    @keyframes segIn { from { opacity: 0; } to { opacity: 1; } }
     .th { position: relative; height: var(--th-h); overflow: hidden; background: #8C8883; filter: grayscale(1); opacity: 0.62; transition: filter 0.3s ease, opacity 0.3s ease, transform 0.16s ease-out; }
-    /* Active selection: a 2px rule beneath it, like the active tab on case studies */
-    .th[aria-current="true"] { filter: none; opacity: 1; box-shadow: 0 4px 0 0 var(--bg), 0 6px 0 0 var(--text); }
+    .th[aria-current="true"] { filter: none; opacity: 1; }
+    /* Active selection: one 2px rule that slides beneath it, like the active tab on case studies. Sized and placed by placeSel() */
+    .sel-ind { position: absolute; left: 0; bottom: 0; width: 1px; height: 2px; background: var(--text); transform-origin: 0 0; transition: transform 0.28s cubic-bezier(0.77, 0, 0.175, 1); pointer-events: none; }
     .th:active { transform: scale(0.97); }
     @media (hover: hover) and (pointer: fine) { .th:not([aria-current="true"]):hover { opacity: 0.85; } }
     .th > * { pointer-events: none; }
@@ -167,6 +172,8 @@
 
     @media (prefers-reduced-motion: reduce) {
       .page-head { animation: none; }
+      .sel-ind { transition: none; }
+      #row::after { animation: none; }
       #doc { transition: none; }
       .layer.in, #quote.in { animation: none; }
       .swap, .swap.out, #next, #next.out { transform: none; }
@@ -202,7 +209,7 @@
 <body>
 
   <header class="page-head">
-    <div class="back-link"><span class="ixw"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a><span class="pm"><a href="profile.html"><span class="bc-plus" aria-hidden="true"></span>profile</a><a href="cases.html"><span class="bc-plus" aria-hidden="true"></span>case studies</a><a href="skills.html"><span class="bc-plus" aria-hidden="true"></span>skills</a><a href="cv.html"><span class="bc-plus" aria-hidden="true"></span>cv</a><a href="offline.html"><span class="bc-plus" aria-hidden="true"></span>offline</a></span></span> / projects</div>
+    <div class="back-link"><span class="ixw"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a><span class="pm"><a href="profile.html"><span class="bc-plus" aria-hidden="true"></span>profile</a><a href="cases.html"><span class="bc-plus" aria-hidden="true"></span>case studies</a><a href="skills.html"><span class="bc-plus" aria-hidden="true"></span>skills</a><a href="cv.html"><span class="bc-plus" aria-hidden="true"></span>cv</a></span></span> / projects</div>
   </header>
 
   <main>
@@ -381,7 +388,8 @@
         if (P.log) $("blog").href = P.log;
         $("row").innerHTML = P.passages.map(function (s, n) {
           return '<button class="th" type="button" data-n="' + n + '" style="' + thumbStyle(s) + '" aria-label="Selection ' + (n + 1) + ': ' + s.cite.replace(/"/g, "&quot;") + '"></button>';
-        }).join("");
+        }).join("") + '<span class="sel-ind" aria-hidden="true"></span>';
+        freshRow = true;
         $("row").querySelectorAll(".th").forEach(function (b) {
           b.addEventListener("click", function () { step(+b.dataset.n); });
         });
@@ -390,10 +398,22 @@
         $("next").setAttribute("aria-label", "Switch to " + o.name);
       }
 
+      // Sizes and moves the underline to the current selection; slides only within a row,
+      // so a newly built row (first load, project switch) places it without sliding
+      var freshRow = false;
+      function placeSel(animate) {
+        var b = $("row").querySelector('.th[aria-current="true"]'), ind = $("row").querySelector(".sel-ind");
+        if (!b || !ind) return;
+        if (!animate) ind.style.transition = "none";
+        ind.style.transform = "translateX(" + b.offsetLeft + "px) scaleX(" + b.offsetWidth + ")";
+        if (!animate) { ind.getBoundingClientRect(); ind.style.transition = ""; }
+      }
+
       function show(n, dir, animate) {
         var my = ++seq, P = PROJECTS[pi], s = P.passages[n], prev = si >= 0 ? P.passages[si] : null;
         si = n;
         $("row").querySelectorAll(".th").forEach(function (b) { b.setAttribute("aria-current", +b.dataset.n === n ? "true" : "false"); });
+        placeSel(animate && !freshRow); freshRow = false;
 
         // Every step is the same and near-instant: the old image and quote go, the frame
         // takes its new shape, and the new image and quote appear together in the same frame
@@ -475,6 +495,7 @@
         var f = frame(s, sz ? sz.w : docBox.clientWidth, sz ? sz.h : docBox.clientHeight), el = L[front].firstChild;
         if (el) el.style.transform = tf(f);
         placeQuote(s, f, sz);
+        placeSel(false);
       });
 
       // The other-project block keeps one width (the wider of the two projects' contents),
@@ -493,6 +514,7 @@
 
       pi = location.hash === "#burrow" ? 1 : 0;
       buildProject(pi);
+      if (!reduced) $("row").querySelector(".sel-ind").animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, delay: 1400, easing: "ease-out", fill: "backwards" });
       var fontsReady = document.fonts && document.fonts.load
         ? Promise.all(['400 40px "Advercase"', '400 16px "Switzer"']
             .map(function (f) { return document.fonts.load(f).catch(function () {}); }))

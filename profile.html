@@ -12,6 +12,7 @@
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preload" href="fonts/advercase-regular.woff2" as="font" type="font/woff2" crossorigin>
   <style>
     /*
     Font:     Advercase (Regular, Bold, Italic)
@@ -24,49 +25,55 @@
     and visible in your CSS.
     */
     @font-face{font-family:"Advercase";src:url("fonts/advercase-regular.woff2") format("woff2"),url("fonts/advercase-regular.woff") format("woff");font-weight:400;font-style:normal;font-display:swap;}
-    @font-face{font-family:"Advercase";src:url("fonts/advercase-italic.woff2") format("woff2"),url("fonts/advercase-italic.woff") format("woff");font-weight:400;font-style:italic;font-display:swap;}
-    @font-face{font-family:"Switzer Thin";src:url("fonts/switzer-thin.woff2") format("woff2"),url("fonts/switzer-thin.woff") format("woff");font-weight:100;font-style:normal;font-display:swap;}
+    @font-face{font-family:"Switzer";src:url("fonts/switzer-light.woff2") format("woff2");font-weight:300;font-style:normal;font-display:swap;}
+    @font-face{font-family:"Switzer";src:url("fonts/switzer-regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap;}
+    @font-face{font-family:"Switzer";src:url("fonts/switzer-medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap;}
 
     @view-transition { navigation: auto; }
 
     :root {
       --bg: #A8A5A1;
       --text: #141414;
-      --rule: #8F8C89;
-      --dim: #4A4845;
+      --dim: #3D3B38;
+      --ink2: #1F1E1B;
+      --panel: #8C8883;
+      --fill: #1A1916;
+      --light: #D6D2CB;
+      --mute: #9A968F;
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-move: cubic-bezier(.77, 0, .175, 1);
     }
+
+    /* Open side (Offline): fill, text, labels and hairline. The page uses charcoal (the stat-oval colors):
+       <body data-open="charcoal">. Changing it to data-open="taupe" switches to the verdict-panel taupe. */
+    body { --open-fill: var(--panel); --open-ink: var(--text); --open-label: var(--ink2); --open-line: var(--text); }
+    body[data-open="charcoal"] { --open-fill: var(--fill); --open-ink: var(--light); --open-label: var(--mute); --open-line: var(--light); }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     *, *::before, *::after { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='%23141414'/></svg>") 5 3, auto !important; }
-    a:hover, a:hover * { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='none' stroke='%23141414' stroke-width='1.5' stroke-linejoin='round'/></svg>") 5 3, pointer !important; }
+    a:hover, a:hover *, button:hover, button:hover * { cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'><path d='M5.5 3 L5.5 17.6 L9.3 13.9 L11.9 19.8 L14.4 18.7 L11.7 12.9 L17 12.9 Z' fill='none' stroke='%23141414' stroke-width='1.5' stroke-linejoin='round'/></svg>") 5 3, pointer !important; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+    html, body { height: 100%; }
+    body { background: var(--bg); color: var(--text); font-family: "Switzer", "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: -0.033em; overflow: hidden; }
     a { color: var(--text); text-decoration: none; }
-
+    button { font: inherit; color: inherit; letter-spacing: inherit; background: none; border: 0; padding: 0; }
     ::selection { background: #877F76; }
 
     @keyframes riseIn {
       from { opacity: 0; transform: translateY(14px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    .page-head { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
-    .bio { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: 0.08s; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     .page-head {
+      position: absolute; left: 0; right: 0; top: 0; z-index: 30;
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      padding: 48px 64px 0; position: relative; z-index: 30;
+      padding: 48px 64px 0;
       font-size: 15px;
-      letter-spacing: -0.033em;
+      animation: riseIn 0.85s var(--ease-out) both;
     }
     .back-link { color: var(--text); }
     .back-link a { color: var(--dim); text-decoration: none; position: relative; transition: color 0.3s ease; }
@@ -77,75 +84,111 @@
       width: 9px; height: 9px;
       padding-right: 3px; box-sizing: content-box;
       opacity: 0; transform: translate(5px, -50%);
-      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
       pointer-events: none;
     }
-    .bc-plus::before {
-      content: ""; position: absolute; left: 0; right: 3px; top: 50%;
-      height: 1px; background: var(--text);
-    }
-    .bc-plus::after {
-      content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 2px);
-      width: 1px; background: var(--text);
+    .bc-plus::before { content: ""; position: absolute; left: 0; right: 3px; top: 50%; height: 1px; background: var(--text); }
+    .bc-plus::after { content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 2px); width: 1px; background: var(--text); }
+
+    /* ---- Page: photo centered, name above, Seeking line below ---- */
+    .pf { position: relative; height: 100vh; min-height: 620px; overflow: hidden; --ly: 50vh; --seam: 50vw; --tw: 380px;
+      /* Never narrower than the Seeking line (about 330px), so it can't cross the photo's edge into the open side */
+      --phh: max(340px, min(44vh, calc((100vw - 888px) / .97))); }
+    .ph { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); height: var(--phh); aspect-ratio: 1086 / 1120; z-index: 3; animation: fadeIn .7s ease-out backwards .08s; }
+    .ph img { display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.04); }
+    /* The name keeps at least 40px clear of each photo edge.
+       20.5px box gap: the name's letters sit at the bottom of its box, the Seeking line's capitals 5.6px into its box,
+       so this makes the visible gaps above and below the photo equal */
+    .name { position: absolute; left: 0; right: 0; top: calc(50% - var(--phh) / 2 - 20.5px); transform: translateY(-100%); text-align: center; white-space: nowrap; z-index: 3;
+      font-family: "Advercase", Georgia, serif; font-weight: 400; letter-spacing: -0.5px; line-height: .95;
+      font-size: min(clamp(44px, 4.2vw, 60px), calc((var(--phh) * .97 - 80px) / 6.6)); animation: fadeIn .7s ease-out backwards .08s; }
+    .seek { position: absolute; left: 0; right: 0; top: calc(50% + var(--phh) / 2 + 16px); text-align: center; white-space: nowrap; z-index: 3; font-size: 17px; font-weight: 400; animation: fadeIn .7s ease-out backwards .08s; }
+
+    /* ---- Open side: a full-height fill from the photo's right edge to the screen edge ---- */
+    /* The charcoal and its light layer share one clip shape: a 200px band at the right edge when closed,
+       the full panel from the photo's edge when open. Opening slides the band's left edge in one motion */
+    .panel { position: absolute; inset: 0; background: var(--open-fill); clip-path: var(--clip, inset(0 0 0 100%)); transition: clip-path .75s var(--ease-move); z-index: 1; }
+    .pf:not(.open) .panel { cursor: pointer; }
+
+    /* ---- Hairline and segment: one line whose two ends move with the fill. These dark copies sit under the fill ---- */
+    .line { position: absolute; left: 0; top: var(--ly); width: 1px; height: 0; border-top: .5px solid var(--text); transform-origin: 0 0; transform: translateX(var(--l0, 0px)) scaleX(var(--lw, 0)); transition: transform .75s var(--ease-move); z-index: 0; }
+    .seg { position: absolute; left: 0; top: calc(var(--ly) - 1.5px); width: 1px; height: 2px; background: var(--text); transform-origin: 0 0; transform: translateX(var(--sx, 0px)) scaleX(var(--sw, 0)); transition: transform .75s var(--ease-move); z-index: 0; }
+
+    /* ---- Headings sit on the line ---- */
+    .hd { position: absolute; top: calc(var(--ly) - 7px); transform: translateY(-100%); z-index: 2; white-space: nowrap;
+      font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink2); }
+    .hd .hk { position: relative; display: inline-block; }
+    .hd-pro { left: 64px; }
+    /* The dark Offline heading sits under the fill; the open-side layer redraws it over the fill.
+       It travels with the band's left edge: 40px inside the band when closed, 40px past the photo when open */
+    .hd-off { left: 0; z-index: 0; transform: translate(var(--ohx, 0px), -100%); transition: transform .75s var(--ease-move); }
+    /* No focus box on click; keyboard users still get one */
+    .hd:focus { outline: none; }
+    .hd:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
+    .pf:not(.open) .hd-off, .pf.open .hd-pro { cursor: pointer; }
+    .pf.open .hd-off, .pf:not(.open) .hd-pro { pointer-events: none; }
+    @media (hover: hover) and (pointer: fine) {
+      .pf:not(.open) .hd-off:hover .bc-plus, .pf.open .hd-pro:hover .bc-plus { opacity: 1; transform: translate(0, -50%); }
     }
 
-    main {
-      flex: 1;
-      display: flex;
-      width: 100%;
-      max-width: 1170px;
-      margin: 0 auto;
-      padding: 24px 48px 80px;
+    .ptx { position: absolute; left: 64px; top: calc(var(--ly) + 26px); width: var(--tw); z-index: 2; font-size: 15px; line-height: 1.5; }
+
+    /* ---- The open-side layer: clipped to the fill, so anything over it takes the open-side colors exactly at the seam ---- */
+    .ol { position: absolute; inset: 0; z-index: 4; clip-path: var(--clip, inset(0 0 0 100%)); transition: clip-path .75s var(--ease-move); pointer-events: none; }
+    /* Hovering the band or the heading shows the "+" (both copies; each shows only where it isn't clipped) */
+    @media (hover: hover) and (pointer: fine) {
+      .pf:not(.open):has(.panel:hover) .bc-plus, .pf:not(.open):has(button.hd-off:hover) .ol .bc-plus { opacity: 1; transform: translate(0, -50%); }
+      .pf:not(.open):has(.panel:hover) .hd-pro .bc-plus { opacity: 0; }
     }
 
-    .bio {
-      margin: auto 0;
-      width: 100%;
-      display: grid;
-      grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
-      gap: 64px;
-      align-items: center;
-    }
+    .ol .line { border-top-color: var(--open-line); }
+    .ol .seg { background: var(--open-line); }
+    .ol .hd-off { color: var(--open-label); }
+    /* The real Offline button sits under the charcoal, so its keyboard focus outline shows on the visible copy */
+    .pf:has(button.hd-off:focus-visible) .ol .hd-off { outline: 1px solid currentColor; outline-offset: 4px; }
+    .ol .bc-plus::before, .ol .bc-plus::after { background: var(--open-line); }
+    /* The "+" before "Offline" takes the label's own color, on the page and over the open side */
+    .pf .hd-off .bc-plus::before, .pf .hd-off .bc-plus::after { background: currentColor; }
+    .oc { position: absolute; left: calc(var(--seam) + 40px); right: 64px; top: calc(var(--ly) + 26px); color: var(--open-ink); opacity: 0; transition: opacity .3s ease; }
+    .pf.open .oc { opacity: 1; pointer-events: auto; transition: opacity .45s ease .35s; }
+    .oc ul { list-style: none; display: grid; gap: 14px 32px; }
+    .oc li { font-size: 15px; line-height: 1.5; }
 
-    .bio-shot {
-      overflow: hidden;
-      border: 1px solid var(--rule);
-      border-radius: 4px;
-    }
-    .bio-shot img {
-      display: block;
-      width: 100%;
-      height: auto;
-      filter: saturate(0.85);
-    }
+    /* Opening straight from a link (profile.html#offline) skips the slide */
+    .pf.instant, .pf.instant * { transition: none !important; }
 
-    .bio-text p {
-      font-family: "Advercase", Georgia, serif;
-      font-style: italic;
-      font-size: 18px;
-      line-height: 1.65;
-      max-width: 70ch;
-    }
-
-    .bio-status {
-      font-size: 12px;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: var(--dim);
-      margin-top: 36px;
-    }
+    /* Entrance, once per load (shared with cases and projects): after the photo has faded in (0.78s),
+       the hairline draws left to right over 0.6s, then the segment fades in */
+    @keyframes lineDraw { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+    @keyframes segIn { from { opacity: 0; } to { opacity: 1; } }
+    .line { animation: lineDraw .6s cubic-bezier(.65, 0, .35, 1) .8s backwards; }
+    .seg { animation: segIn .2s ease-out 1.4s backwards; }
 
     @media (prefers-reduced-motion: reduce) {
-      .page-head, .bio { animation: none; }
+      .page-head, .ph, .name, .seek { animation: none; }
+      .line, .seg { animation: none; }
+      .panel, .line, .seg, .ol { transition-duration: .01s; }
     }
 
-    @media (max-width: 900px) {
-      .page-head { padding: 28px 20px 0; }
-      main { padding: 44px 20px 70px; }
-      .bio { grid-template-columns: 1fr; gap: 32px; }
-      .bio-shot { max-width: 420px; }
+    /* ---- Small screens: stack and scroll; Offline always shows, in a filled block ---- */
+    @media (max-width: 959px), (max-height: 640px) {
+      body { overflow: auto; }
+      .page-head { position: static; padding: 28px 20px 0; }
+      .pf { height: auto; min-height: 0; overflow: visible; display: flex; flex-direction: column; padding: 36px 20px 56px; }
+      .name, .ph, .seek, .hd, .ptx, .oc, .ol { position: static; transform: none; width: auto; }
+      .name { order: 1; font-size: clamp(40px, 11vw, 56px); }
+      .ph { order: 2; align-self: center; width: min(360px, 100%); height: auto; margin-top: 18px; }
+      .seek { order: 3; margin-top: 14px; white-space: normal; }
+      .hd-pro { order: 4; margin-top: 40px; }
+      .ptx { order: 5; margin-top: 12px; }
+      .panel, .line, .seg, .hd-off, .ol .line, .ol .seg { display: none; }
+      .ol { order: 6; display: block; clip-path: none; margin: 32px -20px 0; padding: 24px 20px 28px; background: var(--open-fill); pointer-events: auto; }
+      .ol .hd-off { display: block; position: static; transform: none; pointer-events: none; }
+      .oc { margin-top: 12px; opacity: 1; }
+      .hd { pointer-events: none; text-align: left; }
+      .hd .bc-plus { display: none; }
     }
-  
+
     /* Page menu: hover "index" to switch pages */
     .ixw { position: relative; display: inline-block; }
     .pm { position: absolute; right: 0; top: calc(100% + 10px); display: flex; flex-direction: column; align-items: flex-end; gap: 7px; white-space: nowrap; opacity: 0; transform: translateY(-4px); transition: opacity .3s ease, transform .3s ease; pointer-events: none; }
@@ -158,24 +201,121 @@
     @media (hover: none), (max-width: 900px) { .pm { display: none; } }
   </style>
 </head>
-<body>
+<body data-open="charcoal">
 
   <header class="page-head">
-    <div class="back-link"><span class="ixw"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a><span class="pm"><a href="cases.html"><span class="bc-plus" aria-hidden="true"></span>case studies</a><a href="projects.html"><span class="bc-plus" aria-hidden="true"></span>projects</a><a href="skills.html"><span class="bc-plus" aria-hidden="true"></span>skills</a><a href="cv.html"><span class="bc-plus" aria-hidden="true"></span>cv</a><a href="offline.html"><span class="bc-plus" aria-hidden="true"></span>offline</a></span></span> / profile</div>
+    <div class="back-link"><span class="ixw"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a><span class="pm"><a href="cases.html"><span class="bc-plus" aria-hidden="true"></span>case studies</a><a href="projects.html"><span class="bc-plus" aria-hidden="true"></span>projects</a><a href="skills.html"><span class="bc-plus" aria-hidden="true"></span>skills</a><a href="cv.html"><span class="bc-plus" aria-hidden="true"></span>cv</a></span></span> / profile</div>
   </header>
 
-  <main>
-    <div class="bio">
-      <div class="bio-shot">
-        <img src="img/portrait.jpg" alt="Drea Wichman" width="1086" height="1120">
-      </div>
-      <div class="bio-text">
-        <p>Drea Wichman is an American cyber security professional focused on governance, risk, and compliance. CompTIA Security+ and A+ certified, she is based in London and studying for an MSc in Information and Cyber Security at Royal Holloway. With a humanities background and twelve years managing organic farm operations, she brings hands-on experience with regulatory compliance, risk assessment, and business continuity. Her current work lives at Fenn Agritech, a fictional UK company running a real security program mapped to ISO 27001 and UK GDPR. She has an instinct for both compelling narrative and clear technical writing, and a deep curiosity about the intersection of technology, trust, and the human element.</p>
-        <div class="bio-status">Seeking a GRC placement in London for 2027</div>
+  <main class="pf">
+    <div class="panel" aria-hidden="true"></div>
+    <div class="line" aria-hidden="true"></div>
+    <div class="seg" aria-hidden="true"></div>
+
+    <h1 class="name">Drea Wichman</h1>
+    <div class="ph"><img src="img/portrait.jpg" alt="Drea Wichman" width="1086" height="1120"></div>
+    <p class="seek">Seeking a GRC placement in London for 2027</p>
+
+    <button class="hd hd-pro" type="button" aria-controls="profile-text"><span class="hk"><span class="bc-plus" aria-hidden="true"></span>Profile</span></button>
+    <p class="ptx" id="profile-text">Drea Wichman is an American cyber security professional focused on governance, risk, and compliance. CompTIA Security+ and A+ certified, she is based in London and studying for an MSc in Information and Cyber Security at Royal Holloway. With a humanities background and twelve years managing organic farm operations, she brings hands-on experience with regulatory compliance, risk assessment, and business continuity. Her current work lives at Fenn Agritech, a fictional UK company running a real security program mapped to ISO 27001 and UK GDPR.</p>
+    <button class="hd hd-off" type="button" aria-controls="offline" aria-expanded="false"><span class="hk"><span class="bc-plus" aria-hidden="true"></span>Offline</span></button>
+
+    <div class="ol">
+      <div class="line" aria-hidden="true"></div>
+      <div class="seg" aria-hidden="true"></div>
+      <div class="hd hd-off" aria-hidden="true"><span class="hk"><span class="bc-plus"></span>Offline</span></div>
+      <div class="oc" id="offline">
+        <ul>
+          <li>From a corn and soybean farm in the Midwest to Chicago, LA, NYC, and London.</li>
+          <li>Tends two curated setups: a collection of vintage Apple computers and a full coffee rig to match.</li>
+          <li>Celebrates finishing a tech bender with a walk somewhere green, sans electronics.</li>
+          <li>A devoted fan of the Golden State Warriors, Stevie Nicks, and every animal she has ever met.</li>
+        </ul>
       </div>
     </div>
   </main>
 
+<script>
+  (function () {
+    var pf = document.querySelector(".pf"), ph = pf.querySelector(".ph"), ptx = pf.querySelector(".ptx");
+    var btnPro = pf.querySelector("button.hd-pro"), btnOff = pf.querySelector("button.hd-off");
+    var stacked = window.matchMedia("(max-width: 959px), (max-height: 640px)");
+    var open = false, lockT = 0;
+    var BAND = 200;
+    function inset(l) { return "inset(0px 0px 0px " + Math.round(l) + "px)"; }
+
+    /* Positions everything from the photo: the seam is its right edge */
+    function place() {
+      if (stacked.matches) return;
+      var r = pf.getBoundingClientRect(), p = ph.getBoundingClientRect(), W = window.innerWidth;
+      var seam = Math.round(p.right);
+      pf.style.setProperty("--seam", seam + "px");
+      pf.style.setProperty("--tw", (Math.round(p.left) - 104) + "px");
+      // The heading-and-text block is centered on the photo, but the line never rises above the photo's top,
+      // so it always passes behind the photo and never through the name
+      pf.style.setProperty("--ly", Math.round(Math.max(r.height / 2 - (6 + ptx.offsetHeight) / 2, p.top - r.top + 24)) + "px");
+      var hp = btnPro.querySelector(".hk").getBoundingClientRect(), hoW = btnOff.querySelector(".hk").offsetWidth;
+      // Band edge: 200px in from the right when closed, the photo's right edge when open. "Offline" sits 40px inside it
+      var edge = open ? seam : W - BAND, ohx = edge + 40;
+      pf.style.setProperty("--clip", inset(edge));
+      pf.style.setProperty("--ohx", ohx + "px");
+      // Profile open: from the left edge to the end of "Offline". Offline open: from the start of "Profile" off the right edge
+      var l0 = open ? Math.round(hp.left) : 0, l1 = open ? W : ohx + hoW;
+      pf.style.setProperty("--l0", l0 + "px");
+      pf.style.setProperty("--lw", l1 - l0);
+      pf.style.setProperty("--sx", Math.round(open ? ohx : hp.left) + "px");
+      pf.style.setProperty("--sw", Math.round(open ? hoW : hp.width));
+    }
+    function setOpen(o, instant) {
+      if (o === open) return;
+      open = o;
+      pf.classList.toggle("open", o);
+      btnOff.setAttribute("aria-expanded", o ? "true" : "false");
+      if (instant) pf.classList.add("instant");
+      place();
+      if (instant) { pf.getBoundingClientRect(); pf.classList.remove("instant"); }
+      try { history.replaceState(null, "", o ? "#offline" : location.pathname + location.search); } catch (e) {}
+    }
+    function want(o) {
+      if (stacked.matches) return;
+      var t = performance.now();
+      if (t < lockT || o === open) return;
+      lockT = t + 800;
+      setOpen(o);
+    }
+
+    btnOff.addEventListener("click", function () { setOpen(true); });
+    btnPro.addEventListener("click", function () { setOpen(false); });
+
+    /* Scroll, arrow keys and swipe switch between Profile and Offline */
+    window.addEventListener("wheel", function (e) {
+      if (stacked.matches) return;
+      e.preventDefault();
+      var d = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+      if (Math.abs(d) > 8) want(d > 0);
+    }, { passive: false });
+    document.addEventListener("keydown", function (e) {
+      if (e.metaKey || e.ctrlKey || e.altKey || stacked.matches) return;
+      if (["ArrowRight", "ArrowDown", "PageDown"].indexOf(e.key) > -1) { e.preventDefault(); want(true); }
+      else if (["ArrowLeft", "ArrowUp", "PageUp", "Escape"].indexOf(e.key) > -1) { e.preventDefault(); want(false); }
+    });
+    var tx = 0, ty = 0;
+    pf.addEventListener("touchstart", function (e) { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+    pf.addEventListener("touchend", function (e) {
+      var dx = tx - e.changedTouches[0].clientX, dy = ty - e.changedTouches[0].clientY, d = Math.abs(dx) > Math.abs(dy) ? dx : dy;
+      if (Math.abs(d) > 40) want(d > 0);
+    }, { passive: true });
+
+    pf.querySelector(".panel").addEventListener("click", function () { if (!open) setOpen(true); });
+
+    window.addEventListener("resize", place);
+    if (stacked.addEventListener) stacked.addEventListener("change", place);
+    place();
+    // Old offline.html links arrive as profile.html#offline
+    if (location.hash === "#offline" && !stacked.matches) setOpen(true, true);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+  })();
+</script>
 
 <script>
   (function () {

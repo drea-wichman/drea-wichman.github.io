@@ -100,6 +100,12 @@
     .tab { position: relative; font-size: 16px; letter-spacing: -0.033em; padding: 8px 0 0; color: var(--dim); border-bottom: 2px solid transparent; margin-bottom: -0.5px; cursor: pointer; transition: color .3s; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
     .tab[aria-selected="true"] { color: var(--text); }
     /* One 2px underline that slides to the selected tab, sized and placed by placeInd() */
+    /* Entrance, once per load (shared with profile and projects): the rule draws left to right over 0.6s after 0.8s,
+       then the segment fades in. The rule is a border, so a strip in the page color covers it and shrinks away to the right */
+    @keyframes coverAway { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+    @keyframes segIn { from { opacity: 0; } to { opacity: 1; } }
+    .rule-cover { position: absolute; left: 0; right: 0; bottom: -0.5px; height: 0; border-top: 0.5px solid var(--bg); transform-origin: right; transform: scaleX(0); animation: coverAway .6s cubic-bezier(.65, 0, .35, 1) .8s backwards; pointer-events: none; }
+    .tab-ind { animation: segIn .2s ease-out 1.4s backwards; }
     .tab-ind { position: absolute; left: 0; top: 0; width: 1px; height: 2px; background: var(--text); transform-origin: 0 0; transition: transform .28s cubic-bezier(.77, 0, .175, 1); pointer-events: none; }
     .tab .tab-t { position: relative; }
     .tab:hover .bc-plus, .tab:focus-visible .bc-plus { opacity: 1; transform: translate(0, -50%); }
@@ -192,7 +198,8 @@
 
     @media (prefers-reduced-motion: reduce) {
       .page-head { animation: none; }
-      .tab-ind { transition: none; }
+      .tab-ind { transition: none; animation: none; }
+      .rule-cover { animation: none; }
       .bar, .rw, #info { transition: none; }
       .cell { transform: none; transition: opacity .4s ease-out; }
       .bc-plus { transform: translate(0, -50%); transition: opacity .3s ease; }
@@ -230,7 +237,7 @@
 <body>
   <div class="wrap">
     <header class="page-head">
-      <div class="back-link"><span class="ixw"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a><span class="pm"><a href="profile.html"><span class="bc-plus" aria-hidden="true"></span>profile</a><a href="projects.html"><span class="bc-plus" aria-hidden="true"></span>projects</a><a href="skills.html"><span class="bc-plus" aria-hidden="true"></span>skills</a><a href="cv.html"><span class="bc-plus" aria-hidden="true"></span>cv</a><a href="offline.html"><span class="bc-plus" aria-hidden="true"></span>offline</a></span></span> / case studies</div>
+      <div class="back-link"><span class="ixw"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a><span class="pm"><a href="profile.html"><span class="bc-plus" aria-hidden="true"></span>profile</a><a href="projects.html"><span class="bc-plus" aria-hidden="true"></span>projects</a><a href="skills.html"><span class="bc-plus" aria-hidden="true"></span>skills</a><a href="cv.html"><span class="bc-plus" aria-hidden="true"></span>cv</a></span></span> / case studies</div>
     </header>
     <div id="tabs" role="tablist" aria-label="Select a case"></div>
     <div id="pg" role="tabpanel">
@@ -401,6 +408,7 @@
       $("tabs").appendChild(b);
     });
     $("tabs").appendChild(IND);
+    var COVER = document.createElement("span"); COVER.className = "rule-cover"; COVER.setAttribute("aria-hidden", "true"); $("tabs").appendChild(COVER);
     // Arrow keys move between tabs, the standard keyboard pattern for tabs
     $("tabs").addEventListener("keydown", function (e) {
       var i = ORDER.indexOf(cur), n = null;

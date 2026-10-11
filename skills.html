@@ -58,6 +58,12 @@
     z-index: 30;
   }
   .page-head { font-size: 15px; letter-spacing: -0.033em; color: var(--text); }
+  @keyframes riseIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .page-head { animation: riseIn 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  @media (prefers-reduced-motion: reduce) { .page-head { animation: none; } }
   .page-head a { color: var(--dim); text-decoration: none; position: relative; transition: color 0.3s ease; }
   .page-head a:hover { color: var(--text); }
   .page-head a:hover .bc-plus { opacity: 1; transform: translate(0, -50%); }
@@ -177,7 +183,7 @@
 <body>
 <div class="wrap" id="wrap">
   <header class="page-head">
-    <div><span class="ixw"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a><span class="pm"><a href="profile.html"><span class="bc-plus" aria-hidden="true"></span>profile</a><a href="cases.html"><span class="bc-plus" aria-hidden="true"></span>case studies</a><a href="projects.html"><span class="bc-plus" aria-hidden="true"></span>projects</a><a href="cv.html"><span class="bc-plus" aria-hidden="true"></span>cv</a><a href="offline.html"><span class="bc-plus" aria-hidden="true"></span>offline</a></span></span> / skills</div>
+    <div><span class="ixw"><a href="/"><span class="bc-plus" aria-hidden="true"></span>index</a><span class="pm"><a href="profile.html"><span class="bc-plus" aria-hidden="true"></span>profile</a><a href="cases.html"><span class="bc-plus" aria-hidden="true"></span>case studies</a><a href="projects.html"><span class="bc-plus" aria-hidden="true"></span>projects</a><a href="cv.html"><span class="bc-plus" aria-hidden="true"></span>cv</a></span></span> / skills</div>
   </header>
 
   <div class="col-l cols" id="col-l">
