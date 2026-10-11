@@ -316,6 +316,40 @@
       .band-inner { padding: 38px 20px 32px; }
     }
 
+    /* Wide screens: the Profile block becomes a fixed, full-height taupe panel on the left; the CV scrolls beside it.
+       Screen only, so the print/PDF layout is untouched. Below 1100px it stays the block at the top. */
+    @media screen and (min-width: 1100px) {
+      /* Panel: 28% of the window, 300-420px. 64px left (the breadcrumb's margin), 48px right.
+         The statement scales with the panel but never drops below 18px, so in practice it sits at 18px */
+      body { --pw: clamp(300px, 28vw, 420px); }
+      .profile-blk { position: fixed; left: 0; top: 0; bottom: 0; z-index: 10; width: var(--pw); margin: 0; padding: 0 48px 0 64px; display: flex; flex-direction: column; justify-content: center; }
+      .profile-blk .lede { font-size: max(18px, calc((var(--pw) - 112px) / 20.6)); max-width: none; }
+      main { margin: 0 auto 0 var(--pw); padding: 64px 64px 16px; container-type: inline-size; }
+      .band { margin-left: var(--pw); }
+      .band-inner { margin: 0; padding-left: 64px; padding-right: 64px; }
+      /* The breadcrumb and its menu sit over the taupe: the darker label ink keeps them readable */
+      .back-link a, .pm a { color: #1F1E1B; }
+      .back-link a:hover, .pm a:hover { color: var(--text); }
+      /* Two columns when they fit beside the panel, otherwise one */
+      @container (max-width: 740px) {
+        .cv-grid { grid-template-columns: 1fr; gap: 44px; }
+      }
+    }
+
+    /* Stacked layout (below 1100px): the statement keeps to about 65-70 characters a line */
+    @media screen and (max-width: 1099px) {
+      .profile-blk .lede { max-width: 32em; }
+    }
+    /* Stacked layout where the breadcrumb sits at 64px: content and the contact band start under it */
+    @media screen and (min-width: 761px) and (max-width: 1099px) {
+      main { max-width: none; padding-left: 64px; padding-right: 64px; --cl: 64px; }
+      .band-inner { max-width: none; padding-left: 64px; padding-right: 64px; }
+    }
+    /* Below 900px two columns are too narrow for the longer titles (they wrap); stack them */
+    @media screen and (min-width: 761px) and (max-width: 899px) {
+      .cv-grid { grid-template-columns: 1fr; gap: 44px; }
+    }
+
     .print-name { display: none; }
     .print-tag { display: none; }
 
