@@ -336,6 +336,20 @@
       }
     }
 
+    /* Tag lists (Projects, Case Studies, Technical Skills), screen only: the original separators (kept as-is for the
+       printed PDF, including Fenn's line break) are hidden and each tag draws its own trailing dot, so a tag and its dot
+       move to the next line together; no tag splits and no line starts with a dot. A tag longer than the whole line
+       still wraps inside itself rather than running off the screen */
+    @media screen {
+      .grp-detail .sep { display: none; }
+      .grp-detail .tg { display: inline-block; max-width: 100%; }
+      .grp-detail .tg:not(:last-child) { margin-right: .28em; }
+      .grp-detail .tg:not(:last-child)::after { content: "\00a0\00b7"; }
+      /* Technical Skills follows the PDF's rule: short tags never split; the long descriptive entries flow and break
+         between words like normal text, keeping their dot attached to their last word */
+      .sec-skills .grp-detail .tg:not(.nwi) { display: inline; }
+    }
+
     /* Stacked layout (below 1100px): the statement keeps to about 65-70 characters a line */
     @media screen and (max-width: 1099px) {
       .profile-blk .lede { max-width: 32em; }
@@ -658,11 +672,11 @@
           <h2 class="sect-title">PROJECTS</h2>
           <a class="grp grp-link" href="https://fenn.wichman.io" target="_blank" rel="noopener">
             <div class="grp-title">Fenn</div>
-            <div class="grp-detail"><span class="nwi">Fictional agritech company</span>&nbsp;&middot; <span class="nwi">Policy suite</span>&nbsp;&middot; <span class="nwi">UK GDPR</span>&nbsp;&middot; <span class="nwi">Access control</span>&nbsp;&middot; <span class="nwi">Risk register</span>&nbsp;&middot; <span class="nwi">Incident response</span>&nbsp;&middot;<br> <span class="nwi">ISO 27001</span>&nbsp;&middot; <span class="nwi">Vendor &amp; subprocessor management</span></div>
+            <div class="grp-detail"><span class="nwi tg">Fictional agritech company</span><span class="sep">&nbsp;&middot; </span><span class="nwi tg">Policy suite</span><span class="sep">&nbsp;&middot; </span><span class="nwi tg">UK GDPR</span><span class="sep">&nbsp;&middot; </span><span class="nwi tg">Access control</span><span class="sep">&nbsp;&middot; </span><span class="nwi tg">Risk register</span><span class="sep">&nbsp;&middot; </span><span class="nwi tg">Incident response</span><span class="sep">&nbsp;&middot;<br> </span><span class="nwi tg">ISO 27001</span><span class="sep">&nbsp;&middot; </span><span class="nwi tg">Vendor &amp; subprocessor management</span></div>
           </a>
           <a class="grp grp-link" href="https://burrow.wichman.io" target="_blank" rel="noopener">
             <div class="grp-title">The Burrow</div>
-            <div class="grp-detail"><span class="nwi">Blog with sources in an interactive 2000s desktop</span>&nbsp;&middot; <span class="nwi">Surveillance law</span>&nbsp;&middot; <span class="nwi">Cybercrime</span>&nbsp;&middot; <span class="nwi">Governance failures</span>&nbsp;&middot; <span class="nwi">Data protection</span>&nbsp;&middot; <span class="nwi">Civil liberties</span></div>
+            <div class="grp-detail"><span class="nwi tg">Blog with sources in an interactive 2000s desktop</span><span class="sep">&nbsp;&middot; </span><span class="nwi tg">Surveillance law</span><span class="sep">&nbsp;&middot; </span><span class="nwi tg">Cybercrime</span><span class="sep">&nbsp;&middot; </span><span class="nwi tg">Governance failures</span><span class="sep">&nbsp;&middot; </span><span class="nwi tg">Data protection</span><span class="sep">&nbsp;&middot; </span><span class="nwi tg">Civil liberties</span></div>
           </a>
         </section>
 
@@ -670,34 +684,34 @@
           <h2 class="sect-title">CASE STUDIES</h2>
           <a class="grp grp-link" href="https://github.com/drea-wichman/case-studies/blob/main/salesloft-drift-supply-chain-2025.md" target="_blank" rel="noopener">
             <div class="grp-title">Salesloft Drift Supply Chain 2025</div>
-            <div class="grp-detail"><span class="nwi">NCSC principles</span> &middot; <span class="nwi">Third-party risk</span> &middot; <span class="nwi">Token compromise</span></div>
+            <div class="grp-detail"><span class="nwi tg">NCSC principles</span><span class="sep"> &middot; </span><span class="nwi tg">Third-party risk</span><span class="sep"> &middot; </span><span class="nwi tg">Token compromise</span></div>
           </a>
           <a class="grp grp-link" href="https://github.com/drea-wichman/case-studies/blob/main/agco-ransomware-2022.md" target="_blank" rel="noopener">
             <div class="grp-title">AGCO Ransomware 2022</div>
-            <div class="grp-detail"><span class="nwi">NIST CSF</span> &middot; <span class="nwi">Supply chain risk</span> &middot; <span class="nwi">Incident response</span></div>
+            <div class="grp-detail"><span class="nwi tg">NIST CSF</span><span class="sep"> &middot; </span><span class="nwi tg">Supply chain risk</span><span class="sep"> &middot; </span><span class="nwi tg">Incident response</span></div>
           </a>
           <a class="grp grp-link" href="https://github.com/drea-wichman/case-studies/blob/main/nhs-wannacry-ransomware-2017.md" target="_blank" rel="noopener">
             <div class="grp-title">NHS WannaCry 2017</div>
-            <div class="grp-detail"><span class="nwi">ISO 27001</span> &middot; <span class="nwi">Gap analysis</span> &middot; <span class="nwi">Remediation roadmap</span></div>
+            <div class="grp-detail"><span class="nwi tg">ISO 27001</span><span class="sep"> &middot; </span><span class="nwi tg">Gap analysis</span><span class="sep"> &middot; </span><span class="nwi tg">Remediation roadmap</span></div>
           </a>
         </section>
         <section class="sec-skills">
         <h2 class="sect-title">TECHNICAL SKILLS</h2>
         <div class="grp">
           <div class="grp-title">Governance, Risk, and Compliance</div>
-          <div class="grp-detail">USDA FSA program compliance and enrollment documentation &middot; <span class="nwi">Risk assessment</span> &middot; <span class="nwi">Gap analysis</span> &middot; <span class="nwi">Regulatory research</span> &middot; Framework analysis (ISO 27001, UK GDPR, NIST CSF, NCSC)</div>
+          <div class="grp-detail"><span class="tg">USDA FSA program compliance and enrollment documentation</span><span class="sep"> &middot; </span><span class="nwi tg">Risk assessment</span><span class="sep"> &middot; </span><span class="nwi tg">Gap analysis</span><span class="sep"> &middot; </span><span class="nwi tg">Regulatory research</span><span class="sep"> &middot; </span><span class="tg">Framework analysis (ISO 27001, UK GDPR, NIST CSF, NCSC)</span></div>
         </div>
         <div class="grp">
           <div class="grp-title">Systems and Infrastructure</div>
-          <div class="grp-detail">Home lab (Active Directory, Windows Server 2022, VirtualBox) &middot; <span class="nwi">System hardening</span> &middot; <span class="nwi">Linux and Windows administration</span> &middot; <span class="nwi">Terminal and command line navigation</span> &middot; <span class="nwi">Git version control</span></div>
+          <div class="grp-detail"><span class="tg">Home lab (Active Directory, Windows Server 2022, VirtualBox)</span><span class="sep"> &middot; </span><span class="nwi tg">System hardening</span><span class="sep"> &middot; </span><span class="nwi tg">Linux and Windows administration</span><span class="sep"> &middot; </span><span class="nwi tg">Command line</span><span class="sep"> &middot; </span><span class="nwi tg">Git version control</span></div>
         </div>
         <div class="grp">
           <div class="grp-title">Network and Security</div>
-          <div class="grp-detail">DNS, TCP/IP, and custom domain management &middot; <span class="nwi">Email authentication (SPF, DKIM, DMARC)</span> &middot; <span class="nwi">VPN and encrypted transit</span></div>
+          <div class="grp-detail"><span class="tg">DNS, TCP/IP, and custom domain management</span><span class="sep"> &middot; </span><span class="nwi tg">Email authentication (SPF, DKIM, DMARC)</span><span class="sep"> &middot; </span><span class="nwi tg">VPN and encrypted transit</span></div>
         </div>
         <div class="grp">
           <div class="grp-title">Security Tools and Practices</div>
-          <div class="grp-detail">Encrypted storage and communications (VeraCrypt, Proton) &middot; <span class="nwi">Hardware 2FA (Nitrokey)</span> &middot; <span class="nwi">Password management (Bitwarden)</span> &middot; Identity compartmentalization (SimpleLogin)</div>
+          <div class="grp-detail"><span class="tg">Encrypted storage and communications (VeraCrypt, Proton)</span><span class="sep"> &middot; </span><span class="nwi tg">Hardware 2FA (Nitrokey)</span><span class="sep"> &middot; </span><span class="nwi tg">Password management (Bitwarden)</span><span class="sep"> &middot; </span><span class="tg">Identity compartmentalization (SimpleLogin)</span></div>
         </div>
         </section>
       </div>
