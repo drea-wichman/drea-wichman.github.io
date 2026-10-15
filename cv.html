@@ -348,6 +348,16 @@
       /* Technical Skills follows the PDF's rule: short tags never split; the long descriptive entries flow and break
          between words like normal text, keeping their dot attached to their last word */
       .sec-skills .grp-detail .tg:not(.nwi) { display: inline; }
+      /* Framework analysis flows after the tag before it and breaks only at its commas, so no standard name splits */
+      .sec-skills .grp-detail .tg.fw { display: inline; }
+      .grp-detail .nb { white-space: nowrap; }
+    }
+    /* Wide screens: Technical Skills gets a wider column (55/45) so every tag fits whole on one line and lines break
+       only between tags. The Experience bullets keep their own line length, so they wrap the same. From 1455px only:
+       narrower, the longest tags still don't fit and the Experience column would rewrap, so it keeps 60/40. Screen only */
+    @media screen and (min-width: 1455px) {
+      .cv-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+      .sec-skills .grp-detail .tg, .sec-skills .grp-detail .tg:not(.nwi), .sec-skills .grp-detail .tg.fw { display: inline-block; }
     }
 
     /* Stacked layout (below 1100px): the statement keeps to about 65-70 characters a line */
@@ -699,7 +709,7 @@
         <h2 class="sect-title">TECHNICAL SKILLS</h2>
         <div class="grp">
           <div class="grp-title">Governance, Risk, and Compliance</div>
-          <div class="grp-detail"><span class="tg">USDA FSA program compliance and enrollment documentation</span><span class="sep"> &middot; </span><span class="nwi tg">Risk assessment</span><span class="sep"> &middot; </span><span class="nwi tg">Gap analysis</span><span class="sep"> &middot; </span><span class="nwi tg">Regulatory research</span><span class="sep"> &middot; </span><span class="nwi tg">Audit trail documentation</span><span class="sep"> &middot; </span><span class="nwi tg">Policy writing</span><span class="sep"> &middot; </span><span class="nwi tg">Framework analysis (ISO 27001, UK GDPR, NIST CSF, NCSC)</span></div>
+          <div class="grp-detail"><span class="tg">USDA FSA program compliance and enrollment documentation</span><span class="sep"> &middot; </span><span class="nwi tg">Risk assessment</span><span class="sep"> &middot; </span><span class="nwi tg">Gap analysis</span><span class="sep"> &middot; </span><span class="nwi tg">Regulatory research</span><span class="sep"> &middot; </span><span class="nwi tg">Audit trail documentation</span><span class="sep"> &middot; </span><span class="nwi tg">Policy writing</span><span class="sep"> &middot; </span><span class="nwi tg fw"><span class="nb">Framework analysis (ISO 27001,</span> <span class="nb">UK GDPR,</span> <span class="nb">NIST CSF,</span> <span class="nb">NCSC)</span></span></div>
         </div>
         <div class="grp">
           <div class="grp-title">Systems and Infrastructure</div>
